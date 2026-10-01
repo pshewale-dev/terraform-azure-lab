@@ -69,7 +69,7 @@ resource "azurerm_linux_virtual_machine" "web" {
   name                = "tf-lab-vm-web1"
   resource_group_name = azurerm_resource_group.lab.name
   location            = azurerm_resource_group.lab.location
-  size                = "Standard_D2a_v4"
+  size                = "Standard_B2ats_v2"
   identity {
     type = "SystemAssigned"
   }
