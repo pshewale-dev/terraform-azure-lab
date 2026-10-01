@@ -10,8 +10,8 @@ carsh.log
 crash.*.log
 
 #Sensitive vatiable files
-*.tfvars
-*.tfvars.json
+#*.tfvars
+#*.tfvars.json
 # Temporary/backup files
 *~
 # Terraform plan files
