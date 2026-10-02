@@ -51,7 +51,8 @@ resource "azurerm_subnet_network_security_group_association" "nsg_asso" {
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
 resource "azurerm_network_interface" "nic" {
-  name                = "nic-parctice-lab"
+  count = 3
+  name                = "nic-parctice-lab-${count.index +1}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   ip_configuration {
@@ -61,10 +62,11 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 resource "azurerm_linux_virtual_machine" "lvm" {
-  name                  = "vm-parctice-lab-01"
+  count = 3
+  name                  = "vm-parctice-lab-${count.index +1}"
   resource_group_name   = azurerm_resource_group.rg.name
   location              = azurerm_resource_group.rg.location
-  network_interface_ids = [azurerm_network_interface.nic.id]
+  network_interface_ids = [azurerm_network_interface.nic[count.index].id]
   size                  = "Standard_B2ats_v2"
   identity {
     type = "SystemAssigned"
@@ -82,8 +84,8 @@ resource "azurerm_linux_virtual_machine" "lvm" {
   source_image_reference {
     publisher = "canonical"
     offer     = "ubuntu-24_04-lts"
-    sku       = "latest"
-    version   = "server"
+    sku       = "server"
+    version   = "latest"
   }
 }
 
