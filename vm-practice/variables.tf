@@ -11,3 +11,13 @@ variable "admin_user" {
 variable "vm_sizes" {
   type = map(string)
 }
+variable "nsg_rules" {
+  type = map(object({
+    name      = string
+    priority  = number
+    direction = string
+    access     = string
+    protocol  = string
+    port      = string
+  }))
+}

@@ -13,73 +13,61 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  #name     = var.resource_group_name
-  for_each = var.vm_sizes
-  name = "rg-parctice-${each.key}"
+  name     = var.resource_group_name
   location = var.location
 }
 resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-parctice-lab"
-  for_each = var.vm_sizes
-  location            = azurerm_resource_group.rg[each.key].location
-  resource_group_name = azurerm_resource_group.rg[each.key].name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.20.0.0/16"]
 }
 resource "azurerm_subnet" "subnet" {
   name                 = "snet-practice-lab"
-  for_each = var.vm_sizes
-  resource_group_name  = azurerm_resource_group.rg[each.key].name
-  virtual_network_name = azurerm_virtual_network.vnet[each.key].name
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.20.1.0/24"]
 }
 resource "azurerm_network_security_group" "nsg" {
   name                = "nsg-parctice-lab"
-  for_each = var.vm_sizes
-  location            = azurerm_resource_group.rg[each.key].location
-  resource_group_name = azurerm_resource_group.rg[each.key].name
-}
-resource "azurerm_network_security_rule" "rules" {
-  for_each = var.vm_sizes
-  name                        = "allow_ssh"
-  priority                    = "100"
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "22"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
-  resource_group_name         = azurerm_resource_group.rg[each.key].name
-  network_security_group_name = azurerm_network_security_group.nsg[each.key].name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  dynamic "security_rule" {
+    for_each = var.nsg_rules
+    content {
+      name                      = security_rule.value.name
+      priority                  = security_rule.value.priority
+      direction                 = security_rule.value.direction
+      access                    = security_rule.value.access
+      protocol                  = security_rule.value.protocol
+      source_port_range         = "*"
+      destination_port_range    = security_rule.value.port
+      source_address_prefix     = "*"
+      destination_address_prefix = "*"
+
+    }
+  }
 }
 resource "azurerm_subnet_network_security_group_association" "nsg_asso" {
- for_each = var.vm_sizes
-  subnet_id                 = azurerm_subnet.subnet[each.key].id
-  network_security_group_id = azurerm_network_security_group.nsg[each.key].id
+  subnet_id                 = azurerm_subnet.subnet.id
+  network_security_group_id = azurerm_network_security_group.nsg.id
 }
 resource "azurerm_network_interface" "nic" {
-  #count               = 3
-  #name                = "nic-parctice-lab-${count.index + 1}"
-  for_each            = var.vm_sizes
-  name                = "nic-parctice-lab-${each.key}"
-  resource_group_name = azurerm_resource_group.rg[each.key].name
-  location            = azurerm_resource_group.rg[each.key].location
+  name                = "nic-parctice-lab"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet[each.key].id
+    subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 resource "azurerm_linux_virtual_machine" "lvm" {
-  #count                 = 3
-  #name                  = "vm-parctice-lab-${count.index + 1}"
-  for_each              = var.vm_sizes
-  name                  = "vm-parctice-lab-${each.key}"
-  resource_group_name   = azurerm_resource_group.rg[each.key].name
-  location              = azurerm_resource_group.rg[each.key].location
-  network_interface_ids = [azurerm_network_interface.nic[each.key].id]
-  #size                  = "Standard_B2ats_v2"
-  size = each.value
+  name                  = "vm-parctice-lab-01"
+  resource_group_name   = azurerm_resource_group.rg.name
+  location              = azurerm_resource_group.rg.location
+  network_interface_ids = [azurerm_network_interface.nic.id]
+  size                  = "Standard_B2ats_v2"
   identity {
     type = "SystemAssigned"
   }

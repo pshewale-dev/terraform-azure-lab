@@ -8,3 +8,32 @@ vm_sizes = {
   db  = "Standard_B2ats_v2"
   app = "Standard_B2ats_v2"
 }
+nsg_rules = {
+  ssh = {
+    name      = "allow-ssh"
+    priority  = 100
+    direction = "Inbound"
+    access    = "Allow"
+    protocol  = "Tcp"
+    port      = "22"
+  }
+
+  http = {
+    name      = "allow-http"
+    priority  = 110
+    direction = "Inbound"
+    access    = "Allow"
+    protocol  = "Tcp"
+    port      = "80"
+  }
+
+  https = {
+    name      = "allow-https"
+    priority  = 120
+    direction = "Inbound"
+    access    = "Allow"
+    protocol  = "Tcp"
+    port      = "443"
+  }
+
+}
