@@ -13,8 +13,8 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-practice-lab"
-  location = "centralindia"
+  name     = var.resource_group_name
+  location = var.location
 }
 resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-parctice-lab"
@@ -66,9 +66,13 @@ resource "azurerm_linux_virtual_machine" "lvm" {
   location              = azurerm_resource_group.rg.location
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = "Standard_B2ats_v2"
-  admin_username        = "azureadmin"
+  identity {
+    type = "SystemAssigned"
+  }
+
+  admin_username = "azureadmin"
   admin_ssh_key {
-    username   = "azureadmin"
+    username   = var.admin_user
     public_key = file(pathexpand("~/.ssh/id_ed25519.pub"))
   }
   os_disk {
