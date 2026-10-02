@@ -8,3 +8,6 @@ variable "location" {
 variable "admin_user" {
   type = string
 }
+variable "vm_sizes" {
+  type = map(string)
+}
