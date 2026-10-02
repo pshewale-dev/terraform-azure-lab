@@ -16,7 +16,7 @@ variable "nsg_rules" {
     name      = string
     priority  = number
     direction = string
-    access     = string
+    access    = string
     protocol  = string
     port      = string
   }))
