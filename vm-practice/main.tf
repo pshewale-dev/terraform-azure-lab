@@ -68,6 +68,8 @@ resource "azurerm_linux_virtual_machine" "lvm" {
   location              = azurerm_resource_group.rg.location
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = "Standard_B2ats_v2"
+  boot_diagnostics {}
+  custom_data = filebase64("cloud-init.yaml")
   identity {
     type = "SystemAssigned"
   }
@@ -110,3 +112,24 @@ resource "azurerm_virtual_machine_extension" "machine_configuration" {
   auto_upgrade_minor_version = true
   automatic_upgrade_enabled  = true
 }
+
+data "azurerm_client_config" "current" {}
+
+resource "azurerm_key_vault" "kv" {
+  name                       = "kv-practice-lab"
+  resource_group_name        = azurerm_resource_group.rg.name
+  location                   = azurerm_resource_group.rg.location
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  sku_name                   = "standard"
+  rbac_authorization_enabled = true
+}
+resource "azurerm_role_assignment" "rbac" {
+  principal_id         = azurerm_linux_virtual_machine.lvm.identity[0].principal_id
+  scope                = azurerm_key_vault.kv.id
+  role_definition_name = "Key Vault Secrets User"
+}
+#resource "azurerm_key_vault_secret" "lab_secret" {
+#  name         = "lab-secret"
+#  value        = "temporary-placeholder"
+#  key_vault_id = azurerm_key_vault.kv.id
+#}
