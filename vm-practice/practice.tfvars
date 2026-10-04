@@ -37,3 +37,4 @@ nsg_rules = {
   }
 
 }
+alert_email = "pshewale1212@gmail.com"

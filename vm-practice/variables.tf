@@ -21,3 +21,6 @@ variable "nsg_rules" {
     port      = string
   }))
 }
+variable "alert_email" {
+  type = string
+}
