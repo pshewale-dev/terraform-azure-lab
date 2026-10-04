@@ -7,4 +7,3 @@ output "vm_private_ip" {
 output "vm_extension_id" {
   value = azurerm_virtual_machine_extension.nginx.id
 }
-

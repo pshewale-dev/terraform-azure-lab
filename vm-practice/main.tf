@@ -5,7 +5,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.0"
     }
-
   }
 }
 provider "azurerm" {
@@ -69,11 +68,15 @@ resource "azurerm_linux_virtual_machine" "lvm" {
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = "Standard_B2ats_v2"
   boot_diagnostics {}
-  custom_data = filebase64("cloud-init.yaml")
-  patch_mode  = "AutomaticByPlatform"
+  custom_data                                            = filebase64("cloud-init.yaml")
+  patch_mode                                             = "AutomaticByPlatform"
   bypass_platform_safety_checks_on_user_schedule_enabled = true
   identity {
     type = "SystemAssigned"
+  }
+
+  tags = {
+    patching_schedule = "Daily"
   }
 
   admin_username = "azureadmin"
@@ -227,18 +230,30 @@ resource "azurerm_maintenance_configuration" "patching" {
     recur_every     = "1Day"
   }
   install_patches {
-    reboot = "IfRequired"
+    reboot = "Always"
 
     linux {
       classifications_to_include = [
         "Critical",
-        "Security"
+        "Security",
+        "Other"
       ]
     }
   }
 }
-resource "azurerm_maintenance_assignment_virtual_machine" "patching" {
-  location                     = azurerm_resource_group.rg.location
+#resource "azurerm_maintenance_assignment_virtual_machine" "patching" {
+#  location                     = azurerm_resource_group.rg.location
+#  maintenance_configuration_id = azurerm_maintenance_configuration.patching.id
+#  virtual_machine_id           = azurerm_linux_virtual_machine.lvm.id
+#}
+resource "azurerm_maintenance_assignment_dynamic_scope" "daily" {
+  name                         = "daily-patching-scope"
   maintenance_configuration_id = azurerm_maintenance_configuration.patching.id
-  virtual_machine_id           = azurerm_linux_virtual_machine.lvm.id
+  filter {
+    tag_filter = "Any"
+    tags {
+      tag    = "patching_schedule"
+      values = ["Daily"]
+    }
+  }
 }
