@@ -1,4 +1,4 @@
-## Parctic VM Main.tf ##
+## Practice VM Main.tf ##
 terraform {
   required_providers {
     azurerm = {
@@ -77,6 +77,7 @@ resource "azurerm_linux_virtual_machine" "lvm" {
 
   tags = {
     patching_schedule = "Daily"
+    AutoShutdown      = "Yes"
   }
 
   admin_username = "azureadmin"
@@ -256,4 +257,88 @@ resource "azurerm_maintenance_assignment_dynamic_scope" "daily" {
       values = ["Daily"]
     }
   }
+}
+resource "azurerm_automation_account" "automation" {
+  name                = var.automation_account
+  location            = "southeastasia"
+  resource_group_name = azurerm_resource_group.rg.name
+  sku_name            = "Basic"
+  identity {
+    type = "SystemAssigned"
+  }
+}
+resource "azurerm_role_assignment" "automation_reader" {
+  scope                = azurerm_resource_group.rg.id
+  role_definition_name = "Reader"
+  principal_id         = azurerm_automation_account.automation.identity[0].principal_id
+}
+resource "azurerm_automation_runbook" "vm_inventory" {
+  name                    = "runbook-practice-lab"
+  location                = "southeastasia"
+  resource_group_name     = azurerm_resource_group.rg.name
+  automation_account_name = azurerm_automation_account.automation.name
+  log_verbose             = true
+  log_progress            = true
+  runbook_type            = "PowerShell"
+
+  content = <<CONTENT
+param (
+    [string]$ResourceGroupName = "rg-practice-lab",
+    [bool]$StopVM = $false
+)
+
+Connect-AzAccount -Identity
+
+Write-Output "Resource Group: $ResourceGroupName"
+Write-Output "AutoShutdown tag: Yes"
+Write-Output "StopVM: $StopVM"
+
+$vms = Get-AzVM `
+    -ResourceGroupName $ResourceGroupName `
+    -Status
+
+$targetVMs = $vms | Where-Object {
+    $_.Tags["AutoShutdown"] -eq "Yes"
+}
+
+if ($targetVMs.Count -eq 0) {
+    Write-Output "No VMs found with AutoShutdown=Yes."
+    exit
+}
+
+foreach ($vm in $targetVMs) {
+
+    $powerState = ($vm.Statuses |
+        Where-Object { $_.Code -like "PowerState/*" }).DisplayStatus
+
+    Write-Output "VM Name: $($vm.Name)"
+    Write-Output "Current State: $powerState"
+
+    if ($StopVM) {
+
+        if ($powerState -eq "VM running") {
+
+            Write-Output "Stopping VM: $($vm.Name)"
+
+            Stop-AzVM `
+                -ResourceGroupName $ResourceGroupName `
+                -Name $vm.Name `
+                -Force
+
+            Write-Output "Stop operation completed for $($vm.Name)."
+        }
+        else {
+            Write-Output "$($vm.Name) is not running. No action required."
+        }
+    }
+    else {
+        Write-Output "Status check only. No VM action taken."
+    }
+}
+CONTENT
+}
+resource "azurerm_role_assignment" "automation_vm_operator" {
+  scope                = azurerm_linux_virtual_machine.lvm.id
+  role_definition_name = "Virtual Machine Contributor"
+  principal_id         = azurerm_automation_account.automation.identity[0].principal_id
 }

@@ -24,3 +24,6 @@ variable "nsg_rules" {
 variable "alert_email" {
   type = string
 }
+variable "automation_account" {
+  type = string
+}
