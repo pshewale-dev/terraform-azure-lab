@@ -132,7 +132,6 @@ resource "azurerm_automation_job_schedule" "vm_shutdown" {
   runbook_name            = azurerm_automation_runbook.vm_inventory.name
 
   parameters = {
-    resourcegroup = "rg-practice-lab"
-    stopvm        = "true"
+    stopvm = "true"
   }
 }
