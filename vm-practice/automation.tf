@@ -3,6 +3,7 @@ resource "azurerm_automation_account" "automation" {
   location            = "southeastasia"
   resource_group_name = azurerm_resource_group.rg.name
   sku_name            = "Basic"
+  tags                = local.common_tags
 
   identity {
     type = "SystemAssigned"
@@ -23,6 +24,7 @@ resource "azurerm_automation_runbook" "vm_inventory" {
   log_verbose             = true
   log_progress            = true
   runbook_type            = "PowerShell"
+  tags                    = local.common_tags
 
   content = <<CONTENT
 param (

@@ -3,13 +3,21 @@ resource "azurerm_policy_definition" "require_environment_tag" {
   policy_type  = "Custom"
   mode         = "Indexed"
   display_name = "Add Environment tag"
-  description  = "Adds an Environment tag when it is missing."
+  description  = "Adds the required Azure policy tags when they are missing."
 
   policy_rule = <<POLICY
 {
   "if": {
-    "field": "tags['Environment']",
-    "exists": "false"
+    "anyOf": [
+      {
+        "field": "tags['Environment']",
+        "exists": "false"
+      },
+      {
+        "field": "tags['PolicyManaged']",
+        "exists": "false"
+      }
+    ]
   },
   "then": {
     "effect": "modify",
@@ -18,6 +26,11 @@ resource "azurerm_policy_definition" "require_environment_tag" {
         "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
       ],
       "operations": [
+        {
+          "operation": "add",
+          "field": "tags['Environment']",
+          "value": "Dev"
+        },
         {
           "operation": "add",
           "field": "tags['PolicyManaged']",

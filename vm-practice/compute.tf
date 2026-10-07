@@ -42,6 +42,7 @@ resource "azurerm_virtual_machine_extension" "nginx" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.1"
+  tags                 = local.common_tags
   settings             = <<SETTINGS
   {
     "commandToExecute": "sudo apt update && sudo apt install nginx -y"
@@ -57,6 +58,7 @@ resource "azurerm_virtual_machine_extension" "machine_configuration" {
   type_handler_version       = "1.0"
   auto_upgrade_minor_version = true
   automatic_upgrade_enabled  = true
+  tags                       = local.common_tags
 }
 
 resource "azurerm_key_vault" "kv" {
@@ -81,6 +83,7 @@ resource "azurerm_maintenance_configuration" "patching" {
   location                 = azurerm_resource_group.rg.location
   scope                    = "InGuestPatch"
   in_guest_user_patch_mode = "User"
+  tags                     = local.common_tags
 
   window {
     start_date_time = "2026-10-04 15:30"

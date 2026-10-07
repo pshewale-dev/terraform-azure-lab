@@ -1,6 +1,7 @@
 locals {
   common_tags = {
     Environment       = "Dev"
+    PolicyManaged     = "Yes"
     workload          = "lab"
     patching_schedule = "Daily"
     AutoShutdown      = "Yes"

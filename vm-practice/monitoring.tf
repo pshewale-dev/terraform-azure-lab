@@ -11,6 +11,7 @@ resource "azurerm_monitor_data_collection_rule" "linux_syslog" {
   name                = "dcr-linux-syslog"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  tags                = local.common_tags
 
   destinations {
     log_analytics {
@@ -42,6 +43,7 @@ resource "azurerm_virtual_machine_extension" "ama" {
   type_handler_version       = "1.10"
   auto_upgrade_minor_version = true
   automatic_upgrade_enabled  = true
+  tags                       = local.common_tags
 }
 
 resource "azurerm_monitor_data_collection_rule_association" "linux_syslog" {
@@ -54,6 +56,7 @@ resource "azurerm_monitor_action_group" "vm_alerts" {
   name                = "vm-practice-lab-alerts"
   resource_group_name = azurerm_resource_group.rg.name
   short_name          = "VMAlerts"
+  tags                = local.common_tags
 
   email_receiver {
     name          = "admin"
@@ -69,6 +72,7 @@ resource "azurerm_monitor_metric_alert" "vm_cpu" {
   severity            = 2
   frequency           = "PT5M"
   window_size         = "PT5M"
+  tags                = local.common_tags
 
   criteria {
     metric_namespace = "Microsoft.Compute/virtualMachines"

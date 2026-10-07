@@ -3,6 +3,7 @@ resource "azurerm_recovery_services_vault" "backup" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   sku                 = "Standard"
+  tags                = local.common_tags
 }
 
 resource "azurerm_backup_policy_vm" "daily" {
