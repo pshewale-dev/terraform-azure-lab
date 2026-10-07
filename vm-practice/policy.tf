@@ -20,8 +20,8 @@ resource "azurerm_policy_definition" "require_environment_tag" {
       "operations": [
         {
           "operation": "add",
-          "field": "tags['Environment']",
-          "value": "Dev"
+          "field": "tags['PolicyManaged']",
+          "value": "Yes"
         }
       ]
     }

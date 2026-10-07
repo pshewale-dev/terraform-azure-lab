@@ -1,6 +1,6 @@
 locals {
   common_tags = {
-    environment       = "practice"
+    Environment       = "Dev"
     workload          = "lab"
     patching_schedule = "Daily"
     AutoShutdown      = "Yes"

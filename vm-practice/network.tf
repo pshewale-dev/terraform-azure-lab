@@ -58,3 +58,11 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+resource "azurerm_subnet" "private_endpoint" {
+  name                 = "snet-private-endpoint"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.20.2.0/24"]
+
+  private_endpoint_network_policies = "Disabled"
+}
