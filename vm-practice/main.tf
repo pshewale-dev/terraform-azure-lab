@@ -284,59 +284,81 @@ resource "azurerm_automation_runbook" "vm_inventory" {
   content = <<CONTENT
 param (
     [string]$ResourceGroupName = "rg-practice-lab",
-    [bool]$StopVM = $false
+    [bool]$StopVM = $true
 )
 
-Connect-AzAccount -Identity
+try {
+    Write-Output "Connecting using Managed Identity..."
+    Connect-AzAccount -Identity | Out-Null
 
-Write-Output "Resource Group: $ResourceGroupName"
-Write-Output "AutoShutdown tag: Yes"
-Write-Output "StopVM: $StopVM"
+    Write-Output "Connected successfully."
+    Write-Output "Resource Group: $ResourceGroupName"
+    Write-Output "AutoShutdown tag: Yes"
+    Write-Output "StopVM: $StopVM"
 
-$vms = Get-AzVM -ResourceGroupName $ResourceGroupName
+    $vms = Get-AzVM -ResourceGroupName $ResourceGroupName
 
-$targetVMs = $vms | Where-Object {
-    $_.Tags["AutoShutdown"] -eq "Yes"
-}
+    if (-not $vms) {
+        Write-Output "No VMs found in Resource Group."
+        return
+    }
 
-if (-not $targetVMs) {
-    Write-Output "No VMs found with AutoShutdown=Yes."
-    return
-}
+    $targetVMs = $vms | Where-Object {
+        $_.Tags.ContainsKey("AutoShutdown") -and
+        $_.Tags["AutoShutdown"] -eq "Yes"
+    }
 
-foreach ($vm in $targetVMs) {
+    if (-not $targetVMs) {
+        Write-Output "No VMs found with AutoShutdown=Yes."
+        return
+    }
 
-    $vmStatus = Get-AzVM `
-        -ResourceGroupName $ResourceGroupName `
-        -Name $vm.Name `
-        -Status
+    foreach ($vm in $targetVMs) {
 
-    $powerState = ($vmStatus.Statuses |
-        Where-Object { $_.Code -like "PowerState/*" }).DisplayStatus
+        Write-Output "----------------------------------------"
+        Write-Output "Processing VM: $($vm.Name)"
 
-    Write-Output "VM Name: $($vm.Name)"
-    Write-Output "Current State: $powerState"
+        $vmStatus = Get-AzVM `
+            -ResourceGroupName $ResourceGroupName `
+            -Name $vm.Name `
+            -Status
 
-    if ($StopVM) {
+        $powerState = (
+            $vmStatus.Statuses |
+            Where-Object { $_.Code -like "PowerState/*" }
+        ).DisplayStatus
 
-        if ($powerState -eq "VM running") {
+        Write-Output "VM Name: $($vm.Name)"
+        Write-Output "Current State: $powerState"
 
-            Write-Output "Stopping VM: $($vm.Name)"
+        if ($StopVM) {
 
-            Stop-AzVM `
-                -ResourceGroupName $ResourceGroupName `
-                -Name $vm.Name `
-                -Force
+            if ($powerState -eq "VM running") {
 
-            Write-Output "Stop operation completed for $($vm.Name)"
+                Write-Output "Stopping VM: $($vm.Name)"
+
+                Stop-AzVM `
+                    -ResourceGroupName $ResourceGroupName `
+                    -Name $vm.Name `
+                    -Force
+
+                Write-Output "Stop operation completed for $($vm.Name)"
+            }
+            else {
+
+                Write-Output "VM is not running."
+                Write-Output "No action required."
+            }
         }
         else {
-            Write-Output "$($vm.Name) is not running. No action required."
+
+            Write-Output "Status check only. No VM action taken."
         }
     }
-    else {
-        Write-Output "Status check only. No VM action taken."
-    }
+}
+catch {
+    Write-Error $_.Exception.Message
+    throw
 }
 CONTENT
 }
