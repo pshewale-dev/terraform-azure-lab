@@ -293,22 +293,25 @@ Write-Output "Resource Group: $ResourceGroupName"
 Write-Output "AutoShutdown tag: Yes"
 Write-Output "StopVM: $StopVM"
 
-$vms = Get-AzVM `
-    -ResourceGroupName $ResourceGroupName `
-    -Status
+$vms = Get-AzVM -ResourceGroupName $ResourceGroupName
 
 $targetVMs = $vms | Where-Object {
     $_.Tags["AutoShutdown"] -eq "Yes"
 }
 
-if ($targetVMs.Count -eq 0) {
+if (-not $targetVMs) {
     Write-Output "No VMs found with AutoShutdown=Yes."
-    exit
+    return
 }
 
 foreach ($vm in $targetVMs) {
 
-    $powerState = ($vm.Statuses |
+    $vmStatus = Get-AzVM `
+        -ResourceGroupName $ResourceGroupName `
+        -Name $vm.Name `
+        -Status
+
+    $powerState = ($vmStatus.Statuses |
         Where-Object { $_.Code -like "PowerState/*" }).DisplayStatus
 
     Write-Output "VM Name: $($vm.Name)"
@@ -325,7 +328,7 @@ foreach ($vm in $targetVMs) {
                 -Name $vm.Name `
                 -Force
 
-            Write-Output "Stop operation completed for $($vm.Name)."
+            Write-Output "Stop operation completed for $($vm.Name)"
         }
         else {
             Write-Output "$($vm.Name) is not running. No action required."
