@@ -13,7 +13,9 @@ resource "azurerm_linux_virtual_machine" "lvm" {
     type = "SystemAssigned"
   }
 
-  tags = local.common_tags
+  tags = merge(local.common_tags, {
+    AutoShutdown = "Yes"
+  })
 
   admin_username = "azureadmin"
 

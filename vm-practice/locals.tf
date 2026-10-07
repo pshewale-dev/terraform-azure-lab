@@ -4,7 +4,6 @@ locals {
     PolicyManaged     = "Yes"
     workload          = "lab"
     patching_schedule = "Daily"
-    AutoShutdown      = "Yes"
   }
 
   vnet_address_space      = ["10.20.0.0/16"]
