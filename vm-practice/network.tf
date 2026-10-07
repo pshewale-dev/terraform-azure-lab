@@ -66,3 +66,33 @@ resource "azurerm_subnet" "private_endpoint" {
 
   private_endpoint_network_policies = "Disabled"
 }
+resource "azurerm_private_dns_zone" "keyvault" {
+  name                = "privatelink.vaultcore.azure.net"
+  resource_group_name = azurerm_resource_group.rg.name
+}
+resource "azurerm_private_dns_zone_virtual_network_link" "keyvault" {
+  name                  = "link-keyvault-dns"
+  resource_group_name   = azurerm_resource_group.rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.keyvault.name
+  virtual_network_id    = azurerm_virtual_network.vnet.id
+}
+resource "azurerm_private_endpoint" "keyvault" {
+  name                = "pe-keyvault-practice-lab"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  subnet_id           = azurerm_subnet.private_endpoint.id
+
+  private_service_connection {
+    name                           = "psc-keyvault-practice-lab"
+    private_connection_resource_id = azurerm_key_vault.kv.id
+    subresource_names              = ["vault"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = "keyvault-dns-zone-group"
+    private_dns_zone_ids = [azurerm_private_dns_zone.keyvault.id]
+  }
+
+  tags = local.common_tags
+}
