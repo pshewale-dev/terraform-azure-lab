@@ -5,7 +5,7 @@ resource "azurerm_policy_definition" "require_environment_tag" {
   display_name = "Add Environment tag"
   description  = "Adds the required Azure policy tags when they are missing."
 
- policy_rule = <<POLICY
+  policy_rule = <<POLICY
 {
   "if": {
     "field": "tags['PolicyManaged']",

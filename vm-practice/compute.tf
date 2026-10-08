@@ -1,8 +1,9 @@
 resource "azurerm_linux_virtual_machine" "lvm" {
-  name                  = "vm-practice-lab-01"
+  count                 = 2
+  name                  = "vm-practice-lab-${count.index + 1}"
   resource_group_name   = azurerm_resource_group.rg.name
   location              = azurerm_resource_group.rg.location
-  network_interface_ids = [azurerm_network_interface.nic.id]
+  network_interface_ids = [azurerm_network_interface.nic[count.index].id]
   size                  = var.vm_sizes["web"]
   boot_diagnostics {}
   custom_data                                            = filebase64("cloud-init.yaml")
@@ -25,7 +26,7 @@ resource "azurerm_linux_virtual_machine" "lvm" {
   }
 
   os_disk {
-    name                 = "vm-practice-lab-01-os-disk"
+    name                 = "vm-practice-lab-${count.index + 1}-os-disk"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
@@ -39,8 +40,9 @@ resource "azurerm_linux_virtual_machine" "lvm" {
 }
 
 resource "azurerm_virtual_machine_extension" "nginx" {
+  count                = 2
   name                 = "nginx_install"
-  virtual_machine_id   = azurerm_linux_virtual_machine.lvm.id
+  virtual_machine_id   = azurerm_linux_virtual_machine.lvm[count.index].id
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.1"
@@ -53,8 +55,9 @@ resource "azurerm_virtual_machine_extension" "nginx" {
 }
 
 resource "azurerm_virtual_machine_extension" "machine_configuration" {
+  count                      = 2
   name                       = "AzurePolicyforLinux"
-  virtual_machine_id         = azurerm_linux_virtual_machine.lvm.id
+  virtual_machine_id         = azurerm_linux_virtual_machine.lvm[count.index].id
   publisher                  = "Microsoft.GuestConfiguration"
   type                       = "ConfigurationForLinux"
   type_handler_version       = "1.0"
@@ -74,7 +77,8 @@ resource "azurerm_key_vault" "kv" {
 }
 
 resource "azurerm_role_assignment" "rbac" {
-  principal_id         = azurerm_linux_virtual_machine.lvm.identity[0].principal_id
+  count                = 2
+  principal_id         = azurerm_linux_virtual_machine.lvm[count.index].identity[0].principal_id
   scope                = azurerm_key_vault.kv.id
   role_definition_name = "Key Vault Secrets User"
 }

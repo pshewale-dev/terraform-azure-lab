@@ -47,7 +47,8 @@ resource "azurerm_subnet_network_security_group_association" "nsg_asso" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "nic-practice-lab"
+count               = 2 
+  name                = "nic-practice-lab-${count.index + 1}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tags                = local.common_tags

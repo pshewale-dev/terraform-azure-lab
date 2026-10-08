@@ -109,7 +109,8 @@ CONTENT
 }
 
 resource "azurerm_role_assignment" "automation_vm_operator" {
-  scope                = azurerm_linux_virtual_machine.lvm.id
+  count                = 2
+  scope                = azurerm_linux_virtual_machine.lvm[count.index].id
   role_definition_name = "Virtual Machine Contributor"
   principal_id         = azurerm_automation_account.automation.identity[0].principal_id
 }

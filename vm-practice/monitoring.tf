@@ -36,8 +36,9 @@ resource "azurerm_monitor_data_collection_rule" "linux_syslog" {
 }
 
 resource "azurerm_virtual_machine_extension" "ama" {
+  count                      = 2
   name                       = "AzureMonitorAgent"
-  virtual_machine_id         = azurerm_linux_virtual_machine.lvm.id
+  virtual_machine_id         = azurerm_linux_virtual_machine.lvm[count.index].id
   publisher                  = "Microsoft.Azure.Monitor"
   type                       = "AzureMonitorLinuxAgent"
   type_handler_version       = "1.10"
@@ -47,8 +48,9 @@ resource "azurerm_virtual_machine_extension" "ama" {
 }
 
 resource "azurerm_monitor_data_collection_rule_association" "linux_syslog" {
+  count                   = 2
   name                    = "dcr-association"
-  target_resource_id      = azurerm_linux_virtual_machine.lvm.id
+  target_resource_id      = azurerm_linux_virtual_machine.lvm[count.index].id
   data_collection_rule_id = azurerm_monitor_data_collection_rule.linux_syslog.id
 }
 
@@ -65,9 +67,10 @@ resource "azurerm_monitor_action_group" "vm_alerts" {
 }
 
 resource "azurerm_monitor_metric_alert" "vm_cpu" {
+  count               = 2
   name                = "alert-vm-cpu-high"
   resource_group_name = azurerm_resource_group.rg.name
-  scopes              = [azurerm_linux_virtual_machine.lvm.id]
+  scopes              = [azurerm_linux_virtual_machine.lvm[count.index].id]
   description         = "Alert when VM CPU is above 80%"
   severity            = 2
   frequency           = "PT5M"

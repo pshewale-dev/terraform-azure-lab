@@ -42,8 +42,9 @@ resource "azurerm_backup_policy_vm" "daily" {
 }
 
 resource "azurerm_backup_protected_vm" "practice_vm" {
+  count               = 2
   resource_group_name = azurerm_resource_group.rg.name
   recovery_vault_name = azurerm_recovery_services_vault.backup.name
-  source_vm_id        = azurerm_linux_virtual_machine.lvm.id
+  source_vm_id        = azurerm_linux_virtual_machine.lvm[count.index].id
   backup_policy_id    = azurerm_backup_policy_vm.daily.id
 }
