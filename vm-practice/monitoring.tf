@@ -67,16 +67,16 @@ resource "azurerm_monitor_action_group" "vm_alerts" {
 }
 
 resource "azurerm_monitor_metric_alert" "vm_cpu" {
-  name                = "alert-vm-cpu-high"
-  resource_group_name = azurerm_resource_group.rg.name
-  scopes              = azurerm_linux_virtual_machine.lvm[*].id
-  description         = "Alert when VM CPU is above 80%"
-  severity            = 2
-  frequency           = "PT5M"
-  window_size         = "PT5M"
-  tags                = local.common_tags
+  name                     = "alert-vm-cpu-high"
+  resource_group_name      = azurerm_resource_group.rg.name
+  scopes                   = azurerm_linux_virtual_machine.lvm[*].id
+  description              = "Alert when VM CPU is above 80%"
+  severity                 = 2
+  frequency                = "PT5M"
+  window_size              = "PT5M"
+  tags                     = local.common_tags
   target_resource_type     = "Microsoft.Compute/virtualMachines"
-target_resource_location = azurerm_resource_group.rg.location
+  target_resource_location = azurerm_resource_group.rg.location
 
   criteria {
     metric_namespace = "Microsoft.Compute/virtualMachines"

@@ -5,7 +5,7 @@ terraform {
       version = "~> 4.0"
     }
   }
-    backend "azurerm" {
+  backend "azurerm" {
     resource_group_name  = "rg-tfstate"
     storage_account_name = "sttflabstate2026"
     container_name       = "tfstate"
