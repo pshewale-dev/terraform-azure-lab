@@ -111,3 +111,9 @@ resource "azurerm_bastion_host" "bastion" {
   sku                 = "Developer"
   tags                = local.common_tags
 }
+resource "azurerm_subnet" "appgw" {
+  name                 = "snet-appgw-lab"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.20.4.0/24"]
+}
