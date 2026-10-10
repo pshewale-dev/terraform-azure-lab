@@ -8,6 +8,7 @@ resource "azurerm_linux_virtual_machine" "lvm" {
   boot_diagnostics {}
   custom_data                                            = filebase64("cloud-init.yaml")
   patch_mode                                             = "AutomaticByPlatform"
+  patch_assessment_mode                                  = "AutomaticByPlatform"
   bypass_platform_safety_checks_on_user_schedule_enabled = true
 
   identity {
