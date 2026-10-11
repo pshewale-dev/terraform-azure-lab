@@ -37,5 +37,5 @@ nsg_rules = {
   }
 
 }
-alert_email        = "pshewale1212@gmail.com"
-automation_account = "aa-practice-lab"
+alert_email         = "pshewale1212@gmail.com"
+automation_account  = "aa-practice-lab"

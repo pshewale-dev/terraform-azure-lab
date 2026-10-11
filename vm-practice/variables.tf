@@ -27,3 +27,8 @@ variable "alert_email" {
 variable "automation_account" {
   type = string
 }
+#variable "appgw_cert_password" {
+##  description = "Password for the Application Gateway lab PFX certificate"
+#  type        = string
+#  sensitive   = true
+#}
