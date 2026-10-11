@@ -1,4 +1,4 @@
-# 1. Public frontend IP
+/*# 1. Public frontend IP
 resource "azurerm_public_ip" "lb_public_ip" {
   name                = "pip-lb-practice-lab"
   location            = azurerm_resource_group.rg.location
@@ -61,3 +61,4 @@ resource "azurerm_network_interface_backend_address_pool_association" "web_backe
   ip_configuration_name   = "internal"
   backend_address_pool_id = azurerm_lb_backend_address_pool.web_pool.id
 }
+*/
