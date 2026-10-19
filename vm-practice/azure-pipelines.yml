@@ -1,4 +1,3 @@
-cat > azure-pipelines.yml <<'YAML'
 trigger:
   branches:
     include:
@@ -11,7 +10,7 @@ pr:
       - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 variables:
   terraformVersion: '1.16.6'
@@ -38,7 +37,3 @@ steps:
 
   - bash: terraform validate
     displayName: 'Validate Terraform configuration'
-YAML
-
-python3 -c 'import yaml; yaml.safe_load(open("azure-pipelines.yml")); print("YAML syntax: OK")'
-git diff --check
