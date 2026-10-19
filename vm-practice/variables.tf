@@ -32,3 +32,8 @@ variable "automation_account" {
 #  type        = string
 #  sensitive   = true
 #}
+variable "ssh_public_key" {
+  description = "SSH public key used to access Linux VMs"
+  type        = string
+  sensitive   = true
+}

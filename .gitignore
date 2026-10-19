@@ -10,7 +10,7 @@ carsh.log
 crash.*.log
 
 #Sensitive vatiable files
-#*.tfvars
+*.tfvars
 #*.tfvars.json
 # Temporary/backup files
 *~
