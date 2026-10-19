@@ -10,7 +10,7 @@ pr:
       - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
 variables:
   terraformVersion: '1.16.6'
@@ -30,10 +30,13 @@ steps:
       TERRAFORM_VERSION: $(terraformVersion)
 
   - bash: terraform fmt -check -recursive
+    workingDirectory: vm-practice
     displayName: 'Check Terraform formatting'
 
   - bash: terraform init -backend=false -input=false
+    workingDirectory: vm-practice
     displayName: 'Initialize Terraform without backend'
 
   - bash: terraform validate
+    workingDirectory: vm-practice
     displayName: 'Validate Terraform configuration'
