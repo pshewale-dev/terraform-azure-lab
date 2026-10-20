@@ -21,3 +21,5 @@ tfplan
 *.pfx
 *.key
 
+
+# SSH keys — never commit
