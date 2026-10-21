@@ -67,3 +67,8 @@ state. No apply or destroy without my explicit approval.
 - Next: understand Infrastructure as Code and the role of Terraform.
 - Exercise: explain why saving a Terraform configuration does not
   itself create an Azure resource.
+
+- Lesson 1.3 demonstrated: terraform validate checks configuration;
+  success does not prove an Azure resource exists.
+- Lesson 1.4: learning desired state and how Terraform determines
+  proposed changes. Not yet mastered.
