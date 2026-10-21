@@ -59,3 +59,11 @@ status. Teach concept-first, one step at a time; don't make me
 copy-paste large configurations. Update LEARNING-PROGRESS.md
 after each session. Preserve existing Azure resources and remote
 state. No apply or destroy without my explicit approval.
+
+### Lesson 1 checkpoint — 2026-10-21
+- Understood: manual VM creation is repetitive and can produce
+  configuration inconsistencies.
+- Status: Lesson 1 in progress; mastery not yet established.
+- Next: understand Infrastructure as Code and the role of Terraform.
+- Exercise: explain why saving a Terraform configuration does not
+  itself create an Azure resource.
