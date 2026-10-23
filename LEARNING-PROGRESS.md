@@ -95,3 +95,37 @@ state. No apply or destroy without my explicit approval.
 5. Ask for a prediction before moving on.
 6. Do not deploy or modify Azure infrastructure without explicit approval.
 
+
+## Progress Update — 2026-10-23
+
+### Understood
+- Lesson 1.4 — Desired state and planning
+- Lesson 1.5 — Purpose of terraform plan
+- Lesson 1.6 — Terraform state
+- Lesson 1.7 — Terraform drift
+- Lesson 1.8 — Providers
+- Lesson 1.9 — Resources and local labels
+- Lesson 1.10 — Resource arguments
+- Lesson 1.11 — Resource attributes
+- Lesson 1.12 — Input variables
+- Lesson 1.13 — Outputs
+- Lesson 1.14 — Data sources
+- Lesson 1.15 — Local values (locals)
+- Lesson 1.16 — Implicit dependencies
+
+### Current Checkpoint
+- Phase: 1 — Terraform Fundamentals
+- Current lesson: 1.17 — Explicit dependencies (depends_on)
+- Status: IN PROGRESS
+- Pending: Answer the prediction exercise about how depends_on affects resource ordering.
+
+### Learning Rules
+- Explain one concept at a time before introducing code.
+- Ask me to predict behavior before moving forward.
+- Track understanding, not just successful commands.
+- No terraform apply, destroy, deployment, or impactful Azure changes without my explicit approval.
+- Preserve existing Azure resources and Terraform state.
+
+### Next Session
+Resume at Lesson 1.17. First finish the pending prediction exercise, then update this checkpoint before teaching the next concept.
+
