@@ -33,3 +33,8 @@ tfplan
 # Python cache
 __pycache__/
 *.py[cod]
+
+# Terraform environment-specific variable files
+dev.tfvars
+prod.tfvars
+test.tfvars

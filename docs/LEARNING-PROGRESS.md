@@ -20,6 +20,18 @@ Do not skip ahead until the concept is understood.
 - Four initial peering directions plus Spoke 3 peerings
 - Dependency graph: generated and reviewed
 - No deployment approved; do not apply or destroy resources
+### Public Repository Cleanup — 2026-10-23
+
+- Confirmed `dev.tfvars`, `prod.tfvars`, and `test.tfvars` contain
+  resource-group names, locations, and usernames, not credentials.
+- Local copies preserved.
+- Added these environment-specific files to `.gitignore`.
+- Staged removal of the three files from Git tracking.
+- Staged whitespace check passed.
+- Important: earlier public Git history still contains the files.
+- Next: stage `.gitignore`, review the complete staged diff, then
+  commit only after approval.
+- GitHub Pages remains unconfigured.
 
 ## Learning assessment
 | Topic | Status | Evidence / next action |
