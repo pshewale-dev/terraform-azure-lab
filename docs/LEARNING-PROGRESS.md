@@ -247,3 +247,19 @@ Website status:
 - `.venv/` and `site/` are ignored by Git.
 - Remaining: visually verify the lesson, then complete the final review.
 - No commit or push until explicitly approved.
+
+### GitHub Pages Publishing — 2026-10-23
+
+- Added `.github/workflows/pages.yml` for MkDocs GitHub Pages deployment.
+- Workflow triggers on documentation/configuration changes pushed to
+  `feature/dynamic-nsg`, or via manual workflow dispatch.
+- Uses GitHub Actions to build with `python -m mkdocs build --strict`
+  and deploy the generated `site/` artifact.
+- Local strict build passed; Material for MkDocs emitted an upstream
+  MkDocs 2.0 warning that did not fail the build.
+- Confirmed `site_url` is
+  `https://pshewale-dev.github.io/terraform-azure-lab/`.
+- GitHub Pages has not yet been enabled/configured in repository settings.
+- Next: review and commit the workflow and this progress update after approval;
+  push only after separate approval, then select GitHub Actions as the Pages source.
+- Terraform Lesson 1.17 (`depends_on`) remains in progress.
