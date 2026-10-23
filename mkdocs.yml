@@ -1,0 +1,19 @@
+site_name: Terraform Zero to Hero
+site_description: Terraform, Azure and DevOps study notes
+site_url: https://pshewale-dev.github.io/terraform-azure-lab/
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Terraform Fundamentals:
+      - Lesson 1 - Core Concepts: lesson-01-fundamentals.md
+  - Learning Tracker: LEARNING-PROGRESS.md
+  - Roadmap: LEARNING-ROADMAP.md

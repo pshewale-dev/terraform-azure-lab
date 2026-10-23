@@ -23,3 +23,13 @@ tfplan
 
 
 # SSH keys — never commit
+
+# Python virtual environment for documentation
+.venv/
+
+# Generated MkDocs website
+/site/
+
+# Python cache
+__pycache__/
+*.py[cod]

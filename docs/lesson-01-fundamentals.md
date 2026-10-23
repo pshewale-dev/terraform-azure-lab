@@ -1,0 +1,516 @@
+# Lesson 1 — Terraform Fundamentals
+
+**Purpose:** Build a clear understanding of Terraform before moving
+into more complex Azure configurations.
+
+**Current checkpoint:** Lesson 1.17 — Explicit dependencies.
+The prediction exercise is still pending.
+
+---
+
+## 1. What is Terraform?
+
+Terraform is an Infrastructure as Code (IaC) tool.
+
+You describe the infrastructure you want in configuration files.
+Terraform uses the configuration, state and information about real
+infrastructure to determine which changes may be required.
+
+Terraform uses providers to interact with platforms such as Microsoft
+Azure.
+
+### Why use Terraform?
+
+- Describe infrastructure as code.
+- Review proposed changes before execution.
+- Store configuration in Git.
+- Reuse configuration across environments.
+- Manage relationships between resources.
+
+### Remember
+
+Saving a `.tf` file does not deploy infrastructure.
+Terraform must be run through the appropriate workflow.
+
+---
+
+## 2. Declarative versus imperative
+
+### Declarative approach
+
+Describe the desired end state.
+
+Example: Declare that a resource group should exist.
+
+Terraform determines the operations needed to reach the desired state.
+
+### Imperative approach
+
+Describe the sequence of operations to perform.
+
+Example: Run commands in a particular order to create infrastructure.
+
+### Interview point
+
+Terraform is primarily declarative. You describe what you want,
+and Terraform calculates the required operations.
+
+---
+
+## 3. Desired state, actual state and Terraform state
+
+### Desired state
+
+What your Terraform configuration declares should exist.
+
+### Actual state
+
+What exists in the real infrastructure.
+
+### Terraform state
+
+Terraform's record of managed resource identities and tracked
+attributes.
+
+Terraform uses configuration, state and information gathered from
+the infrastructure to calculate proposed changes.
+
+A plan may propose adding, updating or deleting resources.
+
+### Remember
+
+A proposed change is not the same as a completed change.
+
+---
+
+## 4. Terraform workflow
+
+### `terraform init`
+
+Initializes the working directory, configures the backend and installs
+required providers and modules.
+
+### `terraform validate`
+
+Checks whether the configuration is structurally valid.
+
+It does not guarantee that Azure permissions, quotas or remote
+operations will succeed.
+
+### `terraform plan`
+
+Calculates and displays proposed changes.
+
+Review the plan before deciding whether changes should be applied.
+
+Planning does not itself execute the proposed infrastructure changes.
+
+### `terraform apply`
+
+Executes infrastructure changes according to the configuration,
+plan and approval or automation behavior.
+
+**Lab safety rule:** Do not run `terraform apply` without explicit
+approval.
+
+### `terraform destroy`
+
+Requests removal of resources managed by the configuration and state.
+
+**Lab safety rule:** Do not run `terraform destroy` without explicit
+approval.
+
+---
+
+## 5. Terraform state
+
+Terraform state records the relationship between managed resources
+and real infrastructure objects, along with tracked information.
+
+### Why state matters
+
+- Helps Terraform identify resources it manages.
+- Records resource identities and tracked attributes.
+- Supports change calculation.
+- Can contain sensitive information and must be protected.
+
+### Remote state
+
+Remote state stores Terraform state in a remote backend rather than
+only in a local state file.
+
+Team workflows commonly use remote state to share state and coordinate
+work. Backend capabilities and locking behavior depend on the backend.
+
+### Best practices
+
+- Restrict access to state.
+- Protect state backups.
+- Never commit state files containing sensitive data to a public repo.
+- Do not manually edit or delete state as a routine troubleshooting
+  technique.
+
+### Interview question
+
+**Why does Terraform need state?**
+
+It records the resources Terraform manages and helps Terraform map
+configuration to real infrastructure when calculating changes.
+
+---
+
+## 6. Infrastructure drift
+
+Drift occurs when real infrastructure changes outside the Terraform
+workflow and no longer matches the expected configuration or recorded
+state.
+
+Example: Someone changes an Azure network security rule directly
+through the Azure portal.
+
+A subsequent plan may reveal differences and propose changes.
+The result depends on the configuration, provider behavior, state
+and current infrastructure.
+
+### Remember
+
+Do not automatically apply a plan just because drift is detected.
+Review the proposed changes first.
+
+### Interview question
+
+**How would you investigate Terraform drift?**
+
+Review the configuration and state, inspect the real infrastructure,
+and run a plan to understand the proposed changes before taking action.
+
+---
+
+## 7. Providers
+
+A provider is a plugin that allows Terraform to interact with a
+platform or service.
+
+The AzureRM provider manages supported Azure resources.
+
+Example:
+
+```hcl
+provider "azurerm" {
+  features {}
+}
+```
+
+This configures the AzureRM provider. It does not create an Azure
+resource by itself.
+
+### Remember
+
+A provider enables Terraform to communicate with a platform.
+A resource block declares an object to manage.
+
+---
+
+## 8. Resources and local labels
+
+A resource block declares an infrastructure object Terraform should
+manage.
+
+Example:
+
+```hcl
+resource "azurerm_resource_group" "demo" {
+  name     = "rg-example-lab"
+  location = "Central India"
+}
+```
+
+### Explanation
+
+- resource declares a resource block.
+- azurerm_resource_group is the resource type.
+- demo is the Terraform-local label.
+- name and location are resource arguments.
+The Terraform resource address is `azurerm_resource_group.demo`.
+
+The label demo is not necessarily the name of the Azure resource.
+
+This is a learning example. Do not apply it without reviewing the
+target subscription, configuration and state.
+
+---
+
+## 9. Resource arguments
+
+Arguments provide configuration values to a resource.
+
+Example:
+
+```hcl
+name     = "rg-example-lab"
+location = "Central India"
+```
+
+Here, name and location are arguments.
+
+The accepted arguments depend on the provider's resource type.
+
+### Interview question
+
+What is a resource argument?
+
+A configuration value supplied to a resource block.
+
+---
+
+## 10. Resource attributes
+
+Attributes are values exposed by resources or data sources.
+
+Other parts of a Terraform configuration can reference these values.
+
+For example, a resource may expose an ID that another resource can
+use instead of hardcoding that ID.
+
+### Arguments versus attributes
+
+- Arguments configure a resource.
+- Attributes expose values that can be read and referenced.
+
+---
+
+## 11. Input variables
+
+Input variables allow a module to accept values instead of hardcoding
+every configuration value.
+
+Example:
+
+```hcl
+variable "location" {
+  type    = string
+  default = "Central India"
+}
+```
+
+Reference the variable using:
+
+```hcl
+location = var.location
+```
+
+### Explanation
+
+- variable "location" declares an input variable.
+- type = string specifies its type.
+- default supplies a default value.
+- var.location references the variable.
+Variables improve reusability. They are not automatically a secure
+storage mechanism for secrets.
+
+---
+
+## 12. Outputs
+
+Outputs expose selected values from a Terraform module.
+
+Example:
+
+```hcl
+output "resource_group_name" {
+  value = azurerm_resource_group.demo.name
+}
+```
+
+This output references the resource's name attribute.
+
+Outputs can display useful values or expose values from child modules
+to their callers.
+
+Avoid exposing sensitive values unnecessarily.
+
+---
+
+## 13. Data sources
+
+A data source reads information about an existing object or retrieves
+information from a provider.
+
+Example:
+
+```hcl
+data "azurerm_resource_group" "existing" {
+  name = "rg-practice-lab"
+}
+```
+
+This block looks up an existing resource group. It does not declare
+a new resource group.
+
+The lookup requires the resource to exist and the provider to have
+appropriate access.
+
+### Resource versus data source
+
+- resource: declares an object Terraform manages.
+- data: reads information about an object or provider result.
+
+---
+
+## 14. Local values — locals
+
+Local values assign reusable names to expressions inside a module.
+
+Example:
+
+```hcl
+locals {
+  environment = "lab"
+  name_prefix = "tf-${local.environment}"
+}
+```
+
+References use local.environment and local.name_prefix.
+
+Input variables accept values supplied to a module. Local values
+define reusable expressions within the configuration.
+
+Use locals when you want to reuse a calculated or derived value.
+
+---
+
+## 15. Implicit dependencies
+
+Terraform can infer dependencies when one resource references an
+attribute of another resource.
+
+Example:
+
+```hcl
+resource "azurerm_resource_group" "demo" {
+  name     = "rg-example-lab"
+  location = "Central India"
+}
+
+resource "azurerm_virtual_network" "demo" {
+  name                = "vnet-example-lab"
+  location            = azurerm_resource_group.demo.location
+  resource_group_name = azurerm_resource_group.demo.name
+  address_space       = ["10.20.0.0/16"]
+}
+```
+
+The virtual network references the resource group's location and name.
+
+Terraform can infer that the resource group must be available before
+the dependent virtual network operation.
+
+This is an implicit dependency.
+
+---
+
+## 16. Explicit dependencies — `depends_on`
+
+Use depends_on to declare a dependency when Terraform cannot infer
+the required relationship from normal references.
+
+Conceptual example:
+
+```hcl
+resource "example_resource" "dependent" {
+  depends_on = [example_resource.prerequisite]
+}
+```
+
+This is a conceptual example, not a usable Azure resource block.
+The resource types and arguments must be valid for the actual provider.
+
+`depends_on` declares a dependency for ordering operations. It does
+not copy values and does not tell Terraform to ignore the prerequisite.
+
+Use explicit dependencies only when a real dependency exists that
+Terraform cannot infer from ordinary references.
+
+Unnecessary dependencies can restrict Terraform's ability to perform
+independent operations concurrently.
+
+### Current assessment
+
+Status: IN PROGRESS
+
+Pending question:
+
+What does the following declaration mean?
+
+```hcl
+depends_on = [example_resource.prerequisite]
+```
+
+A. The dependent resource operation must wait for the prerequisite
+resource according to Terraform's dependency graph.
+
+B. The dependent resource copies the prerequisite's name.
+
+C. Terraform ignores the prerequisite during planning.
+
+Answer this question before marking Lesson 1.17 complete.
+
+---
+
+## 17. Quick revision table
+
+| Concept | Key point |
+|---|---|
+| Terraform | Infrastructure as Code tool |
+| Declarative | Describe the desired end state |
+| `init` | Initialize the working directory |
+| `validate` | Check configuration structure |
+| `plan` | Preview proposed changes |
+| `apply` | Execute infrastructure changes |
+| `destroy` | Request removal of managed resources |
+| State | Records managed resource mappings and tracked information |
+| Drift | Difference between expected and observed infrastructure |
+| Provider | Connects Terraform to a platform |
+| Resource | Declares an object Terraform manages |
+| Argument | Configures a resource |
+| Attribute | A value exposed by a resource or data source |
+| Variable | Accepts an input value |
+| Output | Exposes a selected value |
+| Data source | Reads information from a provider |
+| Local value | Names a reusable expression |
+| Implicit dependency | Inferred from references |
+| Explicit dependency | Declared with `depends_on` |
+
+---
+
+## 18. Interview practice
+
+Try answering these without reading the notes.
+
+1. What problem does Terraform solve?
+2. What is Infrastructure as Code?
+3. What is the difference between declarative and imperative approaches?
+4. What is the difference between `terraform plan` and `terraform apply`?
+5. Why does Terraform need state?
+6. What is infrastructure drift?
+7. What is a provider?
+8. What is the difference between a resource argument and an attribute?
+9. Why use input variables?
+10. What are outputs used for?
+11. What is the difference between a resource and a data source?
+12. What are local values?
+13. How does Terraform infer an implicit dependency?
+14. When might you use depends_on?
+15. Does saving a `.tf` file deploy infrastructure?
+16. Why should Terraform state be protected?
+
+### Interview confidence tracker
+
+Track each answer as:
+
+- Not attempted
+- Practicing
+- Confident
+
+Mark an answer confident only when you can explain it clearly in
+your own words.
