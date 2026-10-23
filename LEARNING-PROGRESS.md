@@ -72,3 +72,26 @@ state. No apply or destroy without my explicit approval.
   success does not prove an Azure resource exists.
 - Lesson 1.4: learning desired state and how Terraform determines
   proposed changes. Not yet mastered.
+
+## Progress Update — 2026-10-23
+
+### Completed / Understood
+- Lesson 1.4 — Desired state and the purpose of `terraform plan`: UNDERSTOOD
+- Lesson 1.5 — `terraform plan` previews changes; it does not apply them: UNDERSTOOD
+- Lesson 1.6 — Terraform state and how it relates to real infrastructure: UNDERSTOOD
+
+### Current Checkpoint
+- Phase: 1 — Terraform Fundamentals
+- Current lesson: 1.7 — Terraform drift
+- Status: IN PROGRESS
+- Concepts covered: external changes to infrastructure, drift, and how planning can identify proposed corrections.
+- Pending exercise: Predict what happens when Azure has a manually changed tag and `terraform plan` proposes reverting it, without running `terraform apply`.
+
+### Next Session
+1. Finish the Lesson 1.7 prediction exercise.
+2. Update this progress file with the result.
+3. Continue with exactly one new beginner-friendly concept.
+4. Explain the concept before introducing code.
+5. Ask for a prediction before moving on.
+6. Do not deploy or modify Azure infrastructure without explicit approval.
+
