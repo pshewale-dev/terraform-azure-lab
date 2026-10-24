@@ -3,11 +3,10 @@
 ## Current checkpoint
 Course: Terraform Zero-to-Hero
 Current phase: 1 — Fundamentals
-Current lesson: 1 — What Terraform is and what problem it solves
-Status: NOT STARTED
-Next action: Explain Terraform using a simple example, then ask
-the learner to predict what happens when a .tf file is saved.
-Do not skip ahead until the concept is understood.
+Current course checkpoint (authoritative): Phase 1 — Fundamentals; hands-on HCL practice.
+Status: Progress demonstrated through local values, expressions, input variables, validation, collections, and conditionals.
+Next topic: Logical operators (`&&`, `||`, `!`), starting with the pending AND prediction.
+The older checkpoint entries below are retained as historical records; this current checkpoint supersedes them.
 
 ## Verified technical environment
 - Repository: ~/azure-lab
@@ -288,3 +287,42 @@ This section supersedes older current-status and resume entries above. Historica
 - No Terraform apply, destroy, or impactful Azure operation is authorized by this documentation work.
 - Preserve Azure resources and remote Terraform state.
 
+
+
+## Authoritative Current Status — 2026-10-24 (HCL practice session)
+
+This entry supersedes older current-status/resume instructions above. Earlier session records remain as history.
+
+### Practice workspace
+- Local workspace: `~/terraform-hcl-practice`, intentionally isolated from the Azure-backed Terraform configurations in `~/azure-lab`.
+- Repository copy: `terraform-hcl-practice/` on `feature/dynamic-nsg`.
+- The directory is for HCL/configuration and console exercises only; no Azure backend is configured in this practice directory.
+- Local `terraform.tfvars` is ignored by Git. A safe `terraform.tfvars.example` is committed instead.
+- No `terraform apply`, `terraform destroy`, or Azure infrastructure changes were performed as part of this learning session.
+
+### Concepts practised and evidence
+- HCL block structure and `locals`: corrected the block type to `locals`; isolated configuration validated successfully.
+- Local references and interpolation: built resource-name strings using `local.environment`, `local.region`, and `${...}`; correctly predicted examples such as `web-prod-01` and `dev-centralIndia-web`.
+- Direct references versus quoted text: correctly identified that `local.environment` is a reference while `"local.environment"` is literal text.
+- Input variables and local values: used `var.environment` and `local.region` together in a derived resource name.
+- Variable defaults and overrides: verified `terraform.tfvars` value `test` and command-line override precedence using `terraform console -var="environment=prod"`.
+- Variable validation: added a `contains(...)` rule. A typo in the allowed list temporarily rejected `prod`; the issue was diagnosed and the allowed values corrected to `prod`, `dev`, and `test`.
+- Collections: practised a `list(string)` of allowed regions and a `map(string)` of environment labels; used list indexes and map-key lookups.
+- Conditional expressions: practised `var.environment == "prod" ? "large" : "small"` and Boolean comparison `var.environment == "prod"`.
+- Learner correctly predicted that the production condition is `true` and the conditional result for `prod` is `large`.
+- Successful `terraform validate` was reported for the isolated practice configuration. Console output confirmed `var.environment = "test"`, `local.resource_name = "test-centralIndia-web"`, and map lookup/local label = `"Testing"`.
+- A list-index prediction was incorrect once: index `1` returns the second list element, `westindia`. A map-lookup prediction was also incorrect once: key `"test"` returned `"Testing"`. These are useful review points, not evidence of failure to progress.
+
+### Exact next-session checkpoint
+- Next concept: logical operators `&&` (AND), `||` (OR), and `!` (NOT).
+- Resume with the AND expression:
+  ```hcl
+  is_india_production = (
+    var.environment == "prod" &&
+    lower(local.region) == "centralindia"
+  )
+  ```
+- First ask the learner to predict the result when `environment = "test"` and `region = "centralIndia"`; do not give the answer before the prediction.
+- Then complete the small hands-on exercise and proceed to OR and NOT one concept at a time.
+- Continue prediction-first, learner-written practice; do not repeat completed variable/collection lessons unless needed to correct a misconception.
+- Keep the isolated practice directory separate from root Azure backend configurations. No apply/destroy or impactful Azure operations without explicit approval.
