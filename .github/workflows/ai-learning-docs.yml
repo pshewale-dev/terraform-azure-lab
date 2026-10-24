@@ -33,7 +33,7 @@ jobs:
       - name: Generate documentation patch with OpenAI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-6-astra' }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-4.1-mini' }}
           SESSION_SUMMARY: ${{ inputs.session_summary }}
         run: |
           python - <<'PY'
