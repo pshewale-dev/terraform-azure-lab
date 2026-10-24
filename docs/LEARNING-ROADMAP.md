@@ -83,3 +83,27 @@ Before ending each learning session, update the learning documentation.
 - [ ] Current lesson and next step recorded
 - [ ] Pending exercises and questions recorded
 - [ ] Git changes reviewed before committing
+
+## Documentation Maintenance Automation
+
+**Goal:** Minimize time spent maintaining the website so study time stays focused on learning Terraform.
+
+### Intended workflow
+1. During each lesson, record the topic, the learner's predictions and answers, exercises completed, and remaining questions.
+2. At the end of the session, update the relevant lesson notes and `LEARNING-PROGRESS.md` together.
+3. Keep `LEARNING-ROADMAP.md` aligned with the learning workflow and automation decisions.
+4. Check for contradictory checkpoints, malformed Markdown, and whitespace errors.
+5. Run the strict MkDocs build before proposing documentation changes.
+6. Review the complete diff before committing or pushing.
+7. Use GitHub Actions to publish the website after approved changes reach the configured branch.
+
+### Safety and learning rules
+- Do not mark a topic understood without evidence from the learner's answers or work.
+- Preserve the one-concept-at-a-time, prediction-first teaching approach.
+- Do not overwrite local work with stale GitHub content.
+- Do not commit or push without the learner's approval.
+- Do not run Terraform apply, destroy, or impactful Azure operations without explicit approval.
+
+### Automation priority
+Automate repetitive validation and publishing first. Then reduce manual progress-tracker maintenance. Keep the learner in control of learning decisions and changes to the published material.
+
