@@ -3,8 +3,8 @@
 **Purpose:** Build a clear understanding of Terraform before moving
 into more complex Azure configurations.
 
-**Current checkpoint:** Lesson 1.17 — Explicit dependencies.
-The prediction exercise is still pending.
+**Current checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`).
+**Status:** UNDERSTOOD. The learner correctly answered the dependency-ordering prediction and the follow-up about when explicit dependencies are needed.
 
 ---
 
@@ -434,26 +434,15 @@ Terraform cannot infer from ordinary references.
 Unnecessary dependencies can restrict Terraform's ability to perform
 independent operations concurrently.
 
-### Current assessment
+### Assessment result
 
-Status: IN PROGRESS
+Status: UNDERSTOOD
 
-Pending question:
+Evidence:
+- Correctly identified that the dependent resource waits for the prerequisite's required operations according to Terraform's dependency graph.
+- Correctly explained that `depends_on` is appropriate when Terraform cannot infer a real dependency from normal resource references.
 
-What does the following declaration mean?
-
-```hcl
-depends_on = [example_resource.prerequisite]
-```
-
-A. The dependent resource operation must wait for the prerequisite
-resource according to Terraform's dependency graph.
-
-B. The dependent resource copies the prerequisite's name.
-
-C. Terraform ignores the prerequisite during planning.
-
-Answer this question before marking Lesson 1.17 complete.
+Lesson 1.17 is understood based on these answers. Continue to the next roadmap topic only after checking existing HCL syntax and configuration-structure coverage.
 
 ---
 
@@ -514,3 +503,18 @@ Track each answer as:
 
 Mark an answer confident only when you can explain it clearly in
 your own words.
+
+## Lesson 1.17 — Explicit Dependencies: Knowledge Check Record
+
+**Status: UNDERSTOOD**
+
+### Key idea
+Terraform infers dependencies from normal resource references when possible. Use `depends_on` only when a real dependency exists that Terraform cannot infer from those references.
+
+### Knowledge-check evidence
+- Prediction: `depends_on = [example_resource.prerequisite]` means the dependent resource's required operations wait for the prerequisite according to the dependency graph.
+- Follow-up: an explicit dependency is useful when Terraform cannot infer the relationship from a direct resource reference.
+
+### Next step
+Review the existing notes for HCL syntax and configuration structure, then teach any uncovered material one concept at a time with a prediction-first question.
+
