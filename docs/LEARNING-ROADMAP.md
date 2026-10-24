@@ -107,3 +107,28 @@ Before ending each learning session, update the learning documentation.
 ### Automation priority
 Automate repetitive validation and publishing first. Then reduce manual progress-tracker maintenance. Keep the learner in control of learning decisions and changes to the published material.
 
+## AI-Assisted Session Update Automation
+
+**Implementation:** GitHub Actions plus the OpenAI Responses API, triggered manually at the end of a learning session.
+
+### Automated responsibilities
+- Update lesson notes with the concept, examples, coding practice, commands, and troubleshooting actually completed.
+- Update `LEARNING-PROGRESS.md` with demonstrated understanding, evidence, pending exercises, and the exact resume point.
+- Update this roadmap when the next learning step or workflow changes.
+- Keep lesson and progress checkpoints consistent, preserving historical records.
+- Validate that the generated patch only touches approved documentation files, has no conflict markers or whitespace errors, and passes `python -m mkdocs build --strict`.
+- Open a pull request for human review; do not merge or publish automatically.
+
+### Required setup and controls
+- Add an OpenAI API key as the repository Actions secret `OPENAI_API_KEY`; never store it in source files.
+- The workflow accepts a session summary through `workflow_dispatch`. It cannot automatically read a separate ChatGPT conversation, so the summary must include the learner's actual answers, exercises, test results, and pending items.
+- The model must not invent evidence or mark a topic understood without evidence in the supplied summary.
+- Review the pull request before merging. The existing Pages workflow publishes only after approved documentation changes reach `feature/dynamic-nsg`.
+- OpenAI API usage may incur separate charges; ChatGPT subscription access does not itself provide an API key or API credits.
+- This automation never runs Terraform commands that change infrastructure and never runs `terraform apply` or `terraform destroy`.
+
+### Run procedure
+1. Open **Actions → AI Learning Documentation Update → Run workflow**.
+2. Enter a concise session summary with the learner's actual response and coding practice.
+3. Inspect the workflow result and the created pull request.
+4. Merge only after reviewing the diff and confirming the learning record is accurate.
