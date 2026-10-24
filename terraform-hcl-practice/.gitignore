@@ -1,0 +1,14 @@
+# Local variable overrides may contain secrets; commit only the example file.
+terraform.tfvars
+*.tfvars
+!terraform.tfvars.example
+
+# Terraform working data and local state
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
