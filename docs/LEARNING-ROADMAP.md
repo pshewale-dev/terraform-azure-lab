@@ -129,3 +129,22 @@ Automate repetitive validation and publishing first. Then reduce manual progress
 
 ### Automation limitation
 This provider-neutral handoff does not call an AI model in the background. It works by sharing the same files with whichever assistant the learner chooses. Automatic model-driven updates require a supported integration or separate API access; this workflow does not require or assume one.
+
+
+## Current Session Checkpoint — 2026-10-24
+
+The latest practice session covered HCL block structure, local values, string interpolation, direct references, input variables, defaults and overrides, variable validation, lists, maps, map lookups, and conditional expressions in the isolated `terraform-hcl-practice/` directory.
+
+### Resume next session
+1. Start with logical operators: `&&` (AND), `||` (OR), and `!` (NOT).
+2. Ask for a prediction before explaining the result.
+3. First exercise: predict `is_india_production` when `var.environment = "test"` and `local.region = "centralIndia"`, where the condition combines the production check and a lowercase region comparison with `&&`.
+4. Let the learner write and validate the small change, then cover OR and NOT separately.
+5. Do not repeat already practised variable/collection concepts unless revisiting an identified misconception is useful.
+
+### Practice workspace and repository hygiene
+- Keep `terraform-hcl-practice/` isolated from the Azure-backed root Terraform configuration.
+- Commit `terraform.tfvars.example`, not a real `terraform.tfvars`; ignore local tfvars, state, and the `.terraform/` working directory.
+- Practice uses Terraform Console and validation only. No Azure resources or remote state should be changed.
+- The session's current checkpoint and the progress tracker/lesson notes must agree.
+- Preserve historical progress entries; newer dated authoritative checkpoint sections supersede old current-status text.
