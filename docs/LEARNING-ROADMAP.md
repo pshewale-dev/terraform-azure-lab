@@ -107,28 +107,25 @@ Before ending each learning session, update the learning documentation.
 ### Automation priority
 Automate repetitive validation and publishing first. Then reduce manual progress-tracker maintenance. Keep the learner in control of learning decisions and changes to the published material.
 
-## AI-Assisted Session Update Automation
+## Provider-Neutral AI Learning Handoff
 
-**Implementation:** GitHub Actions plus the OpenAI Responses API, triggered manually at the end of a learning session.
+**Goal:** Use the same learning context with ChatGPT, Gemini, Claude, Copilot, or another AI assistant without requiring an AI API key.
 
-### Automated responsibilities
-- Update lesson notes with the concept, examples, coding practice, commands, and troubleshooting actually completed.
-- Update `LEARNING-PROGRESS.md` with demonstrated understanding, evidence, pending exercises, and the exact resume point.
-- Update this roadmap when the next learning step or workflow changes.
-- Keep lesson and progress checkpoints consistent, preserving historical records.
-- Validate that the generated patch only touches approved documentation files, has no conflict markers or whitespace errors, and passes `python -m mkdocs build --strict`.
-- Open a pull request for human review; do not merge or publish automatically.
+### Shared source of truth
+- Keep `LEARNING-ROADMAP.md`, `LEARNING-PROGRESS.md`, and lesson notes as the canonical records.
+- Use `AI-LEARNING-HANDOFF.md` for the current learning state and instructions that any assistant needs.
+- Use `AI-SESSION-UPDATE-PROMPT.md` when asking any assistant to reconcile and update records after a session.
+- At the start of a new AI chat, share the handoff file and current progress/lesson files. If the assistant can access the GitHub repository, give it the repository and branch; otherwise upload the files.
+- At the end of a session, provide the actual answers, coding exercises, commands and results to the assistant, then ask it to draft updates for all relevant records.
+- If the assistant cannot write to GitHub, ask it to return complete revised files or a unified diff. Review and apply those changes to the repository yourself.
 
-### Required setup and controls
-- Add an OpenAI API key as the repository Actions secret `OPENAI_API_KEY`; never store it in source files.
-- The workflow accepts a session summary through `workflow_dispatch`. It cannot automatically read a separate ChatGPT conversation, so the summary must include the learner's actual answers, exercises, test results, and pending items.
-- The model must not invent evidence or mark a topic understood without evidence in the supplied summary.
-- Review the pull request before merging. The existing Pages workflow publishes only after approved documentation changes reach `feature/dynamic-nsg`.
-- OpenAI API usage may incur separate charges; ChatGPT subscription access does not itself provide an API key or API credits.
-- This automation never runs Terraform commands that change infrastructure and never runs `terraform apply` or `terraform destroy`.
+### Consistency and safety
+- Keep the current checkpoint, mastery status, evidence, pending exercise, and next step consistent across files.
+- Never claim an exercise or validation ran unless the learner supplied the result or it was actually run.
+- Never mark mastery without learner evidence.
+- Prefer small coding exercises, learner predictions, and troubleshooting when appropriate.
+- Review generated changes and validate the strict MkDocs build before merging or publishing.
+- No AI assistant may run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval.
 
-### Run procedure
-1. Open **Actions → AI Learning Documentation Update → Run workflow**.
-2. Enter a concise session summary with the learner's actual response and coding practice.
-3. Inspect the workflow result and the created pull request.
-4. Merge only after reviewing the diff and confirming the learning record is accurate.
+### Automation limitation
+This provider-neutral handoff does not call an AI model in the background. It works by sharing the same files with whichever assistant the learner chooses. Automatic model-driven updates require a supported integration or separate API access; this workflow does not require or assume one.
