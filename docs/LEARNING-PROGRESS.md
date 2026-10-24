@@ -263,3 +263,28 @@ Website status:
 - Next: review and commit the workflow and this progress update after approval;
   push only after separate approval, then select GitHub Actions as the Pages source.
 - Terraform Lesson 1.17 (`depends_on`) remains in progress.
+
+## Authoritative Current Status — 2026-10-24
+
+This section supersedes older current-status and resume entries above. Historical session notes are retained for context.
+
+### Terraform learning
+- Current phase: Phase 1 — Fundamentals.
+- Lesson 1.17 — Explicit dependencies (`depends_on`): **UNDERSTOOD**.
+- Evidence: correctly predicted that the dependent resource waits for the prerequisite's required operations, and confirmed that explicit dependencies are appropriate when Terraform cannot infer the relationship from normal resource references.
+- Next topic: verify existing coverage of HCL syntax and configuration structure before teaching it.
+- Teaching approach: one concept at a time, prediction-first, small learner-written exercises.
+- Do not mark further concepts understood without evidence from the learner.
+
+### Website status
+- Website: https://pshewale-dev.github.io/terraform-azure-lab/
+- GitHub Pages deployment workflow exists at `.github/workflows/pages.yml` and publishes from `feature/dynamic-nsg`.
+- Local MkDocs strict build passed on 2026-10-24 using the project virtual environment.
+- The Material for MkDocs MkDocs 2.0 notice is an upstream warning; it did not fail the strict build.
+- Local documentation edits were reported for the lesson and progress tracker; the current GitHub branch was reviewed and found to contain older checkpoints. The current remote update aligns the published documentation with the verified learning status.
+- Future documentation changes should update lesson notes, progress, and roadmap together, run strict build and whitespace checks, review the diff, then publish through the existing workflow.
+
+### Safety
+- No Terraform apply, destroy, or impactful Azure operation is authorized by this documentation work.
+- Preserve Azure resources and remote Terraform state.
+
