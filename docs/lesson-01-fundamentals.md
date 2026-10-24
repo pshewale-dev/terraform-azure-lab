@@ -3,8 +3,9 @@
 **Purpose:** Build a clear understanding of Terraform before moving
 into more complex Azure configurations.
 
-**Current checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`).
-**Status:** UNDERSTOOD. The learner correctly answered the dependency-ordering prediction and the follow-up about when explicit dependencies are needed.
+**Previous checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`) — UNDERSTOOD based on the recorded answers below.
+**Current checkpoint (2026-10-24):** Hands-on HCL syntax, local values, variables, collections, and conditionals practised in an isolated workspace.
+**Next topic:** Logical operators (`&&`, `||`, `!`).
 
 ---
 
@@ -518,3 +519,87 @@ Terraform infers dependencies from normal resource references when possible. Use
 ### Next step
 Review the existing notes for HCL syntax and configuration structure, then teach any uncovered material one concept at a time with a prediction-first question.
 
+
+
+---
+
+## 19. HCL syntax and configuration structure — hands-on notes (2026-10-24)
+
+These exercises were completed in the isolated local directory `~/terraform-hcl-practice`, not in the Azure-backed root configuration.
+
+### Blocks and arguments
+A `locals` block is written as `locals { ... }` (plural). Values inside the block are named assignments. Terraform loads all `.tf` files in the same directory as one module; putting a practice file next to an existing root `main.tf` would cause it to join that root module. An isolated directory avoids loading the Azure backend and infrastructure resources.
+
+### Local values, references, and expressions
+Example:
+```hcl
+locals {
+  region        = "centralIndia"
+  resource_name = "${var.environment}-${local.region}-web"
+}
+```
+- `local.region` refers to a local value.
+- `var.environment` refers to an input variable.
+- `${...}` interpolates an expression within a string.
+- A direct reference such as `environment_copy = local.environment` is different from the literal string `"local.environment"`.
+- Local values are reusable expressions; changing a referenced input changes the derived expression result.
+
+### Input variables, defaults, and overrides
+```hcl
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+  default     = "dev"
+
+  validation {
+    condition     = contains(["prod", "dev", "test"], var.environment)
+    error_message = "Environment must be dev, test, or prod."
+  }
+}
+```
+- `var.environment` references the input variable.
+- The default is used when no higher-precedence input supplies a value.
+- In the exercises, `terraform.tfvars` set `environment = "test"`; the console returned `"test"`.
+- `terraform console -var="environment=prod"` overrides the tfvars value for that invocation.
+- Validation checks the actual condition, not the human-readable error message. A temporary allowed-list typo rejected `prod`; correcting the list fixed the rule.
+- If a variable has no default and no value is supplied, Terraform requires an input when an operation needs it.
+
+### Lists and maps
+```hcl
+variable "allowed_regions" {
+  type    = list(string)
+  default = ["centralindia", "westindia"]
+}
+
+variable "environment_tags" {
+  type = map(string)
+  default = {
+    dev  = "Development"
+    test = "Testing"
+    prod = "Production"
+  }
+}
+```
+- `length(var.allowed_regions)` returns the number of list elements.
+- List indexes are zero-based: index `0` is `centralindia`, index `1` is `westindia`; index `2` is out of range for this two-element list.
+- A map lookup uses its key: `var.environment_tags["test"]` returns `"Testing"`.
+- A dynamic lookup can use a variable: `var.environment_tags[var.environment]`.
+
+### Conditional expressions
+```hcl
+is_production = var.environment == "prod"
+instance_size = var.environment == "prod" ? "large" : "small"
+```
+- `==` compares values and produces a Boolean.
+- A conditional uses `condition ? value_if_true : value_if_false`.
+- For `environment = "prod"`, `is_production` is `true` and `instance_size` is `"large"`; for `test`, the condition is false and the size is `"small"`.
+
+### Verification and safety
+- The learner reported `terraform validate` success in the isolated practice directory.
+- Terraform Console was used to evaluate expressions without deploying infrastructure.
+- The practice directory has no Azure backend configuration.
+- Keep the real local `terraform.tfvars` out of Git; commit an example file instead.
+- Do not run `terraform apply` or `terraform destroy` for these exercises.
+
+### Next lesson
+Logical operators (`&&`, `||`, `!`). Begin with the prediction for an AND expression when `environment = "test"` and `region = "centralIndia"`; continue one operator at a time.
