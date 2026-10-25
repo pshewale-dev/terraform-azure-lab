@@ -467,3 +467,7 @@ toset(["dev", "test", "dev", "prod"])
 ```
 
 Console output contained `dev`, `prod`, and `test` once each. The duplicate `dev` was removed; the displayed order differed from the input. Key takeaway: a set contains unique elements and does not guarantee order. Status: introduced and verified with one example; continue with a small follow-up before marking mastered.
+
+
+### `toset()` follow-up verified (2026-10-25)
+Learner predicted that `toset(["web", "app", "web", "app"])` would contain two unique values and verified it in Terraform Console. Actual output was `toset(["app", "web"])`. This confirms duplicate removal and reinforces that set ordering is not guaranteed. `toset()` has now been verified with two examples; proceed to the next small HCL concept, and revisit set conversion later when it is useful for `for_each`.
