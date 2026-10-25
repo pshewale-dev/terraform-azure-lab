@@ -375,3 +375,39 @@ This checkpoint supersedes older current-status/resume entries above. Historical
 - Ask for the prediction first. Then verify in the isolated Terraform console and explain only as needed.
 - Keep teaching one concept at a time and avoid large copy-paste exercises.
 - No apply/destroy or impactful Azure operations without explicit approval.
+
+
+## Authoritative Current Status — 2026-10-25 (map for-expression verified)
+
+This checkpoint supersedes the earlier 2026-10-25 resume instructions above. Historical notes remain as learning history.
+
+### Evidence from the latest exercise
+- Correctly predicted that `westindia` receives `"secondary"` in a map `for` expression with a conditional value. Terraform Console confirmed:
+  ```hcl
+  {
+    "centralindia" = "primary"
+    "westindia"    = "secondary"
+  }
+  ```
+- Correctly predicted that filtering out `centralindia` and applying `upper(region)` leaves:
+  ```hcl
+  {
+    "westindia" = "WESTINDIA"
+  }
+  ```
+  Terraform Console output matched the prediction.
+- Demonstrated the combined behavior of map `for` expressions: iteration, key/value construction, conditional values, filtering, and transformation.
+- A spelling slip in the written prediction (`WESTINIDA`) did not affect the concept; the actual console output was correct.
+
+### Current learning status
+- Phase: 1 — Fundamentals / HCL practice.
+- Current topic: list and map `for` expressions, including conditional values and filters.
+- Status: practised with correct console verification; continue testing independent understanding before marking mastered.
+- Practice remains in the isolated `terraform-hcl-practice/` directory.
+- No `terraform apply`, `terraform destroy`, Azure resource changes, or remote-state changes were performed.
+
+### Exact next step
+Give one small learner-written map `for` exercise combining a conditional value with a filter. Ask for a prediction first, then ask the learner to write and run the expression and share the console output. Continue to the next suitable HCL concept only after this exercise.
+
+### Safety reminder
+Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve existing Azure resources and remote state.
