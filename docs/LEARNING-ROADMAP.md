@@ -201,3 +201,10 @@ No `terraform apply`, `terraform destroy`, Azure resource changes, or remote-sta
 
 ### Resume instructions
 Proceed to the next small HCL concept using prediction-first practice, one concept at a time. Keep examples in `terraform-hcl-practice/`. Do not mark map `for` expressions mastered yet; verify with a fresh example later. Do not run `terraform apply` or `terraform destroy` or alter Azure resources/remote state.
+
+
+### Latest checkpoint — `flatten()` (2026-10-25)
+- Learner correctly predicted that `flatten()` combines nested lists into one list.
+- Ran a separate example in Terraform Console; output preserved `apple`, `banana`, `mango`, `orange` in order as a single list.
+- Status: introduced and verified with one example; test a deeper nested list before marking mastered.
+- Next: ask for a prediction on a list with multiple nesting levels, then verify in the isolated practice directory.
