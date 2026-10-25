@@ -457,3 +457,13 @@ Learner ran a nested-list example with an additional nesting level and returned 
 
 ### Learning scope decision (2026-10-25)
 Keep the current `flatten()` lesson at the basic level: learner has verified ordinary and deeper nested-list examples in Terraform Console. Defer the subnet/NSG nested-data use case until the relevant Azure subnet and NSG rules lessons. Do not introduce that applied pattern early; continue one concept at a time.
+
+
+### `toset()` — list to set (2026-10-25)
+Learner correctly predicted option B and verified this expression in Terraform Console:
+
+```hcl
+toset(["dev", "test", "dev", "prod"])
+```
+
+Console output contained `dev`, `prod`, and `test` once each. The duplicate `dev` was removed; the displayed order differed from the input. Key takeaway: a set contains unique elements and does not guarantee order. Status: introduced and verified with one example; continue with a small follow-up before marking mastered.
