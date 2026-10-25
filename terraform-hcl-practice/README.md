@@ -107,3 +107,17 @@ Output:
 ```
 
 The trailing `if` excludes `westindia`; the conditional selects the value for each entry that remains. This exercise is verified, but the topic is still practised rather than marked mastered. Continue with isolated console practice only; do not apply or destroy infrastructure.
+
+
+## `flatten()` (2026-10-25)
+
+Verified in Terraform Console:
+
+```hcl
+flatten([
+  ["apple", "banana"],
+  ["mango", "orange"]
+])
+```
+
+Output is a single list: `apple`, `banana`, `mango`, `orange` in the same order. `flatten()` removes nested list structure; it does not change the values. Try a deeper nesting example before considering the concept mastered.
