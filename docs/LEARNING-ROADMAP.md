@@ -148,3 +148,29 @@ The latest practice session covered HCL block structure, local values, string in
 - Practice uses Terraform Console and validation only. No Azure resources or remote state should be changed.
 - The session's current checkpoint and the progress tracker/lesson notes must agree.
 - Preserve historical progress entries; newer dated authoritative checkpoint sections supersede old current-status text.
+
+
+## Current Session Checkpoint — 2026-10-25 (supersedes 2026-10-24 checkpoint)
+
+### Covered
+- Logical operators `&&`, `||`, and `!`, including combined Boolean expressions.
+- Conditional expressions combined with OR; verified `"small"` for `test` and `"standard"` for a console-level `dev` override.
+- List `for` expressions for transformation, filtering, upper/lower case, and string interpolation.
+- Map `for` expressions for key/value iteration, key/value transformation, list-to-map conversion, and filtering.
+- Verified a filtered map in Terraform Console: `{"centralindia" = "CENTRALINDIA"}`.
+- The learner asked what names such as `env`, `label`, and `fruit` mean; clarified that they are temporary iteration variables defined in the `for` expression, not input variables.
+
+### Exact resume point
+1. Continue with the pending prediction for a conditional expression inside a map `for` expression:
+   ```hcl
+   {
+     for region in var.allowed_regions :
+     region => (region == "centralindia" ? "primary" : "secondary")
+   }
+   ```
+2. Ask what value the `westindia` key receives before explaining.
+3. Verify in the isolated practice console.
+4. Continue with small hands-on examples and keep the learner's answers as evidence; do not mark mastery without independent demonstration.
+
+### Safety
+Keep all practice in `terraform-hcl-practice/`. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
