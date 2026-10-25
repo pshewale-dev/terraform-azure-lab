@@ -214,3 +214,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Verified deeper nesting: nested list flattened to `dev`, `test`, `prod` in order.
 - Discussed a real Terraform use case: flatten nested subnet/security-rule configuration into one list of objects, then convert it to a uniquely keyed map if using `for_each`.
 - Next: use a small prediction-first exercise to practise `flatten()` with nested objects; continue avoiding infrastructure changes.
+
+
+### Latest checkpoint — `toset()` (2026-10-25)
+- Learner correctly predicted and verified that `toset(["dev", "test", "dev", "prod"])` removes the duplicate `dev`.
+- Console output order differed from the input, reinforcing that sets do not guarantee order.
+- Status: introduced and verified with one example. Continue with a short independent exercise before moving on.
