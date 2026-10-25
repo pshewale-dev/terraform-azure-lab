@@ -411,3 +411,28 @@ Give one small learner-written map `for` exercise combining a conditional value 
 
 ### Safety reminder
 Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve existing Azure resources and remote state.
+
+
+### Verified exercise: conditional map value plus filter (2026-10-25)
+Learner independently ran the expression in Terraform Console and produced the expected output:
+
+```hcl
+{
+  for region in var.allowed_regions :
+  region => (region == "centralindia" ? "primary" : "secondary")
+  if region != "westindia"
+}
+```
+
+Console result:
+
+```hcl
+{
+  "centralindia" = "primary"
+}
+```
+
+This verifies the learner can combine a map `for` expression, conditional value, and trailing filter in one expression. `westindia` is excluded by the filter, so its conditional value is not present in the result. Keep the topic as practised; use another fresh example before marking it mastered.
+
+### Next step
+Move to the next small HCL concept with prediction-first practice. Continue in the isolated `terraform-hcl-practice/` directory. Do not run `terraform apply` or `terraform destroy`, and do not change Azure resources or remote state.
