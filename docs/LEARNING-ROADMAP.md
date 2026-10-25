@@ -192,3 +192,12 @@ Keep all practice in `terraform-hcl-practice/`. Do not run `terraform apply`, `t
 
 ### Safety
 No `terraform apply`, `terraform destroy`, Azure resource changes, or remote-state changes. Preserve existing Azure resources and state.
+
+
+### Latest checkpoint — 2026-10-25
+- Learner independently ran a map `for` expression combining a conditional value and a filter.
+- Expression filtered out `westindia` and returned only `{ "centralindia" = "primary" }`; Terraform Console output matched the prediction.
+- Takeaway: trailing `if` controls inclusion; `? :` chooses the value for an included entry.
+
+### Resume instructions
+Proceed to the next small HCL concept using prediction-first practice, one concept at a time. Keep examples in `terraform-hcl-practice/`. Do not mark map `for` expressions mastered yet; verify with a fresh example later. Do not run `terraform apply` or `terraform destroy` or alter Azure resources/remote state.
