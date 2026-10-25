@@ -125,3 +125,14 @@ Output is a single list: `apple`, `banana`, `mango`, `orange` in the same order.
 
 ### Deeper nesting and real-world pattern (2026-10-25)
 A deeper nested-list expression was verified to produce the flat list `dev`, `test`, `prod` in order. In real Terraform configurations, `flatten()` is often used to turn nested infrastructure data (for example, subnets with nested security rules) into one list of objects. When creating resources with `for_each`, reshape that list into a map with unique keys because `for_each` does not accept a list of objects directly.
+
+
+## `toset()` (2026-10-25)
+
+Verified in Terraform Console:
+
+```hcl
+toset(["dev", "test", "dev", "prod"])
+```
+
+The result contains each unique string once (`dev`, `prod`, `test` in the displayed output). The duplicate is removed; a set does not guarantee the input order. Practise one fresh example before considering this mastered.
