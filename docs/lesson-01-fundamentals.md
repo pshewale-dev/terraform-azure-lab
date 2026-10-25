@@ -827,3 +827,9 @@ Result:
 ```
 
 It removes nested list structure without renaming, sorting, or dropping the elements. Verify understanding with a deeper nesting example before marking the function mastered.
+
+
+### Deeper nesting and practical use of `flatten()` (2026-10-25)
+A nested-list example with another level of nesting was verified in Terraform Console and returned `dev`, `test`, `prod` as one list, preserving order.
+
+A common Terraform pattern is to flatten nested infrastructure configuration, such as a list of subnets each containing a list of security rules, into a single list of objects. Each object can retain context such as its subnet name. If the final goal is `for_each`, remember that `for_each` generally needs a map or a set of strings, not a list of objects; transform the flattened list into a map with unique keys.
