@@ -174,3 +174,21 @@ The latest practice session covered HCL block structure, local values, string in
 
 ### Safety
 Keep all practice in `terraform-hcl-practice/`. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
+
+
+## Current Session Checkpoint — 2026-10-25 (map for expressions verified)
+
+### Evidence covered
+- Correctly predicted the values for a conditional map `for` expression: `centralindia = "primary"` and `westindia = "secondary"`; Terraform Console confirmed the result.
+- Correctly predicted and verified that filtering out `centralindia` and transforming the remaining value with `upper(region)` produces `{"westindia" = "WESTINDIA"}`.
+- Practised iteration, map key/value construction, conditional values, trailing `if` filters, and `upper()` together.
+
+### Resume instructions
+1. Continue with one small map `for` exercise combining a filter and a conditional value.
+2. Ask the learner to predict the result before running Terraform Console.
+3. Have the learner write the expression independently and share the actual console output.
+4. Keep map `for` expressions as practised, not mastered, until independent understanding is demonstrated on a fresh example.
+5. Keep all practice in the isolated `terraform-hcl-practice/` directory.
+
+### Safety
+No `terraform apply`, `terraform destroy`, Azure resource changes, or remote-state changes. Preserve existing Azure resources and state.
