@@ -4,8 +4,8 @@
 into more complex Azure configurations.
 
 **Previous checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`) — UNDERSTOOD based on the recorded answers below.
-**Current checkpoint (2026-10-24):** Hands-on HCL syntax, local values, variables, collections, and conditionals practised in an isolated workspace.
-**Next topic:** Logical operators (`&&`, `||`, `!`).
+**Current checkpoint (2026-10-25):** Hands-on HCL syntax, variables, collections, conditionals, logical operators, and list/map `for` expressions practised in the isolated workspace.
+**Next topic:** Conditional expressions inside `for` expressions.
 
 ---
 
@@ -603,3 +603,127 @@ instance_size = var.environment == "prod" ? "large" : "small"
 
 ### Next lesson
 Logical operators (`&&`, `||`, `!`). Begin with the prediction for an AND expression when `environment = "test"` and `region = "centralIndia"`; continue one operator at a time.
+
+
+---
+
+## 20. Logical operators and conditional expressions — hands-on notes (2026-10-25)
+
+These exercises were practised in the isolated `terraform-hcl-practice/` directory. No Azure resources were deployed or modified.
+
+### Logical operators
+
+- `A && B`: AND — both conditions must be true.
+- `A || B`: OR — at least one condition must be true.
+- `!A`: NOT — reverses a Boolean value.
+- `==` compares for equality; `!=` means not equal.
+- Evaluate parentheses first, then the Boolean conditions, then combine the results.
+
+Examples:
+```hcl
+is_india_production = (
+  var.environment == "prod" &&
+  lower(local.region) == "centralindia"
+)
+
+is_prod_or_dev = (
+  var.environment == "prod" ||
+  var.environment == "dev"
+)
+
+is_non_production = !local.is_production
+```
+
+With `environment = "test"` and `region = "centralIndia"`, the first expression is `false`: the production comparison is false even though the normalized region comparison is true.
+
+The learner verified these console values for `environment = "test"`:
+- `local.is_non_production` → `true`
+- `local.is_prod_or_dev` → `false`
+- `local.is_allowed_deployment` → `false`
+
+A CLI override can test another input without changing the tfvars file:
+`terraform console -var="environment=dev"`. The combined OR/conditional expression returned `"standard"` for this invocation.
+
+### Conditional expressions with logical operators
+
+General syntax:
+```hcl
+condition ? value_if_true : value_if_false
+```
+
+Example:
+```hcl
+(
+  var.environment == "prod" || var.environment == "dev"
+) ? "standard" : "small"
+```
+
+- With `environment = "test"`, result: `"small"`.
+- With `environment = "dev"`, result: `"standard"`.
+
+### List `for` expressions
+
+Transform each item:
+```hcl
+[for region in var.allowed_regions : upper(region)]
+```
+
+Filter items:
+```hcl
+[for region in var.allowed_regions : region if region != "centralindia"]
+```
+
+Transform and filter in one expression:
+```hcl
+[for region in var.allowed_regions : upper(region) if region == "westindia"]
+```
+
+Prefix a string using interpolation:
+```hcl
+[for region in var.allowed_regions : "azure-${region}"]
+```
+
+The iteration name (`region`, `env`, `label`, or `fruit`) is introduced by the `for` expression. It is a temporary iteration variable and does not need to be declared in `variables.tf`.
+
+### Map `for` expressions
+
+Iterate over a map's key and value:
+```hcl
+{
+  for env, label in var.environment_tags :
+  upper(env) => upper(label)
+}
+```
+
+- `{ ... }` with `key => value` produces a map; `[ ... ]` produces a list.
+- `=>` separates the resulting map key from its value.
+- Key and value expressions can be transformed independently.
+- A trailing `if` filters entries from the resulting map.
+
+Create a map from a list and filter it:
+```hcl
+{
+  for region in var.allowed_regions :
+  region => upper(region)
+  if region == "centralindia"
+}
+```
+
+Verified console result:
+```hcl
+{
+  "centralindia" = "CENTRALINDIA"
+}
+```
+
+### Current exercise / next step
+
+Predict the value for `westindia` in:
+```hcl
+{
+  for region in var.allowed_regions :
+  region => (region == "centralindia" ? "primary" : "secondary")
+}
+```
+
+Ask the learner to predict first, then test in `terraform console`. Do not mark `for` expressions mastered solely from multiple-choice answers; continue with a small learner-written exercise.
