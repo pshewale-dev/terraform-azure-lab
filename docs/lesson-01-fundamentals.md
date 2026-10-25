@@ -844,3 +844,22 @@ toset(["dev", "test", "dev", "prod"])
 ```
 
 The output contained `dev`, `prod`, and `test` once each. Terraform displayed a different order from the input. A set does not guarantee element order, so avoid relying on it when order matters. This concept is introduced and verified with one example; test a fresh example before marking it mastered.
+
+
+### `toset()` follow-up (2026-10-25)
+A second independent example was verified in Terraform Console:
+
+```hcl
+toset(["web", "app", "web", "app"])
+```
+
+Output:
+
+```hcl
+toset([
+  "app",
+  "web",
+])
+```
+
+The learner correctly predicted two unique values. This reinforces that duplicates are removed and a set does not guarantee input order.
