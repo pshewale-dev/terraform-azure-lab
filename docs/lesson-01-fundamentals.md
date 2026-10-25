@@ -833,3 +833,14 @@ It removes nested list structure without renaming, sorting, or dropping the elem
 A nested-list example with another level of nesting was verified in Terraform Console and returned `dev`, `test`, `prod` as one list, preserving order.
 
 A common Terraform pattern is to flatten nested infrastructure configuration, such as a list of subnets each containing a list of security rules, into a single list of objects. Each object can retain context such as its subnet name. If the final goal is `for_each`, remember that `for_each` generally needs a map or a set of strings, not a list of objects; transform the flattened list into a map with unique keys.
+
+
+## `toset()` — convert a list to a set (2026-10-25)
+
+`toset()` converts a list to a set, removing duplicate values. The learner predicted and verified this expression in Terraform Console:
+
+```hcl
+toset(["dev", "test", "dev", "prod"])
+```
+
+The output contained `dev`, `prod`, and `test` once each. Terraform displayed a different order from the input. A set does not guarantee element order, so avoid relying on it when order matters. This concept is introduced and verified with one example; test a fresh example before marking it mastered.
