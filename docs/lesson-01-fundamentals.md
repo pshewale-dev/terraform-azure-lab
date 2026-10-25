@@ -802,3 +802,28 @@ How it works:
 - The trailing `if region != "westindia"` excludes `westindia` from the result, so only the `centralindia` entry remains.
 
 Important distinction: the filter controls whether an entry appears; the conditional controls the value of an entry that remains. This exercise was verified successfully, but continue using fresh examples before marking the concept mastered.
+
+
+## `flatten()` — flatten nested lists (2026-10-25)
+
+`flatten()` takes a list containing nested lists and returns a single-level list. The learner predicted the concept and verified this example in Terraform Console:
+
+```hcl
+flatten([
+  ["apple", "banana"],
+  ["mango", "orange"]
+])
+```
+
+Result:
+
+```hcl
+[
+  "apple",
+  "banana",
+  "mango",
+  "orange",
+]
+```
+
+It removes nested list structure without renaming, sorting, or dropping the elements. Verify understanding with a deeper nesting example before marking the function mastered.
