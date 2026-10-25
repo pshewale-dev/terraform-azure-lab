@@ -727,3 +727,50 @@ Predict the value for `westindia` in:
 ```
 
 Ask the learner to predict first, then test in `terraform console`. Do not mark `for` expressions mastered solely from multiple-choice answers; continue with a small learner-written exercise.
+
+
+## Map `for` expressions — conditional values and filtering (2026-10-25)
+
+A map `for` expression can choose a value conditionally for each item and filter which items appear in the result.
+
+With `var.allowed_regions = ["centralindia", "westindia"]`:
+
+```hcl
+{
+  for region in var.allowed_regions :
+  region => (region == "centralindia" ? "primary" : "secondary")
+}
+```
+
+Verified in Terraform Console:
+
+```hcl
+{
+  "centralindia" = "primary"
+  "westindia"    = "secondary"
+}
+```
+
+- `region` becomes each list item in turn.
+- `region => ...` uses that item as the map key.
+- The conditional chooses `"primary"` for `centralindia` and `"secondary"` otherwise.
+
+Filtering and transforming at the same time:
+
+```hcl
+{
+  for region in var.allowed_regions :
+  region => upper(region)
+  if region != "centralindia"
+}
+```
+
+Verified result:
+
+```hcl
+{
+  "westindia" = "WESTINDIA"
+}
+```
+
+The trailing `if` excludes `centralindia`; `upper(region)` transforms the remaining value while the key stays `"westindia"`. Continue using independent exercises before calling map `for` expressions mastered.
