@@ -84,3 +84,26 @@ Output:
 ```
 
 The `if` clause filters entries, `upper()` transforms the value, and the original region remains the key. Continue with console-only practice; do not apply or destroy infrastructure.
+
+
+## Combined conditional map and filter (2026-10-25)
+
+Verified in Terraform Console:
+
+```hcl
+{
+  for region in var.allowed_regions :
+  region => (region == "centralindia" ? "primary" : "secondary")
+  if region != "westindia"
+}
+```
+
+Output:
+
+```hcl
+{
+  "centralindia" = "primary"
+}
+```
+
+The trailing `if` excludes `westindia`; the conditional selects the value for each entry that remains. This exercise is verified, but the topic is still practised rather than marked mastered. Continue with isolated console practice only; do not apply or destroy infrastructure.
