@@ -774,3 +774,31 @@ Verified result:
 ```
 
 The trailing `if` excludes `centralindia`; `upper(region)` transforms the remaining value while the key stays `"westindia"`. Continue using independent exercises before calling map `for` expressions mastered.
+
+
+## Map `for` expression — conditional value plus filter (2026-10-25)
+
+With `var.allowed_regions = ["centralindia", "westindia"]`, the learner ran this combined expression in Terraform Console:
+
+```hcl
+{
+  for region in var.allowed_regions :
+  region => (region == "centralindia" ? "primary" : "secondary")
+  if region != "westindia"
+}
+```
+
+Verified console output:
+
+```hcl
+{
+  "centralindia" = "primary"
+}
+```
+
+How it works:
+- `for region in var.allowed_regions` iterates through both region names.
+- The conditional expression chooses `"primary"` for `centralindia`, otherwise `"secondary"`.
+- The trailing `if region != "westindia"` excludes `westindia` from the result, so only the `centralindia` entry remains.
+
+Important distinction: the filter controls whether an entry appears; the conditional controls the value of an entry that remains. This exercise was verified successfully, but continue using fresh examples before marking the concept mastered.
