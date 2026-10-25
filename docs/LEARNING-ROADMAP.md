@@ -208,3 +208,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Ran a separate example in Terraform Console; output preserved `apple`, `banana`, `mango`, `orange` in order as a single list.
 - Status: introduced and verified with one example; test a deeper nested list before marking mastered.
 - Next: ask for a prediction on a list with multiple nesting levels, then verify in the isolated practice directory.
+
+
+### `flatten()` checkpoint update — 2026-10-25
+- Verified deeper nesting: nested list flattened to `dev`, `test`, `prod` in order.
+- Discussed a real Terraform use case: flatten nested subnet/security-rule configuration into one list of objects, then convert it to a uniquely keyed map if using `for_each`.
+- Next: use a small prediction-first exercise to practise `flatten()` with nested objects; continue avoiding infrastructure changes.
