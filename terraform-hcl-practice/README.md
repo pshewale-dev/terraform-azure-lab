@@ -55,3 +55,32 @@ Map transformation and filtering:
 The names introduced after `for` (such as `region`) are temporary iteration variables. Square brackets produce a list; curly braces with `key => value` produce a map. A trailing `if` filters the output.
 
 Continue the current conditional-map exercise in `terraform console`; keep this directory isolated and do not apply or destroy infrastructure.
+
+
+## Conditional map expressions and filters (2026-10-25)
+
+Conditional value, verified in Terraform Console:
+```hcl
+{
+  for region in var.allowed_regions :
+  region => (region == "centralindia" ? "primary" : "secondary")
+}
+```
+Output: `centralindia = "primary"`, `westindia = "secondary"`.
+
+Filter and transform, also verified:
+```hcl
+{
+  for region in var.allowed_regions :
+  region => upper(region)
+  if region != "centralindia"
+}
+```
+Output:
+```hcl
+{
+  "westindia" = "WESTINDIA"
+}
+```
+
+The `if` clause filters entries, `upper()` transforms the value, and the original region remains the key. Continue with console-only practice; do not apply or destroy infrastructure.
