@@ -436,3 +436,16 @@ This verifies the learner can combine a map `for` expression, conditional value,
 
 ### Next step
 Move to the next small HCL concept with prediction-first practice. Continue in the isolated `terraform-hcl-practice/` directory. Do not run `terraform apply` or `terraform destroy`, and do not change Azure resources or remote state.
+
+
+### Verified concept: `flatten()` (2026-10-25)
+Learner predicted that `flatten()` combines nested lists into one list, then ran a separate example in Terraform Console and got the expected output:
+
+```hcl
+flatten([
+  ["apple", "banana"],
+  ["mango", "orange"]
+])
+```
+
+Output was a single list containing `"apple"`, `"banana"`, `"mango"`, `"orange"` in that order. Takeaway: `flatten()` removes nested list structure; it preserves the element values and order. Treat as introduced and verified with one example; test with a deeper nested list before marking mastered.
