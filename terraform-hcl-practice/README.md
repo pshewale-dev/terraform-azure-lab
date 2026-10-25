@@ -136,3 +136,13 @@ toset(["dev", "test", "dev", "prod"])
 ```
 
 The result contains each unique string once (`dev`, `prod`, `test` in the displayed output). The duplicate is removed; a set does not guarantee the input order. Practise one fresh example before considering this mastered.
+
+
+### `toset()` follow-up (2026-10-25)
+Second verified console example:
+
+```hcl
+toset(["web", "app", "web", "app"])
+```
+
+Output contains only `app` and `web`. The learner correctly predicted two unique values. Set order is not guaranteed. Revisit `toset()` later when learning `for_each`.
