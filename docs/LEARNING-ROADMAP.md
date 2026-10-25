@@ -220,3 +220,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Learner correctly predicted and verified that `toset(["dev", "test", "dev", "prod"])` removes the duplicate `dev`.
 - Console output order differed from the input, reinforcing that sets do not guarantee order.
 - Status: introduced and verified with one example. Continue with a short independent exercise before moving on.
+
+
+### `toset()` checkpoint update — 2026-10-25
+- Second example verified: `toset(["web", "app", "web", "app"])` returns the unique strings `app` and `web`.
+- Learner predicted two unique values correctly; the console output confirmed it.
+- `toset()` has been practised with two examples. Move to the next small HCL concept; revisit conversion to sets in the `for_each` context later.
