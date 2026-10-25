@@ -3,9 +3,9 @@
 ## Current checkpoint
 Course: Terraform Zero-to-Hero
 Current phase: 1 — Fundamentals
-Current course checkpoint (authoritative): Phase 1 — Fundamentals; hands-on HCL practice.
-Status: Progress demonstrated through local values, expressions, input variables, validation, collections, and conditionals.
-Next topic: Logical operators (`&&`, `||`, `!`), starting with the pending AND prediction.
+Current course checkpoint (authoritative, 2026-10-25): Phase 1 — Fundamentals; hands-on HCL practice in `terraform-hcl-practice/`.
+Status: HCL variables, collections, conditionals, logical operators, and list/map `for` expressions practised with prediction-first exercises and console verification.
+Next topic: Conditional expressions inside `for` expressions; pending prediction for the `westindia` label.
 The older checkpoint entries below are retained as historical records; this current checkpoint supersedes them.
 
 ## Verified technical environment
@@ -326,3 +326,52 @@ This entry supersedes older current-status/resume instructions above. Earlier se
 - Then complete the small hands-on exercise and proceed to OR and NOT one concept at a time.
 - Continue prediction-first, learner-written practice; do not repeat completed variable/collection lessons unless needed to correct a misconception.
 - Keep the isolated practice directory separate from root Azure backend configurations. No apply/destroy or impactful Azure operations without explicit approval.
+
+
+## Authoritative Current Status — 2026-10-25 (logical operators and for expressions)
+
+This checkpoint supersedes older current-status/resume entries above. Historical entries remain as session history.
+
+### Workspace and safety
+- Practice directory: `terraform-hcl-practice/`, isolated from the Azure-backed root configuration.
+- Input file: local `terraform.tfvars` sets `environment = "test"`; `terraform.tfvars.example` is only a template and is not auto-loaded by Terraform.
+- Verified command-line override: `terraform console -var="environment=dev"` produced the expected `"standard"` result for the combined OR/conditional expression.
+- Console and `terraform validate` only; no `terraform apply`, `terraform destroy`, Azure resource changes, or remote-state changes.
+
+### Topics practised and evidence
+- Logical operators:
+  - `&&` (AND): both conditions must be true.
+  - `||` (OR): at least one condition must be true.
+  - `!` (NOT): reverses a Boolean.
+  - Combined expressions were evaluated in precedence order using parentheses, NOT, and AND.
+- Verified in Terraform Console with `environment = "test"`:
+  - `local.is_non_production` returned `true`.
+  - `local.is_prod_or_dev` returned `false`.
+  - `local.is_allowed_deployment` returned `false`.
+- Conditional expressions: correctly predicted `"small"` for test; combined OR/conditional expression returned `"small"` for test and `"standard"` with `-var="environment=dev"`.
+- List `for` expressions:
+  - Correctly predicted uppercase transformation using `upper(region)`.
+  - Correctly identified filtering with `if`, including `!=` and `==`.
+  - Correctly understood interpolation in `"azure-${region}"`.
+- Map `for` expressions:
+  - Correctly identified iteration variables (e.g. `env`, `label`, `fruit`) as temporary names introduced by the `for` expression, not declarations in `variables.tf`.
+  - Correctly distinguished list output `[...]` from map output `{ key => value }`.
+  - Correctly predicted independent transformations of map keys and values with `upper()`.
+  - Correctly predicted that filtering `if env != "test"` retains `dev` and `prod`.
+  - Verified in console that filtering `var.allowed_regions` with `if region == "centralindia"` returns only `{"centralindia" = "CENTRALINDIA"}`.
+- Misconceptions to revisit gently: the learner initially predicted true for AND when one side was false, and initially predicted true for the OR expression when both comparisons were false. They corrected these after truth-table walkthroughs and console checks.
+- Mastery status: **practised / improving; not yet marked mastered**. Continue to collect independent evidence in new examples.
+
+### Exact resume point
+- Current topic: Terraform `for` expressions, combining a conditional expression with a list-to-map transformation.
+- Pending prediction: for
+  ```hcl
+  {
+    for region in var.allowed_regions :
+    region => (region == "centralindia" ? "primary" : "secondary")
+  }
+  ```
+  predict the value associated with key `westindia`.
+- Ask for the prediction first. Then verify in the isolated Terraform console and explain only as needed.
+- Keep teaching one concept at a time and avoid large copy-paste exercises.
+- No apply/destroy or impactful Azure operations without explicit approval.
