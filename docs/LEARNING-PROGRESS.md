@@ -449,3 +449,7 @@ flatten([
 ```
 
 Output was a single list containing `"apple"`, `"banana"`, `"mango"`, `"orange"` in that order. Takeaway: `flatten()` removes nested list structure; it preserves the element values and order. Treat as introduced and verified with one example; test with a deeper nested list before marking mastered.
+
+
+### Deeper `flatten()` verification (2026-10-25)
+Learner ran a nested-list example with an additional nesting level and returned the expected flat list `["dev", "test", "prod"]` in order. `flatten()` is now verified with both two-level and deeper nested-list examples. Practical use discussed: flatten nested subnet/rule data into a single list of objects before reshaping it into a map keyed by unique identifiers for `for_each`. Continue reinforcing with a small hands-on example.
