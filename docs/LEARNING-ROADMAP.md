@@ -276,3 +276,8 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - First example verified: key `prod` returns `"large"`.
 - Missing-key example verified: `lookup(..., "test", "medium")` returns `"medium"` because the third argument is the default.
 - Next: use one fresh map/default example for independent confirmation, then move to the next small HCL concept.
+
+
+### `lookup()` final prediction — 2026-10-26
+- Learner correctly predicted that a present key (`dev`) returns `"small"` even when a default (`"medium"`) is supplied.
+- Verify this final expression in Terraform Console, then move to the next small HCL concept.
