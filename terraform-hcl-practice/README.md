@@ -266,3 +266,14 @@ coalesce(null, null, "dev", "prod")
 ```
 
 Output: `"dev"`. The function returns the first non-null argument from left to right. Practise one fresh example before considering the concept complete.
+
+
+### `coalesce()` follow-up (2026-10-26)
+Verified in Terraform Console:
+
+```hcl
+coalesce(null, "test", "prod")
+# => "test"
+```
+
+This confirms the first non-null argument is returned. Two examples verified.
