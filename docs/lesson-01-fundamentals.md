@@ -906,3 +906,13 @@ length("terraform")            # 9
 ```
 
 Rule: `length()` counts list elements when given a list, and characters when given a string. A list containing strings counts the list items, not all the letters combined; for example, `length(["terraform", "azure"])` returns `2`.
+
+
+### `length()` final check (2026-10-26)
+Verified in Terraform Console:
+
+```hcl
+length(["terraform", "azure"])
+```
+
+Output: `2`. The list has two elements; Terraform does not add up the characters in the two strings. `length()` has now been tested on a list, a single string, and a list containing strings.
