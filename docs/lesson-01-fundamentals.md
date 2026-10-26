@@ -938,3 +938,17 @@ contains(["dev", "test", "prod"], "stage") # false
 ```
 
 `contains()` returns `true` for an exact value present in the list and `false` when the value is absent.
+
+
+## `lookup()` — retrieve a value from a map (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "prod")
+```
+
+Output: `"large"`. The key `prod` maps to the value `large`. `lookup()` retrieves a map value by key; unlike `contains()`, it does not merely test whether a value is present. Next, explore a missing key and the optional default argument.
