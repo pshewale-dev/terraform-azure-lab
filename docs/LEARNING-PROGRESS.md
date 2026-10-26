@@ -494,3 +494,7 @@ Learner ran `length("terraform")` in Terraform Console and got `9`. They correct
 
 ### `length()` list-of-strings check verified (2026-10-26)
 Learner predicted and ran `length(["terraform", "azure"])`; Terraform Console returned `2`. This confirms that a list's length is its number of elements, not the combined character count of the strings. The `length()` concept has now been verified on a list, a string, and a list of strings.
+
+
+### `contains()` — check whether a value exists (2026-10-26)
+Learner predicted and verified `contains(["dev", "test", "prod"], "test")` in Terraform Console; output was `true`. The function returns a Boolean indicating whether the exact value is present in the list. Next practice: check a value that is absent and verify the result is `false`.
