@@ -252,3 +252,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Verified string character count: `length("terraform")` -> `9`.
 - Verified list-of-strings count: `length(["terraform", "azure"])` -> `2`, not the combined character count.
 - Move to the next small HCL function/concept with prediction-first practice.
+
+
+### `contains()` checkpoint — 2026-10-26
+- Learner correctly predicted and verified `contains(["dev", "test", "prod"], "test")` -> `true`.
+- Takeaway: `contains()` checks whether the exact value is present and returns a Boolean.
+- Next: predict and verify a missing value, expected to return `false`.
