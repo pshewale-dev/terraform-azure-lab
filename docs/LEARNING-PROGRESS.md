@@ -535,3 +535,7 @@ lookup({
 ```
 
 Output: `"medium"`, because the key `test` is absent and the third argument supplies the default. This verifies both normal key lookup and missing-key fallback. Next, practise one short independent example with a different map and default.
+
+
+### `lookup()` existing-key follow-up predicted (2026-10-26)
+Learner correctly predicted that `lookup({ dev = "small", prod = "large" }, "dev", "medium")` returns `"small"` because `dev` exists. The default `"medium"` is only used when the requested key is absent. Ask the learner to verify this final example in Terraform Console before closing the introductory `lookup()` checkpoint.
