@@ -288,3 +288,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Verified missing key: `test` returns the provided default `"medium"`.
 - Final example verified: `dev` returns `"small"` even with default `"medium"` supplied.
 - Introductory `lookup()` practice complete. Proceed to the next small HCL concept using prediction-first practice.
+
+
+### `coalesce()` checkpoint — 2026-10-26
+- Learner correctly predicted and verified `coalesce(null, null, "dev", "prod")` -> `"dev"`.
+- Takeaway: returns the first non-null argument from left to right.
+- Next: ask for a prediction on a fresh example and verify it in Terraform Console.
