@@ -226,3 +226,10 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Second example verified: `toset(["web", "app", "web", "app"])` returns the unique strings `app` and `web`.
 - Learner predicted two unique values correctly; the console output confirmed it.
 - `toset()` has been practised with two examples. Move to the next small HCL concept; revisit conversion to sets in the `for_each` context later.
+
+
+### `distinct()` checkpoint — 2026-10-26
+- Verified `distinct(["web", "app", "web", "db", "app"])` returns `tolist(["web", "app", "db"])`.
+- Compared directly with `toset()` using the same input; set output displayed as `app`, `db`, `web`.
+- Key distinction verified: `distinct()` returns a list preserving first-occurrence order; `toset()` removes duplicates but does not guarantee order.
+- Next: continue to the next small HCL concept using prediction-first practice.
