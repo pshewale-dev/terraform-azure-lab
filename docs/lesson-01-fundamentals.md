@@ -1056,3 +1056,33 @@ tolist([
 ```
 
 `split(separator, string)` divides the input string at each occurrence of the separator and returns a list of strings. `tolist(...)` is Terraform Console's display of the list result; it is not an extra wrapper required in the expression.
+
+
+## String functions: `split()`, `replace()`, and `upper()` (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+split("-", "dev-east-01")
+# => tolist(["dev", "east", "01"])
+
+replace("dev-east-01", "east", "west")
+# => "dev-west-01"
+
+replace("web-web-web", "web", "app")
+# => "app-app-app"
+
+replace("dev-east-01", "-", "/")
+# => "dev/east/01"
+
+upper("dev-east-01")
+# => "DEV-EAST-01"
+
+upper("Azure DevOps 2026")
+# => "AZURE DEVOPS 2026"
+```
+
+- `split(separator, string)` splits a string at each separator and returns a list of strings. Terraform Console displays this as `tolist([...])`; that is not an extra wrapper required in the expression.
+- `replace(string, substring, replacement)` replaces all occurrences of the matching substring and leaves other characters unchanged.
+- `upper(string)` converts letters to uppercase; spaces, punctuation, and digits remain unchanged.
+- Reference only: `lower(string)` is the counterpart that converts letters to lowercase. A separate `lower()` exercise was intentionally skipped at the learner's request.
