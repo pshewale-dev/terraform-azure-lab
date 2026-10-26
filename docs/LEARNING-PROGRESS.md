@@ -498,3 +498,14 @@ Learner predicted and ran `length(["terraform", "azure"])`; Terraform Console re
 
 ### `contains()` — check whether a value exists (2026-10-26)
 Learner predicted and verified `contains(["dev", "test", "prod"], "test")` in Terraform Console; output was `true`. The function returns a Boolean indicating whether the exact value is present in the list. Next practice: check a value that is absent and verify the result is `false`.
+
+
+### `contains()` missing-value check verified (2026-10-26)
+Learner predicted `contains(["dev", "test", "prod"], "stage")` would return `false` and verified both the present-value and missing-value cases in Terraform Console:
+
+```hcl
+contains(["dev", "test", "prod"], "test")  # true
+contains(["dev", "test", "prod"], "stage") # false
+```
+
+This confirms `contains()` returns `true` when the exact value is present and `false` when absent. Concept verified with both outcomes.
