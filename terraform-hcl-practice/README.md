@@ -223,3 +223,17 @@ lookup({
 ```
 
 Output: `"large"`. `lookup()` retrieves the value associated with the specified map key. Next, test the optional default when a key is absent.
+
+
+### `lookup()` default argument (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "test", "medium")
+```
+
+Output: `"medium"` because the key is missing and the third argument is the fallback value.
