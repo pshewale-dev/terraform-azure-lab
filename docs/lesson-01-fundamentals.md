@@ -1013,3 +1013,14 @@ coalesce(null, "test", "prod")
 ```
 
 Output: `"test"`. Since `test` is the first non-null argument, `prod` is not returned. Two examples now confirm the first-non-null behaviour.
+
+
+## `join()` — combine a list of strings (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+join("-", ["dev", "east", "01"])
+```
+
+Output: `"dev-east-01"`. `join()` combines the list elements into a single string, placing the first argument as the separator between elements. Test a fresh example with a different separator to reinforce the concept.
