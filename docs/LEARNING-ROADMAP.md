@@ -320,3 +320,36 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Verified `upper("dev-east-01")` -> `"DEV-EAST-01"` and `upper("Azure DevOps 2026")` -> `"AZURE DEVOPS 2026"`.
 - Reference note: `lower()` converts letters to lowercase; its separate exercise was skipped as requested.
 - Next: proceed with the next small HCL concept using prediction-first practice.
+
+## Dated Study Schedule — Interview Preparation (2026-10-26)
+
+**Availability:** 30 minutes daily, 7 days/week (3.5 hours/week).  
+**Priority:** Azure DevOps + Terraform interview preparation.  
+**Plan window:** 2026-10-26 to 2026-12-20 (8 weeks). Dates are targets, not a claim that topics are completed. If a lesson takes longer, move the remaining dates forward rather than skipping verification.
+
+### Daily 30-minute pattern
+- 5 min: recall yesterday's concept without notes.
+- 15 min: one small prediction-first lesson or hands-on exercise.
+- 5 min: verify with Terraform Console, `terraform fmt -check`, or `terraform validate` as appropriate.
+- 5 min: explain the concept aloud as an interview answer and record evidence.
+- Review-only days use the same 30 minutes; do not add a second topic.
+
+### Week-by-week calendar
+
+| Dates | Focus | Seven daily sessions | Exit evidence |
+|---|---|---|---|
+| **Week 1: Oct 26–Nov 1** | Finish HCL function basics and reinforce expressions | Mon 26: checkpoint review + `upper()` recap; Tue 27: next small string function; Wed 28: `format()`/string construction; Thu 29: function prediction drills; Fri 30: list/map expression recall; Sat 31: fresh `for` expression exercise; Sun Nov 1: weekly quiz and notes | Correct predictions and console evidence; keep `for` expressions as practised until a fresh independent test |
+| **Week 2: Nov 2–8** | Terraform workflow and state fundamentals | Mon: init/validate/plan purpose; Tue: read a plan safely; Wed: state and resource addresses; Thu: implicit dependencies and `depends_on`; Fri: drift and refresh concepts; Sat: remote state, locking, backend risks; Sun: interview Q&A review | Explain workflow, state, dependencies, and why state must be protected; no apply/destroy |
+| **Week 3: Nov 9–15** | Variables, locals, outputs, types, validation | Mon: input variables/types; Tue: defaults and precedence; Wed: validation; Thu: locals vs variables; Fri: outputs and references; Sat: small isolated config; Sun: recall quiz/debug | Write and explain a small validated configuration independently |
+| **Week 4: Nov 16–22** | Collections, functions, conditionals, dynamic blocks | Mon: list/map/object review; Tue: `count` vs `for_each`; Wed: `toset()` and stable keys; Thu: `lookup()`/conditionals review; Fri: dynamic blocks concept; Sat: small combined exercise; Sun: interview quiz | Explain when to use each construct and predict outputs without copying |
+| **Week 5: Nov 23–29** | Modules and Azure network design | Mon: module purpose/interface; Tue: inputs/outputs; Wed: root vs child module; Thu: resource group/VNet/subnet design; Fri: NSG rules and references; Sat: diagram/explain a simple network; Sun: review | Explain module boundaries and a basic Azure network design; keep examples local/plan-only |
+| **Week 6: Nov 30–Dec 6** | Azure compute, identity, and security | Mon: Linux VM resource anatomy; Tue: SSH/key handling; Wed: managed identity; Thu: Key Vault and secret handling; Fri: least privilege/security scenarios; Sat: Hub-and-Spoke concept; Sun: scenario review | Give safe design answers; never expose secrets or make unapproved Azure changes |
+| **Week 7: Dec 7–13** | Azure DevOps CI/CD and professional workflow | Mon: Git branching/PR review; Tue: pipeline stages; Wed: Terraform init/validate/plan in pipeline; Thu: plan artifact and approval gates; Fri: service connections/OIDC or identity concepts; Sat: pipeline failure troubleshooting; Sun: mock interview | Explain a safe pipeline from PR to reviewed plan and approved deployment |
+| **Week 8: Dec 14–20** | Interview consolidation and capstone | Mon: Terraform fundamentals mock; Tue: state/dependency scenarios; Wed: HCL coding questions; Thu: Azure networking/security scenario; Fri: Azure DevOps pipeline scenario; Sat: small capstone design and review; Sun: final mock interview + gap list | Answer common questions clearly, solve small HCL tasks, and identify next gaps; no infrastructure deployment required |
+
+### Progress and mastery rules
+- Existing exercises remain **practised/verified**, not automatically **mastered**. In particular, map `for` expressions and other HCL functions need fresh independent examples before mastery is claimed.
+- Mark a topic **mastered** only after the learner can explain it, predict a fresh example, complete a small task without copying, and troubleshoot a related mistake.
+- The date plan is a proposal. Record actual completion dates and evidence in `LEARNING-PROGRESS.md`; do not mark a topic complete just because its target date passed.
+- Use only the isolated `terraform-hcl-practice/` directory for HCL exercises when appropriate. Preserve the Azure-backed root configuration and remote state.
+- No `terraform apply`, `terraform destroy`, or impactful Azure operation without explicit approval.
