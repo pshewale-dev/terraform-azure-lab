@@ -966,3 +966,16 @@ lookup({
 ```
 
 Output: `"medium"`. Since `test` is not a key in the map, Terraform returns the third argument as the default. If the requested key exists, `lookup()` returns its mapped value instead.
+
+
+### `lookup()` existing key with a default (2026-10-26)
+Learner correctly predicted that this expression returns `"small"`:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "dev", "medium")
+```
+
+Because `dev` exists, Terraform returns its mapped value. The default is used only if the key is missing. Await console verification for this final example.
