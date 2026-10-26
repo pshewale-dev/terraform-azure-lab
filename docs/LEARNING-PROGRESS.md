@@ -571,3 +571,9 @@ join("/", ["subscriptions", "resourceGroups", "vnet"])
 ```
 
 Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inserts the chosen separator between list elements to create one string. `join()` is verified with two examples using different separators.
+
+
+### `split()` — string to list (2026-10-26)
+- Learner verified `split("-", "dev-east-01")` in Terraform Console; output was `tolist(["dev", "east", "01"])`.
+- Takeaway: `split(separator, string)` divides a string wherever the separator occurs and returns a list of strings. `tolist(...)` is the console's display of the list result, not a wrapper the learner must add.
+- Next: continue with the next small HCL concept using prediction-first practice.
