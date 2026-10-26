@@ -1086,3 +1086,30 @@ upper("Azure DevOps 2026")
 - `replace(string, substring, replacement)` replaces all occurrences of the matching substring and leaves other characters unchanged.
 - `upper(string)` converts letters to uppercase; spaces, punctuation, and digits remain unchanged.
 - Reference only: `lower(string)` is the counterpart that converts letters to lowercase. A separate `lower()` exercise was intentionally skipped at the learner's request.
+
+## `format()` — build a formatted string (2026-10-26)
+
+`format(format_string, values...)` builds a string by replacing format specifiers with the supplied values.
+
+Prediction practice (not yet verified in Terraform Console):
+
+```hcl
+format("%s-%s-%s", "dev", "east", "01")
+# => "dev-east-01"
+
+format("%s-%02d", "web", 3)
+# => "web-03"
+
+format("%s-%02d", "app", 12)
+# => "app-12"
+
+format("%s-%02d", "vm", 7)
+# => "vm-07"
+```
+
+- `%s` inserts a string value.
+- `%d` formats an integer as a decimal number.
+- `%02d` formats an integer with a minimum width of two characters, padding with a leading zero when needed. For example, `7` becomes `07`, while `12` remains `12`.
+- The width is a minimum, not a maximum.
+
+**Learning status:** Practised through four prediction examples. Console verification is still pending, so this function is not yet marked mastered. To verify safely, open Terraform Console in the isolated HCL practice directory and enter each expression; no Azure deployment is needed.
