@@ -270,3 +270,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Learner predicted and verified `lookup({ dev = "small", prod = "large" }, "prod")` returns `"large"`.
 - Takeaway: `lookup()` retrieves the map value associated with a key.
 - Next: test a missing key and introduce the optional default value.
+
+
+### `lookup()` checkpoint update — 2026-10-26
+- First example verified: key `prod` returns `"large"`.
+- Missing-key example verified: `lookup(..., "test", "medium")` returns `"medium"` because the third argument is the default.
+- Next: use one fresh map/default example for independent confirmation, then move to the next small HCL concept.
