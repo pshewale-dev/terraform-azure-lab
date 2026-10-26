@@ -161,3 +161,14 @@ toset(["web", "app", "web", "db", "app"])
 ```
 
 `distinct()` removes duplicates while preserving first-occurrence order in a list. `toset()` produces a set of unique values without guaranteed ordering.
+
+
+## `length()` (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+length(["web", "app", "db"])
+```
+
+Output: `3`, because the list contains three elements. Next, test the function on a string.
