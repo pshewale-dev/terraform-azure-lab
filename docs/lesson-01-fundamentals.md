@@ -863,3 +863,24 @@ toset([
 ```
 
 The learner correctly predicted two unique values. This reinforces that duplicates are removed and a set does not guarantee input order.
+
+
+## `distinct()` — unique list elements (2026-10-26)
+
+The learner verified in Terraform Console:
+
+```hcl
+distinct(["web", "app", "web", "db", "app"])
+```
+
+Output:
+
+```hcl
+tolist([
+  "web",
+  "app",
+  "db",
+])
+```
+
+The duplicate elements are removed while the order of first occurrences is preserved. The learner also compared this with `toset()` on the same input, which returned the unique strings in a different displayed order. Summary: `distinct()` returns an ordered list; `toset()` returns a set whose order is not guaranteed.
