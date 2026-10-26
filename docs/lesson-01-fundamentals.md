@@ -927,3 +927,14 @@ contains(["dev", "test", "prod"], "test")
 ```
 
 Output: `true`, because `"test"` is present in the list. `contains()` returns a Boolean: `true` when the value is found and `false` when it is absent. Next, test a value that is not in the list.
+
+
+### `contains()` — both Boolean outcomes (2026-10-26)
+Both cases were verified in Terraform Console:
+
+```hcl
+contains(["dev", "test", "prod"], "test")  # true
+contains(["dev", "test", "prod"], "stage") # false
+```
+
+`contains()` returns `true` for an exact value present in the list and `false` when the value is absent.
