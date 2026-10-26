@@ -1113,3 +1113,15 @@ format("%s-%02d", "vm", 7)
 - The width is a minimum, not a maximum.
 
 **Learning status:** Practised through four prediction examples. Console verification is still pending, so this function is not yet marked mastered. To verify safely, open Terraform Console in the isolated HCL practice directory and enter each expression; no Azure deployment is needed.
+
+## `trimspace()` — remove leading and trailing whitespace (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+trimspace("   dev-east-01   ")
+```
+
+Output: `"dev-east-01"`. The whitespace at the beginning and end is removed. Whitespace inside the string is preserved; for example, the space in `"Azure DevOps"` would remain.
+
+**Learning status:** One example verified in Terraform Console. Continue with a fresh example before considering the concept mastered.
