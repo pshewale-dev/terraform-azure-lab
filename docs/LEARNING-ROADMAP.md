@@ -281,3 +281,10 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 ### `lookup()` final prediction — 2026-10-26
 - Learner correctly predicted that a present key (`dev`) returns `"small"` even when a default (`"medium"`) is supplied.
 - Verify this final expression in Terraform Console, then move to the next small HCL concept.
+
+
+### `lookup()` checkpoint complete — 2026-10-26
+- Verified existing key: `prod` returns `"large"`.
+- Verified missing key: `test` returns the provided default `"medium"`.
+- Final example verified: `dev` returns `"small"` even with default `"medium"` supplied.
+- Introductory `lookup()` practice complete. Proceed to the next small HCL concept using prediction-first practice.
