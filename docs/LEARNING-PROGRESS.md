@@ -673,3 +673,41 @@ Resume by asking the learner for their prediction first. If they already answere
 1. Continue from the pending `length(distinct(...))` prediction.
 2. Later, verify selected fresh examples in Terraform Console; keep prediction-only and console-verified evidence clearly separate.
 3. Before the next commit/push or session end, update lesson notes and this progress tracker, review the diff, and check roadmap consistency.
+
+
+## Authoritative checkpoint update — 2026-10-26 (continued HCL function practice)
+
+This entry supersedes earlier resume instructions where they conflict with this latest checkpoint. Historical learning entries remain intact.
+
+### Correct predictions in the latest session
+- `replace(lower("PROD-east-vm"), "prod", "test")` → `"test-east-vm"`
+- `replace("dev-dev-prod", "dev", "test")` → `"test-test-prod"`
+- `join("-", split("/", "dev/east/01"))` → `"dev-east-01"`
+- `lower(format("%s-%s", "APP", "PROD"))` → `"app-prod"`
+- `upper(substr("terraform", 0, 4))` → `"TERR"`
+- `trimsuffix(trimprefix("dev-east-vm", "dev-"), "-vm")` → `"east"`
+- Combined `startswith()` and `endswith()` using `&&` → `true`
+- `!strcontains("dev-east-vm", "prod")` → `true`
+- Combined `startswith()` and `endswith()` using `||` → `true`
+- Combined `strcontains()`, `!`, and `&&` → `true`
+- `startswith(replace("dev-east-vm", "dev", "prod"), "prod-")` → `true`
+- `substr(format("%s-%s", "azure", "devops"), 6, 6)` → `"devops"`
+- `length(split("-", "dev-east-vm"))` → `3`
+- `length("dev-east-vm")` → `11`
+
+### Status and evidence
+The learner made the correct predictions above. This latest sequence was conversation-based prediction practice; do not describe these examples as newly verified in Terraform Console and do not mark the functions mastered on multiple-choice answers alone. Continue to distinguish previously console-verified evidence from new prediction-only evidence.
+
+### Exact resume point
+The pending, unanswered question is:
+
+```hcl
+length(distinct(["dev", "prod", "dev", "test", "prod"]))
+```
+
+Choices presented: A `5`, B `3`, C `2`, D `["dev", "prod", "test"]`.
+
+Ask for the prediction first. Then continue with one small concept at a time and verify selected fresh examples in Terraform Console in the isolated `terraform-hcl-practice/` directory.
+
+### Safety
+Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve existing Azure resources and remote state.
