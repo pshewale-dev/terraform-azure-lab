@@ -895,3 +895,14 @@ length(["web", "app", "db"])
 ```
 
 Output: `3`. The function counts the three list elements. Next, verify its behaviour on a string, where it counts characters.
+
+
+### `length()` on strings and lists (2026-10-26)
+Verified in Terraform Console:
+
+```hcl
+length(["web", "app", "db"]) # 3
+length("terraform")            # 9
+```
+
+Rule: `length()` counts list elements when given a list, and characters when given a string. A list containing strings counts the list items, not all the letters combined; for example, `length(["terraform", "azure"])` returns `2`.
