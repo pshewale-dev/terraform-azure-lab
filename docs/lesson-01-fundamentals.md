@@ -916,3 +916,14 @@ length(["terraform", "azure"])
 ```
 
 Output: `2`. The list has two elements; Terraform does not add up the characters in the two strings. `length()` has now been tested on a list, a single string, and a list containing strings.
+
+
+## `contains()` — check for a value in a collection (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+contains(["dev", "test", "prod"], "test")
+```
+
+Output: `true`, because `"test"` is present in the list. `contains()` returns a Boolean: `true` when the value is found and `false` when it is absent. Next, test a value that is not in the list.
