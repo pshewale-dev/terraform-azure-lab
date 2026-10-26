@@ -300,3 +300,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Second example verified: `coalesce(null, "test", "prod")` returns `"test"`.
 - Learner correctly predicted the first non-null argument.
 - Two examples verified; move to the next small HCL concept with prediction-first practice.
+
+
+### `join()` checkpoint — 2026-10-26
+- Learner correctly predicted and verified `join("-", ["dev", "east", "01"])` -> `"dev-east-01"`.
+- Takeaway: `join()` combines list strings into one string with the chosen separator between elements.
+- Next: ask for a prediction using a different separator, then verify in Terraform Console.
