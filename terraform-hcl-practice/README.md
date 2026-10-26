@@ -241,3 +241,17 @@ Output: `"medium"` because the key is missing and the third argument is the fall
 
 ### `lookup()` existing key and default (2026-10-26)
 Learner correctly predicted that `lookup({ dev = "small", prod = "large" }, "dev", "medium")` returns `"small"`: the default is only used when the key is absent. Console verification is still pending.
+
+
+### `lookup()` checkpoint complete (2026-10-26)
+Verified in Terraform Console that a present key returns its mapped value even when a default is supplied:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "dev", "medium")
+# => "small"
+```
+
+Together with the missing-key/default example, this completes introductory `lookup()` practice.
