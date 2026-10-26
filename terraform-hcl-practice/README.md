@@ -289,3 +289,15 @@ join("-", ["dev", "east", "01"])
 ```
 
 `join()` combines list elements into one string, inserting the chosen separator between them. Try another separator in a fresh example.
+
+
+### `join()` follow-up (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+join("/", ["subscriptions", "resourceGroups", "vnet"])
+# => "subscriptions/resourceGroups/vnet"
+```
+
+The separator appears between list elements, not at the beginning or end. Two `join()` examples are now verified.
