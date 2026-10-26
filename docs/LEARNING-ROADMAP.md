@@ -312,3 +312,11 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Second example verified: `join("/", ["subscriptions", "resourceGroups", "vnet"])` returns `"subscriptions/resourceGroups/vnet"`.
 - Learner correctly predicted the exact output. Two examples with different separators are verified.
 - Next: proceed to the next small HCL concept with prediction-first practice.
+
+
+### Current HCL function checkpoint — 2026-10-26
+- Verified `split("-", "dev-east-01")` returns a list with `dev`, `east`, and `01`.
+- Verified three `replace()` examples, including replacing repeated matches and replacing hyphens with slashes.
+- Verified `upper("dev-east-01")` -> `"DEV-EAST-01"` and `upper("Azure DevOps 2026")` -> `"AZURE DEVOPS 2026"`.
+- Reference note: `lower()` converts letters to lowercase; its separate exercise was skipped as requested.
+- Next: proceed with the next small HCL concept using prediction-first practice.
