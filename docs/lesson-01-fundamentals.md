@@ -1035,3 +1035,24 @@ join("/", ["subscriptions", "resourceGroups", "vnet"])
 ```
 
 Output: `"subscriptions/resourceGroups/vnet"`. The `/` separator is inserted between elements; it is not added before the first element or after the last. This is the second verified `join()` example.
+
+
+## `split()` — split a string into a list (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+split("-", "dev-east-01")
+```
+
+Output:
+
+```hcl
+tolist([
+  "dev",
+  "east",
+  "01",
+])
+```
+
+`split(separator, string)` divides the input string at each occurrence of the separator and returns a list of strings. `tolist(...)` is Terraform Console's display of the list result; it is not an extra wrapper required in the expression.
