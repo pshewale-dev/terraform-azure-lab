@@ -4,8 +4,8 @@
 into more complex Azure configurations.
 
 **Previous checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`) — UNDERSTOOD based on the recorded answers below.
-**Current checkpoint (2026-10-25):** Hands-on HCL syntax, variables, collections, conditionals, logical operators, and list/map `for` expressions practised in the isolated workspace.
-**Next topic:** Conditional expressions inside `for` expressions.
+**Current checkpoint (2026-10-26):** Continued prediction-first practice of nested Terraform string functions, Boolean string checks, logical operators, and `length()` in the isolated `terraform-hcl-practice/` workspace. Examples in this latest sequence were predicted in chat, not console-verified.
+**Next topic:** Continue the pending `length(distinct([...]))` prediction, then verify selected fresh function examples in Terraform Console before considering mastery.
 
 ---
 
@@ -1233,3 +1233,71 @@ length("dev-east-vm")
 - `length()` counts characters in a string and elements in a list.
 
 These are successful multiple-choice predictions, not proof of mastery or console verification. Continue with independent examples and console checks before marking functions mastered.
+
+
+## Checkpoint update — 2026-10-26 (continued HCL function practice)
+
+Prediction-first examples correctly answered in this session:
+
+```hcl
+replace(lower("PROD-east-vm"), "prod", "test")
+# => "test-east-vm"
+
+replace("dev-dev-prod", "dev", "test")
+# => "test-test-prod"
+
+join("-", split("/", "dev/east/01"))
+# => "dev-east-01"
+
+lower(format("%s-%s", "APP", "PROD"))
+# => "app-prod"
+
+upper(substr("terraform", 0, 4))
+# => "TERR"
+
+trimsuffix(trimprefix("dev-east-vm", "dev-"), "-vm")
+# => "east"
+
+startswith("prod-east-vm", "prod-") && endswith("prod-east-vm", "-vm")
+# => true
+
+!strcontains("dev-east-vm", "prod")
+# => true
+
+startswith("dev-east-vm", "prod-") || endswith("dev-east-vm", "-vm")
+# => true
+
+strcontains("prod-east-vm", "east") && !strcontains("prod-east-vm", "dev")
+# => true
+
+startswith(replace("dev-east-vm", "dev", "prod"), "prod-")
+# => true
+
+substr(format("%s-%s", "azure", "devops"), 6, 6)
+# => "devops"
+
+length(split("-", "dev-east-vm"))
+# => 3
+
+length("dev-east-vm")
+# => 11
+```
+
+### Understanding demonstrated
+- Correct predictions involving nested functions evaluated from the inside out.
+- Correctly applied case-sensitive replacement of all matching occurrences, split/join, formatting and case conversion, substring offset/length, prefix/suffix removal, Boolean string checks, and `&&`, `||`, and `!`.
+- Distinguished `length()` on a list (element count) from `length()` on a string (character count).
+
+### Evidence limits
+These examples were answered as prediction exercises in the conversation. They were not reported as newly verified in Terraform Console, and no function is marked mastered based on these answers alone.
+
+### Exact resume point
+Pending prediction:
+
+```hcl
+length(distinct(["dev", "prod", "dev", "test", "prod"]))
+```
+
+Choices: A `5`, B `3`, C `2`, D `["dev", "prod", "test"]`.
+
+Ask for the learner's prediction before explaining. Continue one concept at a time. Use only the isolated `terraform-hcl-practice/` directory for safe console verification; do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval.
