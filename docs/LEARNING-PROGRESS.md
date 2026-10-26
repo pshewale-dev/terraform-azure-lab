@@ -547,3 +547,7 @@ Learner ran `lookup({ dev = "small", prod = "large" }, "dev", "medium")` in Terr
 
 ### `coalesce()` — first non-null value (2026-10-26)
 Learner correctly predicted and verified `coalesce(null, null, "dev", "prod")` in Terraform Console; output was `"dev"`. The function evaluates arguments from left to right and returns the first non-null value. Status: first example verified; continue with a short independent example before marking the concept complete.
+
+
+### `coalesce()` follow-up verified (2026-10-26)
+Learner correctly predicted and ran `coalesce(null, "test", "prod")` in Terraform Console; output was `"test"`. This confirms the function returns the first non-null argument from left to right. `coalesce()` is verified with two examples; proceed to the next small concept while keeping examples prediction-first.
