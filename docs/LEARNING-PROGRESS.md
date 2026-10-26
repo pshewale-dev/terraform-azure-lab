@@ -486,3 +486,7 @@ toset(["web", "app", "web", "db", "app"])
 
 ### `length()` — count list elements (2026-10-26)
 Learner predicted that `length(["web", "app", "db"])` returns `3` and verified it in Terraform Console. Status: first example verified. Next, test `length()` on a string to see that it counts characters rather than collection elements.
+
+
+### `length()` on strings verified (2026-10-26)
+Learner ran `length("terraform")` in Terraform Console and got `9`. They correctly articulated the distinction: for a list, `length()` counts list elements; for a single string, it counts characters. Clarification added: a list containing multiple strings still counts items, not the total letters across those strings. Example to reinforce: `length(["terraform", "azure"])` returns `2`.
