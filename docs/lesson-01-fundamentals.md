@@ -1003,3 +1003,13 @@ coalesce(null, null, "dev", "prod")
 ```
 
 Output: `"dev"`. `coalesce()` returns the first non-null argument, evaluating from left to right. It skips the two `null` values and returns `"dev"`; it does not continue to `"prod"` after finding a non-null value. Verify a fresh example before marking the concept complete.
+
+
+### `coalesce()` follow-up (2026-10-26)
+Verified in Terraform Console:
+
+```hcl
+coalesce(null, "test", "prod")
+```
+
+Output: `"test"`. Since `test` is the first non-null argument, `prod` is not returned. Two examples now confirm the first-non-null behaviour.
