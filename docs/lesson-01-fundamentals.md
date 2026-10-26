@@ -1171,3 +1171,65 @@ Terraform has built-in functions for transforming, formatting, splitting, search
 - `startswith()`, `endswith()`, and `strcontains()` return booleans, not modified strings.
 
 Official reference: [Terraform built-in functions — String functions](https://developer.hashicorp.com/terraform/language/functions).
+
+
+## HCL string-function combinations — checkpoint (2026-10-26)
+
+Recent prediction-first practice (answers were provided by the learner; these examples were not reported as console-verified in this session):
+
+```hcl
+replace(lower("PROD-east-vm"), "prod", "test")
+# => "test-east-vm"
+
+replace("dev-dev-prod", "dev", "test")
+# => "test-test-prod"
+
+join("-", split("/", "dev/east/01"))
+# => "dev-east-01"
+
+lower(format("%s-%s", "APP", "PROD"))
+# => "app-prod"
+
+upper(substr("terraform", 0, 4))
+# => "TERR"
+
+trimsuffix(trimprefix("dev-east-vm", "dev-"), "-vm")
+# => "east"
+
+startswith("prod-east-vm", "prod-") && endswith("prod-east-vm", "-vm")
+# => true
+
+!strcontains("dev-east-vm", "prod")
+# => true
+
+startswith("dev-east-vm", "prod-") || endswith("dev-east-vm", "-vm")
+# => true
+
+strcontains("prod-east-vm", "east") && !strcontains("prod-east-vm", "dev")
+# => true
+
+startswith(replace("dev-east-vm", "dev", "prod"), "prod-")
+# => true
+
+substr(format("%s-%s", "azure", "devops"), 6, 6)
+# => "devops"
+
+length(split("-", "dev-east-vm"))
+# => 3
+
+length("dev-east-vm")
+# => 11
+```
+
+### Concepts demonstrated in predictions
+- Nested functions are evaluated from the inside out; the inner result becomes the outer function's argument.
+- `replace()` replaces all occurrences of its search substring and is case-sensitive.
+- `split()` produces a list; `join()` combines list elements with the selected separator.
+- `format()` builds a string; `lower()` and `upper()` change letter case.
+- `substr(string, offset, length)` uses a zero-based offset and a character count.
+- `trimprefix()` removes a matching leading prefix; `trimsuffix()` removes a matching trailing suffix.
+- `startswith()`, `endswith()`, and `strcontains()` return Boolean values.
+- `&&` means AND, `||` means OR, and `!` means NOT.
+- `length()` counts characters in a string and elements in a list.
+
+These are successful multiple-choice predictions, not proof of mastery or console verification. Continue with independent examples and console checks before marking functions mastered.
