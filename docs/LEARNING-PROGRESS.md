@@ -592,3 +592,20 @@ Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inser
 - Verified `upper("dev-east-01")` -> `"DEV-EAST-01"` and `upper("Azure DevOps 2026")` -> `"AZURE DEVOPS 2026"`. Letters change to uppercase; spaces, punctuation, and digits remain unchanged.
 - `lower()` is the corresponding lowercase conversion function; learner asked to skip a separate exercise for it, but include it in the notes for reference.
 - Next topic: continue with one small HCL concept, prediction-first, in the isolated `terraform-hcl-practice/` directory.
+
+## Dated Study Schedule — Interview Preparation (2026-10-26)
+
+- **Availability:** 30 minutes daily, 7 days/week (3.5 hours/week).
+- **Priority:** Azure DevOps + Terraform interview preparation.
+- **Target window:** 2026-10-26 through 2026-12-20. Dates are targets, not completion claims.
+- **Daily routine:** 5 min recall, 15 min one concept/exercise, 5 min safe verification, 5 min interview explanation/progress note.
+- **Oct 26–Nov 1:** HCL functions and expressions; fresh `for` expression check.
+- **Nov 2–8:** Terraform workflow, plans, state, dependencies, drift, remote-state safety.
+- **Nov 9–15:** Variables, types, validation, locals, outputs.
+- **Nov 16–22:** Collections, functions, conditionals, `count` vs `for_each`, dynamic blocks.
+- **Nov 23–29:** Modules and Azure resource group/VNet/subnet/NSG design.
+- **Nov 30–Dec 6:** Linux VM/SSH, managed identity, Key Vault, security, Hub-and-Spoke.
+- **Dec 7–13:** Git/PR workflow and Azure DevOps Terraform CI/CD, plan review, approval gates, troubleshooting.
+- **Dec 14–20:** Interview mock sessions and a small capstone design/review.
+- **Mastery:** Preserve earlier evidence as practised/verified. A date passing never implies mastery; require explanation, fresh prediction, independent small task, and troubleshooting evidence.
+- **Safety:** Use the isolated `terraform-hcl-practice/` workspace for HCL exercises. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval; preserve Azure resources and remote state.
