@@ -626,3 +626,50 @@ Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inser
 - Priority order for practice: `trimspace()`, `lower()`/`upper()`, `replace()`, `split()`/`join()`, `format()`, prefix/suffix functions and checks, then `substr()` and regex functions.
 - Current evidence: `trimspace("   dev-east-01   ")` was run in Terraform Console and returned `"dev-east-01"`. Only one example is verified; concept is not yet marked mastered.
 - Reference checked against the official [Terraform built-in functions documentation](https://developer.hashicorp.com/terraform/language/functions).
+
+
+## Authoritative checkpoint — HCL function practice (2026-10-26)
+
+This entry supersedes earlier next-step instructions that conflict with the current HCL function practice. Older entries are retained as historical notes.
+
+### Current workspace and safety
+- Continue in the isolated `terraform-hcl-practice/` directory; do not initialize or run commands in the Azure-backed repository root unnecessarily.
+- No `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
+- Current task: save this learning checkpoint and update notes; no Terraform or Azure infrastructure changes are needed.
+
+### Topics practised in this session
+The learner correctly predicted the results for these expressions:
+- `replace(lower("PROD-east-vm"), "prod", "test")` → `"test-east-vm"`
+- `replace("dev-dev-prod", "dev", "test")` → `"test-test-prod"`
+- `join("-", split("/", "dev/east/01"))` → `"dev-east-01"`
+- `lower(format("%s-%s", "APP", "PROD"))` → `"app-prod"`
+- `upper(substr("terraform", 0, 4))` → `"TERR"`
+- `trimsuffix(trimprefix("dev-east-vm", "dev-"), "-vm")` → `"east"`
+- Combined `startswith()` and `endswith()` with `&&` → `true`
+- `!strcontains("dev-east-vm", "prod")` → `true`
+- Combined `startswith()` and `endswith()` with `||` → `true`
+- Combined `strcontains()`, `!`, and `&&` → `true`
+- `startswith(replace("dev-east-vm", "dev", "prod"), "prod-")` → `true`
+- `substr(format("%s-%s", "azure", "devops"), 6, 6)` → `"devops"`
+- `length(split("-", "dev-east-vm"))` → `3`
+- `length("dev-east-vm")` → `11`
+
+### Understanding demonstrated
+- Correct predictions across nested function evaluation, case-sensitive/all-occurrence replacement, splitting and joining, formatting plus case conversion, substring offset/length, prefix/suffix removal, Boolean string tests, logical operators, and `length()` on a string versus a list.
+- The learner has not yet answered the latest exercise, so no answer or understanding is recorded for it.
+- These were prediction exercises in the conversation; do not describe this session's examples as verified in Terraform Console. Do not mark the functions mastered on multiple-choice answers alone.
+
+### Exact resume point
+Pending prediction exercise (presented but not answered yet):
+
+```hcl
+length(distinct(["dev", "prod", "dev", "test", "prod"]))
+```
+
+Choices were: A `5`, B `3`, C `2`, D `["dev", "prod", "test"]`.
+Resume by asking the learner for their prediction first. If they already answered in a subsequent turn, assess that answer before continuing. Then proceed with one small concept at a time and seek independent examples; use Terraform Console in the isolated practice directory when appropriate.
+
+### Next actions
+1. Continue from the pending `length(distinct(...))` prediction.
+2. Later, verify selected fresh examples in Terraform Console; keep prediction-only and console-verified evidence clearly separate.
+3. Before the next commit/push or session end, update lesson notes and this progress tracker, review the diff, and check roadmap consistency.
