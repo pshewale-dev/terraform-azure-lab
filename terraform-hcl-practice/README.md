@@ -237,3 +237,7 @@ lookup({
 ```
 
 Output: `"medium"` because the key is missing and the third argument is the fallback value.
+
+
+### `lookup()` existing key and default (2026-10-26)
+Learner correctly predicted that `lookup({ dev = "small", prod = "large" }, "dev", "medium")` returns `"small"`: the default is only used when the key is absent. Console verification is still pending.
