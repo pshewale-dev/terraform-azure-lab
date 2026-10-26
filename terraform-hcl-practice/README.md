@@ -198,3 +198,14 @@ contains(["dev", "test", "prod"], "test")
 ```
 
 Output: `true` because `test` is present. The function returns a Boolean; next, test a value that is absent.
+
+
+### `contains()` follow-up (2026-10-26)
+Both cases verified in Terraform Console:
+
+```hcl
+contains(["dev", "test", "prod"], "test")  # true
+contains(["dev", "test", "prod"], "stage") # false
+```
+
+The function returns a Boolean based on whether the exact value is present.
