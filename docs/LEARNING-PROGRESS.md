@@ -4,14 +4,10 @@
 Course: Terraform Zero-to-Hero
 Current phase: Phase 1 — Fundamentals
 Current course checkpoint (authoritative, 2026-10-26): hands-on HCL function practice in `terraform-hcl-practice/`.
-Status: Practised and verified `join()`, `split()`, `replace()`, and `upper()` through prediction-first exercises and Terraform Console.
-Latest evidence:
-- `join("-", ["dev", "east", "01"])` -> `"dev-east-01"`; `join("/", ["subscriptions", "resourceGroups", "vnet"])` -> `"subscriptions/resourceGroups/vnet"`.
-- `split("-", "dev-east-01")` -> a list containing `"dev"`, `"east"`, and `"01"`.
-- `replace("dev-east-01", "east", "west")` -> `"dev-west-01"`; `replace("web-web-web", "web", "app")` -> `"app-app-app"`; `replace("dev-east-01", "-", "/")` -> `"dev/east/01"`.
-- `upper("dev-east-01")` -> `"DEV-EAST-01"`; `upper("Azure DevOps 2026")` -> `"AZURE DEVOPS 2026"`.
+Status: Practised and verified `join()`, `split()`, `replace()`, and `upper()` through prediction-first exercises and Terraform Console; `format()` has been practised through four prediction examples but is not yet console-verified or mastered.
+Latest evidence for `format()`: `format("%s-%s-%s", "dev", "east", "01")` -> `"dev-east-01"`; `format("%s-%02d", "web", 3)` -> `"web-03"`; `format("%s-%02d", "app", 12)` -> `"app-12"`; `format("%s-%02d", "vm", 7)` -> `"vm-07"`. The learner initially selected the wrong result for the first zero-padding example, then correctly predicted the next two examples.
 Reference: `lower()` converts letters to lowercase; a separate exercise was skipped at the learner's request.
-Next topic: Continue with one small HCL concept at a time, prediction-first, in the isolated practice directory. Keep map `for` expressions as practised rather than mastered until independently re-tested.
+Next topic: If useful, verify today's `format()` examples in Terraform Console, then continue with one small HCL concept at a time, prediction-first, in the isolated practice directory. Keep map `for` expressions as practised rather than mastered until independently re-tested.
 Safety: Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
 The older checkpoint entries below are retained as historical records; this current checkpoint supersedes them.
 
@@ -609,3 +605,11 @@ Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inser
 - **Dec 14–20:** Interview mock sessions and a small capstone design/review.
 - **Mastery:** Preserve earlier evidence as practised/verified. A date passing never implies mastery; require explanation, fresh prediction, independent small task, and troubleshooting evidence.
 - **Safety:** Use the isolated `terraform-hcl-practice/` workspace for HCL exercises. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval; preserve Azure resources and remote state.
+
+### `format()` prediction-first practice — 2026-10-26
+- Correctly predicted `format("%s-%s-%s", "dev", "east", "01")` -> `"dev-east-01"`.
+- Initially predicted that `format("%s-%02d", "web", 3)` would preserve `%02d` literally; corrected after explanation that `%02d` formats an integer with minimum width two and zero-padding, so the result is `"web-03"`.
+- Correctly predicted `format("%s-%02d", "app", 12)` -> `"app-12"`, understanding that width two is a minimum, not a maximum.
+- Correctly predicted `format("%s-%02d", "vm", 7)` -> `"vm-07"`.
+- Status: practised through four prediction examples; not yet independently verified in Terraform Console and not marked mastered.
+- Next: learner can run the expressions in the isolated `terraform-hcl-practice/` Terraform Console if desired, then continue with one small HCL concept. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations.
