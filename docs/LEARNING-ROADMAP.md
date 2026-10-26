@@ -245,3 +245,10 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Learner correctly described the distinction: list elements versus string characters.
 - Clarification: list of two strings has length `2`, not the combined character count.
 - Next: use a short prediction-first exercise to reinforce `length()` before moving on.
+
+
+### `length()` checkpoint complete for this introductory pass — 2026-10-26
+- Verified list count: `length(["web", "app", "db"])` -> `3`.
+- Verified string character count: `length("terraform")` -> `9`.
+- Verified list-of-strings count: `length(["terraform", "azure"])` -> `2`, not the combined character count.
+- Move to the next small HCL function/concept with prediction-first practice.
