@@ -258,3 +258,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Learner correctly predicted and verified `contains(["dev", "test", "prod"], "test")` -> `true`.
 - Takeaway: `contains()` checks whether the exact value is present and returns a Boolean.
 - Next: predict and verify a missing value, expected to return `false`.
+
+
+### `contains()` checkpoint complete — 2026-10-26
+- Verified the present case: `contains(["dev", "test", "prod"], "test")` -> `true`.
+- Correctly predicted and verified the absent case: `contains(["dev", "test", "prod"], "stage")` -> `false`.
+- Both Boolean outcomes confirmed. Move to the next small HCL concept with prediction-first practice.
