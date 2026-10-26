@@ -238,3 +238,10 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 ### `length()` checkpoint — 2026-10-26
 - Learner predicted and verified `length(["web", "app", "db"])` returns `3`.
 - Next: practise `length()` on a string; keep the lesson prediction-first.
+
+
+### `length()` checkpoint update — 2026-10-26
+- Verified list length (`["web", "app", "db"]` -> `3`) and string length (`"terraform"` -> `9`) in Terraform Console.
+- Learner correctly described the distinction: list elements versus string characters.
+- Clarification: list of two strings has length `2`, not the combined character count.
+- Next: use a short prediction-first exercise to reinforce `length()` before moving on.
