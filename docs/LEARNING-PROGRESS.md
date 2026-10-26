@@ -615,3 +615,8 @@ Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inser
 - Next: learner can run the expressions in the isolated `terraform-hcl-practice/` Terraform Console if desired, then continue with one small HCL concept. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations.
 
 <!-- docs deployment trigger check: 2026-10-26 -->
+
+### `trimspace()` Terraform Console verification — 2026-10-26
+- Ran `trimspace("   dev-east-01   ")` in Terraform Console.
+- Actual output: `"dev-east-01"`, confirming leading and trailing spaces are removed.
+- Status: one example verified; not yet marked mastered. Continue with a fresh example.
