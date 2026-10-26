@@ -952,3 +952,17 @@ lookup({
 ```
 
 Output: `"large"`. The key `prod` maps to the value `large`. `lookup()` retrieves a map value by key; unlike `contains()`, it does not merely test whether a value is present. Next, explore a missing key and the optional default argument.
+
+
+### `lookup()` with a default value (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "test", "medium")
+```
+
+Output: `"medium"`. Since `test` is not a key in the map, Terraform returns the third argument as the default. If the requested key exists, `lookup()` returns its mapped value instead.
