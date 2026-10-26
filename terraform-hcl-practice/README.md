@@ -209,3 +209,17 @@ contains(["dev", "test", "prod"], "stage") # false
 ```
 
 The function returns a Boolean based on whether the exact value is present.
+
+
+## `lookup()` (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "prod")
+```
+
+Output: `"large"`. `lookup()` retrieves the value associated with the specified map key. Next, test the optional default when a key is absent.
