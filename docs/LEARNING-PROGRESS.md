@@ -577,3 +577,11 @@ Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inser
 - Learner verified `split("-", "dev-east-01")` in Terraform Console; output was `tolist(["dev", "east", "01"])`.
 - Takeaway: `split(separator, string)` divides a string wherever the separator occurs and returns a list of strings. `tolist(...)` is the console's display of the list result, not a wrapper the learner must add.
 - Next: continue with the next small HCL concept using prediction-first practice.
+
+
+### Current HCL function checkpoint — 2026-10-26
+- Verified `split("-", "dev-east-01")` -> a list containing `"dev"`, `"east"`, and `"01"`.
+- Verified `replace("dev-east-01", "east", "west")` -> `"dev-west-01"`; `replace("web-web-web", "web", "app")` -> `"app-app-app"`; and `replace("dev-east-01", "-", "/")` -> `"dev/east/01"`. These examples confirm replacement of every occurrence of the matching substring.
+- Verified `upper("dev-east-01")` -> `"DEV-EAST-01"` and `upper("Azure DevOps 2026")` -> `"AZURE DEVOPS 2026"`. Letters change to uppercase; spaces, punctuation, and digits remain unchanged.
+- `lower()` is the corresponding lowercase conversion function; learner asked to skip a separate exercise for it, but include it in the notes for reference.
+- Next topic: continue with one small HCL concept, prediction-first, in the isolated `terraform-hcl-practice/` directory.
