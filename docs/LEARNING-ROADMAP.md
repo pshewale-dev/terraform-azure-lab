@@ -233,3 +233,8 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Compared directly with `toset()` using the same input; set output displayed as `app`, `db`, `web`.
 - Key distinction verified: `distinct()` returns a list preserving first-occurrence order; `toset()` removes duplicates but does not guarantee order.
 - Next: continue to the next small HCL concept using prediction-first practice.
+
+
+### `length()` checkpoint — 2026-10-26
+- Learner predicted and verified `length(["web", "app", "db"])` returns `3`.
+- Next: practise `length()` on a string; keep the lesson prediction-first.
