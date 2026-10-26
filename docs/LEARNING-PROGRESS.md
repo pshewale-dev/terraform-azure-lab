@@ -482,3 +482,7 @@ toset(["web", "app", "web", "db", "app"])
 ```
 
 `distinct()` returned `tolist(["web", "app", "db"])`, preserving the first-occurrence order. `toset()` returned the unique strings in a different displayed order (`app`, `db`, `web`). This confirms the difference: `distinct()` returns a list and preserves order; `toset()` returns a set with no guaranteed order. Status: verified in console.
+
+
+### `length()` — count list elements (2026-10-26)
+Learner predicted that `length(["web", "app", "db"])` returns `3` and verified it in Terraform Console. Status: first example verified. Next, test `length()` on a string to see that it counts characters rather than collection elements.
