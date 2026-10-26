@@ -522,3 +522,16 @@ lookup({
 ```
 
 Console output: `"large"`. Key takeaway: `lookup()` retrieves the value associated with a key in a map. Next, practise a key that is missing and learn how the optional default value works.
+
+
+### `lookup()` default value verified (2026-10-26)
+Learner correctly predicted and verified this expression in Terraform Console:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "test", "medium")
+```
+
+Output: `"medium"`, because the key `test` is absent and the third argument supplies the default. This verifies both normal key lookup and missing-key fallback. Next, practise one short independent example with a different map and default.
