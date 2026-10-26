@@ -2,10 +2,17 @@
 
 ## Current checkpoint
 Course: Terraform Zero-to-Hero
-Current phase: 1 — Fundamentals
-Current course checkpoint (authoritative, 2026-10-25): Phase 1 — Fundamentals; hands-on HCL practice in `terraform-hcl-practice/`.
-Status: HCL variables, collections, conditionals, logical operators, and list/map `for` expressions practised with prediction-first exercises and console verification.
-Next topic: Conditional expressions inside `for` expressions; pending prediction for the `westindia` label.
+Current phase: Phase 1 — Fundamentals
+Current course checkpoint (authoritative, 2026-10-26): hands-on HCL function practice in `terraform-hcl-practice/`.
+Status: Practised and verified `join()`, `split()`, `replace()`, and `upper()` through prediction-first exercises and Terraform Console.
+Latest evidence:
+- `join("-", ["dev", "east", "01"])` -> `"dev-east-01"`; `join("/", ["subscriptions", "resourceGroups", "vnet"])` -> `"subscriptions/resourceGroups/vnet"`.
+- `split("-", "dev-east-01")` -> a list containing `"dev"`, `"east"`, and `"01"`.
+- `replace("dev-east-01", "east", "west")` -> `"dev-west-01"`; `replace("web-web-web", "web", "app")` -> `"app-app-app"`; `replace("dev-east-01", "-", "/")` -> `"dev/east/01"`.
+- `upper("dev-east-01")` -> `"DEV-EAST-01"`; `upper("Azure DevOps 2026")` -> `"AZURE DEVOPS 2026"`.
+Reference: `lower()` converts letters to lowercase; a separate exercise was skipped at the learner's request.
+Next topic: Continue with one small HCL concept at a time, prediction-first, in the isolated practice directory. Keep map `for` expressions as practised rather than mastered until independently re-tested.
+Safety: Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
 The older checkpoint entries below are retained as historical records; this current checkpoint supersedes them.
 
 ## Verified technical environment
