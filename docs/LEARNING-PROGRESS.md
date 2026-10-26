@@ -471,3 +471,14 @@ Console output contained `dev`, `prod`, and `test` once each. The duplicate `dev
 
 ### `toset()` follow-up verified (2026-10-25)
 Learner predicted that `toset(["web", "app", "web", "app"])` would contain two unique values and verified it in Terraform Console. Actual output was `toset(["app", "web"])`. This confirms duplicate removal and reinforces that set ordering is not guaranteed. `toset()` has now been verified with two examples; proceed to the next small HCL concept, and revisit set conversion later when it is useful for `for_each`.
+
+
+### `distinct()` versus `toset()` verified (2026-10-26)
+Learner ran both expressions in the isolated Terraform Console:
+
+```hcl
+distinct(["web", "app", "web", "db", "app"])
+toset(["web", "app", "web", "db", "app"])
+```
+
+`distinct()` returned `tolist(["web", "app", "db"])`, preserving the first-occurrence order. `toset()` returned the unique strings in a different displayed order (`app`, `db`, `web`). This confirms the difference: `distinct()` returns a list and preserves order; `toset()` returns a set with no guaranteed order. Status: verified in console.
