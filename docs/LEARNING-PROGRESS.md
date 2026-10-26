@@ -490,3 +490,7 @@ Learner predicted that `length(["web", "app", "db"])` returns `3` and verified i
 
 ### `length()` on strings verified (2026-10-26)
 Learner ran `length("terraform")` in Terraform Console and got `9`. They correctly articulated the distinction: for a list, `length()` counts list elements; for a single string, it counts characters. Clarification added: a list containing multiple strings still counts items, not the total letters across those strings. Example to reinforce: `length(["terraform", "azure"])` returns `2`.
+
+
+### `length()` list-of-strings check verified (2026-10-26)
+Learner predicted and ran `length(["terraform", "azure"])`; Terraform Console returned `2`. This confirms that a list's length is its number of elements, not the combined character count of the strings. The `length()` concept has now been verified on a list, a string, and a list of strings.
