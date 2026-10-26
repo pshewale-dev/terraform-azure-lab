@@ -992,3 +992,14 @@ lookup({
 ```
 
 Output: `"small"`. Since `dev` exists, the mapped value is returned and the default is ignored. Combined with the verified missing-key example, this completes the introductory `lookup()` exercise.
+
+
+## `coalesce()` — first non-null value (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+coalesce(null, null, "dev", "prod")
+```
+
+Output: `"dev"`. `coalesce()` returns the first non-null argument, evaluating from left to right. It skips the two `null` values and returns `"dev"`; it does not continue to `"prod"` after finding a non-null value. Verify a fresh example before marking the concept complete.
