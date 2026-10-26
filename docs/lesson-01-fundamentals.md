@@ -884,3 +884,14 @@ tolist([
 ```
 
 The duplicate elements are removed while the order of first occurrences is preserved. The learner also compared this with `toset()` on the same input, which returned the unique strings in a different displayed order. Summary: `distinct()` returns an ordered list; `toset()` returns a set whose order is not guaranteed.
+
+
+## `length()` — count elements or characters (2026-10-26)
+
+First list example verified in Terraform Console:
+
+```hcl
+length(["web", "app", "db"])
+```
+
+Output: `3`. The function counts the three list elements. Next, verify its behaviour on a string, where it counts characters.
