@@ -183,3 +183,7 @@ length("terraform")            # 9
 ```
 
 `length()` counts list elements for a list, and characters for a string. If the list has two strings, `length(["terraform", "azure"])` returns `2`; it does not count all letters across both strings.
+
+
+### `length()` additional check (2026-10-26)
+Verified `length(["terraform", "azure"])` returns `2`: it counts the two list elements, not all letters across both strings. Introductory `length()` practice now covers a list, a string, and a list of strings.
