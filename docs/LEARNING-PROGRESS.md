@@ -551,3 +551,13 @@ Learner correctly predicted and verified `coalesce(null, null, "dev", "prod")` i
 
 ### `coalesce()` follow-up verified (2026-10-26)
 Learner correctly predicted and ran `coalesce(null, "test", "prod")` in Terraform Console; output was `"test"`. This confirms the function returns the first non-null argument from left to right. `coalesce()` is verified with two examples; proceed to the next small concept while keeping examples prediction-first.
+
+
+### `join()` — combine strings with a separator (2026-10-26)
+Learner correctly predicted and verified this expression in Terraform Console:
+
+```hcl
+join("-", ["dev", "east", "01"])
+```
+
+Output: `"dev-east-01"`. `join()` combines list elements into one string, inserting the specified separator between elements. Status: first example verified; use one independent example with a different separator before moving on.
