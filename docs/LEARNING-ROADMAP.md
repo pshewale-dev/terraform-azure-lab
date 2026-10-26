@@ -294,3 +294,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Learner correctly predicted and verified `coalesce(null, null, "dev", "prod")` -> `"dev"`.
 - Takeaway: returns the first non-null argument from left to right.
 - Next: ask for a prediction on a fresh example and verify it in Terraform Console.
+
+
+### `coalesce()` checkpoint update — 2026-10-26
+- Second example verified: `coalesce(null, "test", "prod")` returns `"test"`.
+- Learner correctly predicted the first non-null argument.
+- Two examples verified; move to the next small HCL concept with prediction-first practice.
