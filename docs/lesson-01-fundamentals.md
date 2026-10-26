@@ -1024,3 +1024,14 @@ join("-", ["dev", "east", "01"])
 ```
 
 Output: `"dev-east-01"`. `join()` combines the list elements into a single string, placing the first argument as the separator between elements. Test a fresh example with a different separator to reinforce the concept.
+
+
+### `join()` follow-up (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+join("/", ["subscriptions", "resourceGroups", "vnet"])
+```
+
+Output: `"subscriptions/resourceGroups/vnet"`. The `/` separator is inserted between elements; it is not added before the first element or after the last. This is the second verified `join()` example.
