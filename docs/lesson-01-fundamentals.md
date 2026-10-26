@@ -1125,3 +1125,49 @@ trimspace("   dev-east-01   ")
 Output: `"dev-east-01"`. The whitespace at the beginning and end is removed. Whitespace inside the string is preserved; for example, the space in `"Azure DevOps"` would remain.
 
 **Learning status:** One example verified in Terraform Console. Continue with a fresh example before considering the concept mastered.
+
+## Terraform built-in string function reference (checked 2026-10-26)
+
+Terraform has built-in functions for transforming, formatting, splitting, searching, and checking strings. The table below focuses first on functions that are practical in everyday Terraform and Azure DevOps work. Function availability can depend on the Terraform language/runtime version; check the official documentation for your installed version.
+
+### Commonly useful functions
+
+| Function | What it does | Example | Result |
+|---|---|---|---|
+| `lower(string)` | Converts letters to lowercase | `lower("DEV-East")` | `"dev-east"` |
+| `upper(string)` | Converts letters to uppercase | `upper("dev-east")` | `"DEV-EAST"` |
+| `title(string)` | Uppercases the first letter of each word | `title("azure devops")` | `"Azure Devops"` |
+| `trimspace(string)` | Removes whitespace from both ends | `trimspace("  dev  ")` | `"dev"` |
+| `trim(string, cutset)` | Removes any characters in the cutset from both ends | `trim("!!dev!!", "!")` | `"dev"` |
+| `trimprefix(string, prefix)` | Removes a matching prefix from the start | `trimprefix("env-dev", "env-")` | `"dev"` |
+| `trimsuffix(string, suffix)` | Removes a matching suffix from the end | `trimsuffix("main.tf", ".tf")` | `"main"` |
+| `replace(string, search, replacement)` | Replaces every matching substring; slash-delimited search can be a regex | `replace("dev-east", "east", "west")` | `"dev-west"` |
+| `split(separator, string)` | Splits a string into a list | `split("-", "dev-east-01")` | `["dev", "east", "01"]` |
+| `join(separator, list)` | Joins list elements into one string | `join("-", ["dev", "east", "01"])` | `"dev-east-01"` |
+| `format(spec, values...)` | Formats values into a string | `format("%s-%02d", "web", 3)` | `"web-03"` |
+| `startswith(string, prefix)` | Tests whether a string begins with a prefix | `startswith("prod-web", "prod-")` | `true` |
+| `endswith(string, suffix)` | Tests whether a string ends with a suffix | `endswith("main.tf", ".tf")` | `true` |
+| `strcontains(string, substring)` | Tests whether a string contains a substring | `strcontains("prod-web", "web")` | `true` |
+| `substr(string, offset, length)` | Extracts part of a string by character offset and length | `substr("terraform", 0, 4)` | `"terr"` |
+| `chomp(string)` | Removes newline characters at the end | `chomp("hello\\n")` | `"hello"` |
+
+### Advanced or situational functions
+
+| Function | What it does | When to use it |
+|---|---|---|
+| `formatlist(spec, values...)` | Formats values into a list of strings | Build consistently formatted labels or names from parallel lists |
+| `indent(number, string)` | Adds indentation to each line except the first | Prepare multiline text |
+| `regex(pattern, string)` | Returns matches for a regular expression | Extract or validate a pattern when simpler functions are insufficient |
+| `regexall(pattern, string)` | Returns all regex matches | Extract multiple matches |
+| `strrev(string)` | Reverses a string | Rare/specialized transformations |
+| `templatestring(template, vars)` | Evaluates a string as a Terraform template with supplied variables | Specialized dynamic-template scenarios; use carefully |
+
+**Practical learning order:** `trimspace()`, `lower()` / `upper()`, `replace()`, `split()` / `join()`, `format()`, prefix/suffix checks and removals, then `substr()` and regex functions. Don't try to memorize every function at once—learn by using realistic examples and verifying them in Terraform Console.
+
+**Important distinctions:**
+- `trimspace()` removes whitespace; `trim()` removes any characters in its second-argument cutset from the ends.
+- `split()` returns a list; `join()` turns a list of strings into one string.
+- `replace()` can use a regular expression when the search argument is wrapped in forward slashes.
+- `startswith()`, `endswith()`, and `strcontains()` return booleans, not modified strings.
+
+Official reference: [Terraform built-in functions — String functions](https://developer.hashicorp.com/terraform/language/functions).
