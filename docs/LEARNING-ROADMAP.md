@@ -264,3 +264,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Verified the present case: `contains(["dev", "test", "prod"], "test")` -> `true`.
 - Correctly predicted and verified the absent case: `contains(["dev", "test", "prod"], "stage")` -> `false`.
 - Both Boolean outcomes confirmed. Move to the next small HCL concept with prediction-first practice.
+
+
+### `lookup()` checkpoint — 2026-10-26
+- Learner predicted and verified `lookup({ dev = "small", prod = "large" }, "prod")` returns `"large"`.
+- Takeaway: `lookup()` retrieves the map value associated with a key.
+- Next: test a missing key and introduce the optional default value.
