@@ -187,3 +187,14 @@ length("terraform")            # 9
 
 ### `length()` additional check (2026-10-26)
 Verified `length(["terraform", "azure"])` returns `2`: it counts the two list elements, not all letters across both strings. Introductory `length()` practice now covers a list, a string, and a list of strings.
+
+
+## `contains()` (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+contains(["dev", "test", "prod"], "test")
+```
+
+Output: `true` because `test` is present. The function returns a Boolean; next, test a value that is absent.
