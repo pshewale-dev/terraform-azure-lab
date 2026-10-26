@@ -146,3 +146,18 @@ toset(["web", "app", "web", "app"])
 ```
 
 Output contains only `app` and `web`. The learner correctly predicted two unique values. Set order is not guaranteed. Revisit `toset()` later when learning `for_each`.
+
+
+## `distinct()` compared with `toset()` (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+distinct(["web", "app", "web", "db", "app"])
+# => tolist(["web", "app", "db"])
+
+toset(["web", "app", "web", "db", "app"])
+# => toset(["app", "db", "web"])  # displayed order is not guaranteed
+```
+
+`distinct()` removes duplicates while preserving first-occurrence order in a list. `toset()` produces a set of unique values without guaranteed ordering.
