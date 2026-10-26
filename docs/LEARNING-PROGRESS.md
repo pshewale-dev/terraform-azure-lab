@@ -620,3 +620,9 @@ Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inser
 - Ran `trimspace("   dev-east-01   ")` in Terraform Console.
 - Actual output: `"dev-east-01"`, confirming leading and trailing spaces are removed.
 - Status: one example verified; not yet marked mastered. Continue with a fresh example.
+
+### Terraform built-in string functions reference — 2026-10-26
+- Added a categorized table to Lesson 1 covering common string functions and advanced/situational functions, with purpose, examples, and results.
+- Priority order for practice: `trimspace()`, `lower()`/`upper()`, `replace()`, `split()`/`join()`, `format()`, prefix/suffix functions and checks, then `substr()` and regex functions.
+- Current evidence: `trimspace("   dev-east-01   ")` was run in Terraform Console and returned `"dev-east-01"`. Only one example is verified; concept is not yet marked mastered.
+- Reference checked against the official [Terraform built-in functions documentation](https://developer.hashicorp.com/terraform/language/functions).
