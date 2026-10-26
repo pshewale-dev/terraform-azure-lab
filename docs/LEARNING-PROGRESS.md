@@ -543,3 +543,7 @@ Learner correctly predicted that `lookup({ dev = "small", prod = "large" }, "dev
 
 ### `lookup()` final example verified (2026-10-26)
 Learner ran `lookup({ dev = "small", prod = "large" }, "dev", "medium")` in Terraform Console and got `"small"`, matching the prediction. This confirms that when the requested key exists, its mapped value is returned even when a default is provided; the default applies only when the key is absent. Introductory `lookup()` practice is now verified across present and missing keys.
+
+
+### `coalesce()` — first non-null value (2026-10-26)
+Learner correctly predicted and verified `coalesce(null, null, "dev", "prod")` in Terraform Console; output was `"dev"`. The function evaluates arguments from left to right and returns the first non-null value. Status: first example verified; continue with a short independent example before marking the concept complete.
