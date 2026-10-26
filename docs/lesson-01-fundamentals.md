@@ -979,3 +979,16 @@ lookup({
 ```
 
 Because `dev` exists, Terraform returns its mapped value. The default is used only if the key is missing. Await console verification for this final example.
+
+
+### `lookup()` checkpoint closed (2026-10-26)
+Final example verified in Terraform Console:
+
+```hcl
+lookup({
+  dev  = "small"
+  prod = "large"
+}, "dev", "medium")
+```
+
+Output: `"small"`. Since `dev` exists, the mapped value is returned and the default is ignored. Combined with the verified missing-key example, this completes the introductory `lookup()` exercise.
