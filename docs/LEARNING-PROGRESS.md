@@ -613,3 +613,5 @@ Output: `"subscriptions/resourceGroups/vnet"`. This confirms that `join()` inser
 - Correctly predicted `format("%s-%02d", "vm", 7)` -> `"vm-07"`.
 - Status: practised through four prediction examples; not yet independently verified in Terraform Console and not marked mastered.
 - Next: learner can run the expressions in the isolated `terraform-hcl-practice/` Terraform Console if desired, then continue with one small HCL concept. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations.
+
+<!-- docs deployment trigger check: 2026-10-26 -->
