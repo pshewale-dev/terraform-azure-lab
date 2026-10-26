@@ -306,3 +306,9 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - Learner correctly predicted and verified `join("-", ["dev", "east", "01"])` -> `"dev-east-01"`.
 - Takeaway: `join()` combines list strings into one string with the chosen separator between elements.
 - Next: ask for a prediction using a different separator, then verify in Terraform Console.
+
+
+### `join()` checkpoint update — 2026-10-26
+- Second example verified: `join("/", ["subscriptions", "resourceGroups", "vnet"])` returns `"subscriptions/resourceGroups/vnet"`.
+- Learner correctly predicted the exact output. Two examples with different separators are verified.
+- Next: proceed to the next small HCL concept with prediction-first practice.
