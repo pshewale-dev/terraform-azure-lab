@@ -172,3 +172,14 @@ length(["web", "app", "db"])
 ```
 
 Output: `3`, because the list contains three elements. Next, test the function on a string.
+
+
+### `length()` follow-up (2026-10-26)
+Verified:
+
+```hcl
+length(["web", "app", "db"]) # 3
+length("terraform")            # 9
+```
+
+`length()` counts list elements for a list, and characters for a string. If the list has two strings, `length(["terraform", "azure"])` returns `2`; it does not count all letters across both strings.
