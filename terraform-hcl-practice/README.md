@@ -277,3 +277,15 @@ coalesce(null, "test", "prod")
 ```
 
 This confirms the first non-null argument is returned. Two examples verified.
+
+
+## `join()` (2026-10-26)
+
+Verified in Terraform Console:
+
+```hcl
+join("-", ["dev", "east", "01"])
+# => "dev-east-01"
+```
+
+`join()` combines list elements into one string, inserting the chosen separator between them. Try another separator in a fresh example.
