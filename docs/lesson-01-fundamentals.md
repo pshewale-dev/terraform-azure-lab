@@ -4,8 +4,7 @@
 into more complex Azure configurations.
 
 **Previous checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`) — UNDERSTOOD based on the recorded answers below.
-**Current checkpoint (2026-10-27):** Continued prediction-first practice of Terraform collection functions, error-handling functions, list indexing/slicing, sorting, flattening, filtered `for` expressions, map `for` expressions, `keys()`, `values()`, and `lookup()` in the isolated `terraform-hcl-practice/` workspace. The latest answers were prediction exercises in chat, not newly console-verified.
-**Next topic:** Continue with one small collection/function prediction, then verify selected fresh examples in Terraform Console before considering mastery.
+**Current checkpoint:** See the single authoritative checkpoint at the end of this page.
 
 ---
 
