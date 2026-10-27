@@ -1340,3 +1340,33 @@ The learner correctly answered the following chat-based prediction exercises. Th
 Continue with one small prediction exercise at a time. A suitable next step is a fresh `lookup()`/map-function composition or another collection function, with accurate choices. Then ask the learner to independently explain the result and later verify selected examples in Terraform Console inside `terraform-hcl-practice/`.
 
 Safety remains unchanged: do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval; preserve Azure resources and remote state.
+
+## Authoritative checkpoint — 2026-10-27 (HCL function basics pause)
+
+### Status
+Pause the dedicated function-by-function prediction drills here and resume the main Terraform roadmap next session. The learner has demonstrated a useful basic understanding of common string, collection, map, error-handling, and for-expression patterns. This is not a claim that every Terraform built-in function has been learned or mastered; functions should be revisited when a configuration or troubleshooting requirement calls for them.
+
+### Prediction practice completed in chat
+The learner correctly predicted these recent examples:
+- upper(lookup(local.environment_sizes, "dev", "medium")) → "SMALL"
+- lower(lookup(local.environment_sizes, "test", "MEDIUM")) → "medium"
+- length(keys(local.environment_sizes)) + length(lookup(local.environment_sizes, "dev", "unknown")) → 8
+- contains(keys(local.environment_sizes), "stage") → false
+- alltrue() over size comparisons → false when one comparison fails.
+- anytrue() over size comparisons → true when one comparison succeeds.
+- coalesce("", null, "dev", "prod") → "dev"
+- coalescelist([], ["dev", "test"], ["prod"]) → ["dev", "test"]
+- coalesce(try(local.environment, null), "dev") with an existing empty-string local → "dev"
+- can(tonumber("42")) → true; can(tonumber("hello")) → false
+- try(tonumber("hello"), 99) → numeric 99
+- lookup(merge(local.default_sizes, local.custom_sizes), "dev", "unknown") → "large" because the later map overrides the earlier key.
+- length(keys(merge(local.default_sizes, local.custom_sizes))) → 3 unique keys.
+- A filtered map for-expression with upper(size) excludes test and returns the remaining transformed map.
+- distinct(flatten([...])) → ["dev-web", "prod-web"]
+- A zipmap() + map for-expression + upper() → {dev = "SMALL", prod = "LARGE"}
+
+### Evidence boundary
+These latest examples were chat-based prediction exercises, not newly verified in Terraform Console. One combined exercise using upper(try(local.environment_sizes["test"], "medium")) was presented but not answered; it is not required to resume the main roadmap. Keep prior console-verified evidence separate from these predictions. Do not mark all functions mastered from multiple-choice answers alone.
+
+### Next session
+Move to the next main Terraform topic: workflow and state fundamentals, starting with the purpose of terraform init, terraform validate, and terraform plan, then state and resource addresses. Continue prediction-first and one concept at a time. Use the isolated terraform-hcl-practice/ directory when hands-on HCL verification is useful. Do not run terraform apply, terraform destroy, or impactful Azure operations without explicit approval.
