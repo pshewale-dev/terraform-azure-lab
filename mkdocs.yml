@@ -27,5 +27,6 @@ nav:
       - Lesson 11 - Azure Compute and Identity: lesson-11-compute-identity.md
       - Lesson 12 - Git and Azure DevOps Pipelines: lesson-12-pipelines.md
       - Lesson 13 - Troubleshooting and Capstone: lesson-13-capstone.md
+      - Production-Style Hands-on Labs: production-labs.md
   - Learning Tracker: LEARNING-PROGRESS.md
   - Roadmap: LEARNING-ROADMAP.md
