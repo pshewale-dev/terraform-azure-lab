@@ -3,7 +3,7 @@
 **Purpose:** Build a clear understanding of Terraform before moving
 into more complex Azure configurations.
 
-**Previous checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`) — UNDERSTOOD based on the recorded answers below.
+**Course position:** Lesson 1 of 13 — Core Concepts and HCL. Function drills are paused; continue with Lesson 2 for workflow fundamentals.
 **Current checkpoint:** See the single authoritative checkpoint at the end of this page.
 
 ---
