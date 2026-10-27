@@ -1,58 +1,64 @@
 # Terraform Zero-to-Hero Learning Roadmap
 
-## Course rules
-- Teach concepts before giving code.
-- Explain why each feature exists and how it works.
-- Avoid large copy-paste exercises.
-- Learner predicts behavior before running commands.
-- Learner writes small changes independently.
-- Every lesson includes practice, verification, troubleshooting,
-  and a recall question.
-- Track understanding, not merely successful commands.
-- Never run terraform apply, destroy, or other impactful Azure
-  operations without explicit approval.
-- Use the existing Azure remote backend for the lab.
-- Preserve existing Azure resources and state.
+## Numbered lesson map
 
-## Phase 1: Fundamentals
-1. What Terraform is and what problem it solves
-2. Declarative vs. imperative automation
-3. Terraform workflow and execution model
-4. Providers, resources, arguments, and attributes
-5. HCL syntax and configuration structure
+The website navigation, lesson pages, and learning tracker use the same lesson numbers. The roadmap below retains the original 30-topic curriculum as subtopics within these 13 lessons.
 
-## Phase 2: State and dependencies
-6. init, validate, plan, apply, and destroy
-7. Terraform state and resource addresses
-8. Dependency graphs and implicit dependencies
-9. Drift, refresh, and lifecycle
-10. Remote state, locking, and backend security
+1. **Lesson 1 — Core Concepts and HCL:** Terraform purpose, declarative vs. imperative, providers/resources, HCL structure, variables/locals/expressions, collections and practical function use.
+2. **Lesson 2 — Terraform Workflow:** `terraform init`, `terraform validate`, `terraform plan`; understand each command's purpose and safely inspect results.
+3. **Lesson 3 — State and Resource Addresses:** state purpose, resource addresses, configuration-to-state relationships.
+4. **Lesson 4 — Dependencies and Execution Order:** dependency graphs, implicit dependencies, `depends_on`.
+5. **Lesson 5 — Drift and Lifecycle:** drift, refresh behavior, lifecycle rules and safe plan review.
+6. **Lesson 6 — Remote State and Locking:** backend concepts, Azure Storage backend, locking, state security and recovery basics.
+7. **Lesson 7 — Variables, Locals, and Outputs:** input variables, type constraints, defaults, validation, locals and outputs.
+8. **Lesson 8 — Collections and Resource Iteration:** lists/maps/objects, conditions, functions as needed, dynamic blocks, `count` vs. `for_each`, data sources and references.
+9. **Lesson 9 — Modules:** module interfaces, composition, inputs/outputs and dependencies.
+10. **Lesson 10 — Azure Networking:** resource groups, VNets, subnets, NSGs and Hub-and-Spoke design.
+11. **Lesson 11 — Azure Compute and Identity:** Linux VMs/SSH, managed identities and Key Vault.
+12. **Lesson 12 — Git and Azure DevOps Pipelines:** Git/PR workflow, Terraform CI/CD, validation, plan review, approval gates and secret handling.
+13. **Lesson 13 — Troubleshooting and Capstone:** debugging, state recovery, interview scenarios and an independent capstone.
 
-## Phase 3: Writing Terraform
-11. Input variables and type constraints
-12. Locals and outputs
-13. Lists, maps, objects, and expressions
-14. Conditions, functions, and dynamic blocks
-15. count vs. for_each
-16. Data sources and resource references
-17. Debugging and error diagnosis
+## Original curriculum topics grouped by phase
 
-## Phase 4: Reusable infrastructure
-18. Module design and module interfaces
-19. Module composition and dependencies
-20. Azure resource groups and networking
-21. VNets, subnets, and NSGs
-22. Linux VMs and SSH
-23. Managed identities and Key Vault
-24. Hub-and-Spoke networking
+### Phase 1: Fundamentals
+- What Terraform is and what problem it solves
+- Declarative vs. imperative automation
+- Terraform workflow and execution model
+- Providers, resources, arguments, and attributes
+- HCL syntax and configuration structure
 
-## Phase 5: Professional workflows
-25. Git workflow and code reviews
-26. Azure DevOps Terraform pipelines
-27. Validation and plan review
-28. State recovery and troubleshooting
-29. Security and secret management
-30. Interview scenarios and independent capstone
+### Phase 2: State and dependencies
+- init, validate, plan, apply, and destroy
+- Terraform state and resource addresses
+- Dependency graphs and implicit dependencies
+- Drift, refresh, and lifecycle
+- Remote state, locking, and backend security
+
+### Phase 3: Writing Terraform
+- Input variables and type constraints
+- Locals and outputs
+- Lists, maps, objects, and expressions
+- Conditions, functions, and dynamic blocks
+- count vs. for_each
+- Data sources and resource references
+- Debugging and error diagnosis
+
+### Phase 4: Reusable infrastructure
+- Module design and module interfaces
+- Module composition and dependencies
+- Azure resource groups and networking
+- VNets, subnets, and NSGs
+- Linux VMs and SSH
+- Managed identities and Key Vault
+- Hub-and-Spoke networking
+
+### Phase 5: Professional workflows
+- Git workflow and code reviews
+- Azure DevOps Terraform pipelines
+- Validation and plan review
+- State recovery and troubleshooting
+- Security and secret management
+- Interview scenarios and independent capstone
 
 ## Mastery rule
 A lesson is mastered only when the learner can explain the
