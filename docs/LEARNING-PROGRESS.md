@@ -1,13 +1,12 @@
-# Terraform Zero-to-Hero — Learning Progress
-
 ## Current checkpoint
-Course: Terraform Zero-to-Hero
-Current phase: Phase 1 — Fundamentals
-Current course checkpoint (authoritative, 2026-10-27): HCL function basics paused; resume the main Terraform roadmap next session. The learner has demonstrated basic understanding of common string, collection, map, error-handling, and `for`-expression patterns. This does not claim that every built-in function has been learned or mastered; revisit functions when practical configuration requirements call for them.
-Evidence boundary: recent function-composition examples were prediction-only in chat, not newly verified in Terraform Console. Preserve previously verified evidence as separately recorded and do not mark functions mastered on multiple-choice answers alone.
-Next topic: Terraform workflow and state fundamentals, beginning with `terraform init`, `terraform validate`, and `terraform plan`, then state and resource addresses. Continue one concept at a time and use the isolated `terraform-hcl-practice/` directory for safe verification when useful.
-Safety: Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
-The older checkpoint entries below are retained as historical records; this current checkpoint supersedes them.
+- **Current lesson:** Lesson 2 — Terraform Workflow
+- **Current concept:** Lesson 2.1 — Purpose of `terraform init` (prediction exercise not yet answered in this session).
+- **Current phase:** Terraform fundamentals / workflow.
+- **Lesson 1 status:** Core concepts and HCL practised; dedicated function drills paused. Functions are to be revisited when a real configuration requires them. Do not claim every function is mastered.
+- **Evidence boundary:** The recent function compositions were prediction-only in chat, not newly verified in Terraform Console. Keep prior console-verified evidence separate.
+- **Next sequence:** Lesson 2 — `terraform init`, `terraform validate`, `terraform plan`; then Lesson 3 — state and resource addresses; then continue in the numbered lesson map in `LEARNING-ROADMAP.md`.
+- **Workspace safety:** Use `terraform-hcl-practice/` for isolated exercises. Inspect configuration and backend before running commands. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval; preserve Azure resources and remote state.
+- **Numbering convention:** Website navigation, lesson page headings, roadmap, and current checkpoint must use the same 13 lesson numbers. The dated entries below are historical evidence, not current resume instructions.
 
 ## Verified technical environment
 - Repository: ~/azure-lab
