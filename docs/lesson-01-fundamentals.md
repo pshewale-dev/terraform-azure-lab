@@ -4,8 +4,8 @@
 into more complex Azure configurations.
 
 **Previous checkpoint:** Lesson 1.17 — Explicit dependencies (`depends_on`) — UNDERSTOOD based on the recorded answers below.
-**Current checkpoint (2026-10-26):** Continued prediction-first practice of nested Terraform string functions, Boolean string checks, logical operators, and `length()` in the isolated `terraform-hcl-practice/` workspace. Examples in this latest sequence were predicted in chat, not console-verified.
-**Next topic:** Continue the pending `length(distinct([...]))` prediction, then verify selected fresh function examples in Terraform Console before considering mastery.
+**Current checkpoint (2026-10-27):** Continued prediction-first practice of Terraform collection functions, error-handling functions, list indexing/slicing, sorting, flattening, filtered `for` expressions, map `for` expressions, `keys()`, `values()`, and `lookup()` in the isolated `terraform-hcl-practice/` workspace. The latest answers were prediction exercises in chat, not newly console-verified.
+**Next topic:** Continue with one small collection/function prediction, then verify selected fresh examples in Terraform Console before considering mastery.
 
 ---
 
@@ -1301,3 +1301,42 @@ length(distinct(["dev", "prod", "dev", "test", "prod"]))
 Choices: A `5`, B `3`, C `2`, D `["dev", "prod", "test"]`.
 
 Ask for the learner's prediction before explaining. Continue one concept at a time. Use only the isolated `terraform-hcl-practice/` directory for safe console verification; do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval.
+
+
+## Checkpoint — 2026-10-27: collection and function predictions
+
+The learner correctly answered the following chat-based prediction exercises. These are **prediction evidence only**, not newly verified Terraform Console results, and do not by themselves establish mastery.
+
+### Functions and behaviors practised
+- `concat(["dev", "test"], ["prod"])` → `["dev", "test", "prod"]`; an empty list contributes no elements.
+- `compact(["dev", "", "test", "", "prod"])` → `["dev", "test", "prod"]`; removes empty strings.
+- `merge()` with overlapping keys → later map values override earlier values; unrelated keys remain.
+- `zipmap(["environment", "region"], ["prod", "centralindia"])` → map pairing each key with its value by position.
+- `try(tonumber("not-a-number"), 100)` → `100`; `try()` returns the first argument that doesn't produce an error.
+- `try(local.sizes["test"], "medium")` → `"medium"` when the key is missing.
+- `can(tonumber("42"))` → `true`; `can(tonumber("hello"))` → `false`.
+- `can(try(tonumber("hello"), 10))` → `true`: `try()` yields 10, then `can()` checks that successful result.
+- `element(["dev", "test", "prod"], 1)` → `"test"`; `element(..., 4)` wraps around to `"test"`; `element(..., -1)` → `"prod"`. Contrast with direct indexing, which errors for an out-of-range index.
+- `slice(["dev", "test", "stage", "prod"], 1, 3)` → `["test", "stage"]`; start inclusive, end exclusive. `slice(..., 0, 2)` → `["dev", "test"]`.
+- `reverse(["dev", "test", "prod"])` → `["prod", "test", "dev"]`.
+- `sort(["prod", "dev", "test"])` → `["dev", "prod", "test"]`; sorting is lexicographical and case-sensitive. `reverse(sort(...))` reverses the sorted list.
+- `sort(distinct(["prod", "dev", "prod", "test", "dev"]))` → `["dev", "prod", "test"]`.
+- `flatten([["web", "app"], [], ["db", "cache"]])` → `["web", "app", "db", "cache"]`; `flatten()` recursively flattens directly nested lists.
+- `distinct(flatten([["web", "app"], ["web", "db"]]))` → `["web", "app", "db"]`.
+- A `for` expression with `flatten()` generated `["dev-web", "dev-db", "prod-web", "prod-db"]`.
+- Filtered list `for` expressions practised string filters, `startswith()`, numeric `n > 3`, and modulo `n % 2 == 0`; the learner corrected misunderstandings about filtering versus transforming values.
+- Map `for` expressions practised `env => upper(env)` and filtering out `test`.
+- `keys(map)` returns keys in lexicographical order; `length(keys(map))` returned `3`.
+- `values(map)` returns values in the same order as the sorted keys. For keys `dev`, `prod`, `test`, the exact result was `["small", "large", "medium"]`.
+- `reverse(values(map))` → `["medium", "large", "small"]`.
+- `lookup({ dev = "small", prod = "large }, "test", "medium")` → `"medium"` when the key is absent; lookup for existing key `"prod"` returns `"large"`.
+
+### Understanding demonstrated and limits
+- The learner made correct predictions for the examples above, including correction after some distractor answers.
+- These exercises were answered in conversation and were not reported as newly verified in Terraform Console. Do not mark these functions mastered on multiple-choice answers alone.
+- Accuracy note: duplicate keys in `zipmap()` should not be used as a map-override technique. Use `merge()` when intentionally overriding keys. The lesson's duplicate-key example was only prediction practice; verify official behavior before using such a pattern.
+
+### Exact resume point
+Continue with one small prediction exercise at a time. A suitable next step is a fresh `lookup()`/map-function composition or another collection function, with accurate choices. Then ask the learner to independently explain the result and later verify selected examples in Terraform Console inside `terraform-hcl-practice/`.
+
+Safety remains unchanged: do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval; preserve Azure resources and remote state.
