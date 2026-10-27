@@ -4,6 +4,7 @@ site_url: https://pshewale-dev.github.io/terraform-azure-lab/
 
 theme:
   name: material
+  custom_dir: overrides
   features:
     - navigation.sections
     - navigation.top
@@ -30,3 +31,4 @@ nav:
       - Production-Style Hands-on Labs: production-labs.md
   - Learning Tracker: LEARNING-PROGRESS.md
   - Roadmap: LEARNING-ROADMAP.md
+
