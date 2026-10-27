@@ -359,3 +359,26 @@ Proceed to the next small HCL concept using prediction-first practice, one conce
 - The date plan is a proposal. Record actual completion dates and evidence in `LEARNING-PROGRESS.md`; do not mark a topic complete just because its target date passed.
 - Use only the isolated `terraform-hcl-practice/` directory for HCL exercises when appropriate. Preserve the Azure-backed root configuration and remote state.
 - No `terraform apply`, `terraform destroy`, or impactful Azure operation without explicit approval.
+
+
+## Practical labs are mandatory for every lesson
+
+The course is not complete as a theory-only syllabus. Every one of the 13 lessons must include a production-style scenario, a small learner-written task, a prediction before running commands, safe verification, one troubleshooting drill, a security/cost review, and an evidence-based progress record. The full lab track is in [Production-Style Hands-on Labs](production-labs.md).
+
+| Lesson | Hands-on outcome | Production-style scenario |
+|---|---|---|
+| 1 | Build typed variables, naming/tags and outputs | Standardized dev/test/prod resource conventions |
+| 2 | Run safe init/fmt/validate/plan workflow | Review a requested subnet/tag change before deployment |
+| 3 | Inspect disposable state and resource addresses | Rename a resource without accidental recreation |
+| 4 | Read dependency relationships and graph | Private endpoint/network dependencies |
+| 5 | Classify drift and lifecycle plan actions | Investigate a manually changed NSG/tag |
+| 6 | Design backend, locking and recovery controls | Shared Azure Storage state for team and pipeline |
+| 7 | Validate environment-specific inputs and outputs | Common module with environment-specific sizing/CIDRs |
+| 8 | Model subnets/rules with maps and stable keys | Scalable network rules without duplicated blocks |
+| 9 | Build and call a reusable module | Standard network pattern shared by app teams |
+| 10 | Design hub/spoke, NSGs, CIDRs and routes | Segmented Azure application network |
+| 11 | Review VM, managed identity and Key Vault design | Secure Linux workload without embedded credentials |
+| 12 | Design gated pipeline and plan review | PR validation with human approval before changes |
+| 13 | Integrate and troubleshoot the full design | Production-style application platform capstone |
+
+**Safety:** local-only exercises first; use a dedicated non-production Azure sandbox only with explicit approval. Never point exercises at the existing Azure Storage backend or apply/destroy infrastructure without explicit approval. Completion means demonstrated work and evidence—not reading the page or answering a quiz alone.
