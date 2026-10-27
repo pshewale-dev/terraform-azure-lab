@@ -3,11 +3,9 @@
 ## Current checkpoint
 Course: Terraform Zero-to-Hero
 Current phase: Phase 1 — Fundamentals
-Current course checkpoint (authoritative, 2026-10-27): prediction-first HCL collection/function practice in `terraform-hcl-practice/`, covering `concat()`, `compact()`, `merge()`, `zipmap()`, `try()`, `can()`, `element()`, `slice()`, `reverse()`, `sort()`, `flatten()`, filtered list/map `for` expressions, `keys()`, `values()`, and `lookup()`.
-Status: Practised and verified `join()`, `split()`, `replace()`, and `upper()` through prediction-first exercises and Terraform Console; `format()` has been practised through four prediction examples but is not yet console-verified or mastered.
-Latest evidence for `format()`: `format("%s-%s-%s", "dev", "east", "01")` -> `"dev-east-01"`; `format("%s-%02d", "web", 3)` -> `"web-03"`; `format("%s-%02d", "app", 12)` -> `"app-12"`; `format("%s-%02d", "vm", 7)` -> `"vm-07"`. The learner initially selected the wrong result for the first zero-padding example, then correctly predicted the next two examples.
-Reference: `lower()` converts letters to lowercase; a separate exercise was skipped at the learner's request.
-Next topic: continue with one small collection/function prediction, then verify selected fresh examples in Terraform Console. Keep the newly practised functions and map `for` expressions as practised rather than mastered until independently re-tested.
+Current course checkpoint (authoritative, 2026-10-27): HCL function basics paused; resume the main Terraform roadmap next session. The learner has demonstrated basic understanding of common string, collection, map, error-handling, and `for`-expression patterns. This does not claim that every built-in function has been learned or mastered; revisit functions when practical configuration requirements call for them.
+Evidence boundary: recent function-composition examples were prediction-only in chat, not newly verified in Terraform Console. Preserve previously verified evidence as separately recorded and do not mark functions mastered on multiple-choice answers alone.
+Next topic: Terraform workflow and state fundamentals, beginning with `terraform init`, `terraform validate`, and `terraform plan`, then state and resource addresses. Continue one concept at a time and use the isolated `terraform-hcl-practice/` directory for safe verification when useful.
 Safety: Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
 The older checkpoint entries below are retained as historical records; this current checkpoint supersedes them.
 
