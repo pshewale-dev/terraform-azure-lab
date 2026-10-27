@@ -742,3 +742,12 @@ Continue one small prediction at a time with accurate answer options. Suggested 
 
 ### Safety
 Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve existing Azure resources and remote state.
+
+## Authoritative checkpoint — 2026-10-27 (HCL function basics pause)
+
+- **Status:** Pause dedicated function-by-function drills and return to the main Terraform roadmap next session. The learner has demonstrated basic understanding of common string, collection, map, error-handling, and for-expression patterns. This does not claim that all built-in functions are learned or mastered; revisit a function when a practical configuration requirement calls for it.
+- **Correct prediction examples in chat:** nested upper()/lookup() and lower()/lookup(); length(keys(map)) combined with lookup(); contains(keys(map), ...); alltrue() and anytrue() with for-expressions; coalesce(), coalescelist(), try(), and can(); merge() with lookup() and keys(); filtered map for-expressions; flatten() + distinct(); and zipmap() + upper().
+- **Specific understanding demonstrated:** fallback behavior for missing map keys; merge() rightmost-key override; alltrue() versus anytrue(); try() returns a fallback after an evaluation error while can() returns a Boolean; coalesce() skips null and empty strings; coalescelist() selects rather than concatenates; flatten() removes nested list structure and distinct() removes duplicates.
+- **Evidence boundary:** These latest examples were prediction-only in chat and were not newly verified in Terraform Console. Preserve earlier console-verified evidence as separately recorded. Do not mark all functions mastered based only on multiple-choice predictions. A final presented upper(try(local.environment_sizes["test"], "medium")) exercise was unanswered and is not a blocker.
+- **Next session:** Resume the main roadmap with Terraform workflow and state fundamentals: purpose of terraform init, terraform validate, and terraform plan, followed by state and resource addresses. Continue one concept at a time and verify safely in the isolated terraform-hcl-practice/ directory when useful.
+- **Safety:** No terraform apply, terraform destroy, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
