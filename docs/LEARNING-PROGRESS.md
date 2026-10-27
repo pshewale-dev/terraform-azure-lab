@@ -3,11 +3,11 @@
 ## Current checkpoint
 Course: Terraform Zero-to-Hero
 Current phase: Phase 1 — Fundamentals
-Current course checkpoint (authoritative, 2026-10-26): hands-on HCL function practice in `terraform-hcl-practice/`.
+Current course checkpoint (authoritative, 2026-10-27): prediction-first HCL collection/function practice in `terraform-hcl-practice/`, covering `concat()`, `compact()`, `merge()`, `zipmap()`, `try()`, `can()`, `element()`, `slice()`, `reverse()`, `sort()`, `flatten()`, filtered list/map `for` expressions, `keys()`, `values()`, and `lookup()`.
 Status: Practised and verified `join()`, `split()`, `replace()`, and `upper()` through prediction-first exercises and Terraform Console; `format()` has been practised through four prediction examples but is not yet console-verified or mastered.
 Latest evidence for `format()`: `format("%s-%s-%s", "dev", "east", "01")` -> `"dev-east-01"`; `format("%s-%02d", "web", 3)` -> `"web-03"`; `format("%s-%02d", "app", 12)` -> `"app-12"`; `format("%s-%02d", "vm", 7)` -> `"vm-07"`. The learner initially selected the wrong result for the first zero-padding example, then correctly predicted the next two examples.
 Reference: `lower()` converts letters to lowercase; a separate exercise was skipped at the learner's request.
-Next topic: If useful, verify today's `format()` examples in Terraform Console, then continue with one small HCL concept at a time, prediction-first, in the isolated practice directory. Keep map `for` expressions as practised rather than mastered until independently re-tested.
+Next topic: continue with one small collection/function prediction, then verify selected fresh examples in Terraform Console. Keep the newly practised functions and map `for` expressions as practised rather than mastered until independently re-tested.
 Safety: Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
 The older checkpoint entries below are retained as historical records; this current checkpoint supersedes them.
 
@@ -708,6 +708,37 @@ length(distinct(["dev", "prod", "dev", "test", "prod"]))
 Choices presented: A `5`, B `3`, C `2`, D `["dev", "prod", "test"]`.
 
 Ask for the prediction first. Then continue with one small concept at a time and verify selected fresh examples in Terraform Console in the isolated `terraform-hcl-practice/` directory.
+
+### Safety
+Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve existing Azure resources and remote state.
+
+
+## Authoritative checkpoint update — 2026-10-27 (continued HCL functions and collections)
+
+### Correct predictions recorded
+The learner correctly answered chat-based predictions for:
+- `concat()`: combining lists in order, including empty lists.
+- `compact()`: removing empty strings.
+- `merge()`: combining maps, with later maps overriding matching keys.
+- `zipmap()`: pairing key/value list elements by position (duplicate-key behavior is not a recommended override pattern).
+- `try()` and `can()`: handling expression errors and testing expression success.
+- `element()`: zero-based selection and wraparound for indices outside a non-empty list; contrasted with direct indexing.
+- `slice()`: inclusive start and exclusive end indices.
+- `reverse()`, `sort()`, and combinations with `distinct()`.
+- `flatten()`, including empty and deeper nested lists, and combinations with `distinct()` and `for` expressions.
+- List `for` expressions with string and numeric filters, transformations, and modulo condition.
+- Map `for` expressions with transformed values and filters.
+- `keys()`, `values()`, `length(keys(map))`, and `reverse(values(map))`.
+- `lookup()` both when the requested key is missing (fallback returned) and when it exists (mapped value returned).
+
+### Understanding demonstrated
+- Correctly predicted the listed examples, with some incorrect distractor choices corrected through explanation.
+- The learner explicitly answered A for `lookup({ dev = "small", prod = "large" }, "prod", "medium")`, correctly identifying `"large"`.
+- Latest exercises are conversation-based prediction evidence only. They were not reported as newly verified in Terraform Console and must not be marked mastered based on these answers alone.
+- Previous Console-verified evidence remains limited to what is already recorded elsewhere in this tracker; don't conflate prior verification with the new prediction sequence.
+
+### Resume point
+Continue one small prediction at a time with accurate answer options. Suggested next concept: a fresh composition using `lookup()` or another map/list function. Later, independently verify selected expressions in Terraform Console in the isolated `terraform-hcl-practice/` directory.
 
 ### Safety
 Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve existing Azure resources and remote state.
