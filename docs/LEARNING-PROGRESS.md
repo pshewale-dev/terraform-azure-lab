@@ -1,3 +1,11 @@
+## Curriculum correction — hands-on labs required (2026-10-27)
+
+- **Gap identified:** the numbered plan was too theory-focused and did not clearly require practical labs for every topic.
+- **Correction:** added [Production-Style Hands-on Labs](production-labs.md), covering all 13 lessons with real-world tickets, small learner-written tasks, prediction-first work, verification, troubleshooting drills, security/cost checks, and evidence requirements.
+- **Lab approach:** start local-only; use a dedicated non-production Azure sandbox only after explicit approval. Do not run `terraform apply`, `terraform destroy`, or modify existing Azure resources/remote state without approval. Existing Azure-backed lab is review-only unless a specific change is approved.
+- **Evidence status:** lab track documentation has been added; no labs are marked completed or verified merely because the guide exists.
+- **Current learning exercise remains unchanged:** Lesson 2.1 — purpose of `terraform init`; prediction answer is still pending. Complete that one-concept exercise first, then continue with `terraform validate` and `terraform plan`, including safe hands-on verification.
+
 ## Current checkpoint
 - **Current lesson:** Lesson 2 — Terraform Workflow
 - **Current concept:** Lesson 2.1 — Purpose of `terraform init` (prediction exercise not yet answered in this session).
