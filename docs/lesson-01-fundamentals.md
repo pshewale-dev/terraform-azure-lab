@@ -1329,7 +1329,7 @@ The learner correctly answered the following chat-based prediction exercises. Th
 - `keys(map)` returns keys in lexicographical order; `length(keys(map))` returned `3`.
 - `values(map)` returns values in the same order as the sorted keys. For keys `dev`, `prod`, `test`, the exact result was `["small", "large", "medium"]`.
 - `reverse(values(map))` → `["medium", "large", "small"]`.
-- `lookup({ dev = "small", prod = "large }, "test", "medium")` → `"medium"` when the key is absent; lookup for existing key `"prod"` returns `"large"`.
+- `lookup({ dev = "small", prod = "large" }, "test", "medium")` → `"medium"` when the key is absent; lookup for existing key `"prod"` returns `"large"`.
 
 ### Understanding demonstrated and limits
 - The learner made correct predictions for the examples above, including correction after some distractor answers.
