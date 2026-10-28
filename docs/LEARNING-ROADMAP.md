@@ -382,3 +382,14 @@ The course is not complete as a theory-only syllabus. Every one of the 13 lesson
 | 13 | Integrate and troubleshoot the full design | Production-style application platform capstone |
 
 **Safety:** local-only exercises first; use a dedicated non-production Azure sandbox only with explicit approval. Never point exercises at the existing Azure Storage backend or apply/destroy infrastructure without explicit approval. Completion means demonstrated work and evidence—not reading the page or answering a quiz alone.
+
+
+## Practical checkpoint — 2026-10-28
+
+The workflow course now includes an executed Azure lab, not only theory.
+
+- Lesson 2 workflow: `init`, `fmt`, `validate`, `plan`, and an explicitly approved `apply` were practised.
+- Created and verified `rg-tf-lab-prashant-dev` in Central India with development/lab tags.
+- Terraform state listed `azurerm_resource_group.lab`; the subsequent plan reported no changes.
+- Next lesson: Lesson 3 — State and Resource Addresses. Start with configuration-versus-state prediction and read-only state inspection.
+- Safety note: preserve this lab resource group; no apply/destroy without fresh explicit approval.
