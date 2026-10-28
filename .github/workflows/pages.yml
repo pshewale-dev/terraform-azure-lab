@@ -3,7 +3,7 @@ name: Publish MkDocs Website
 on:
   push:
     branches:
-      - feature/dynamic-nsg
+      - main
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
