@@ -182,3 +182,18 @@ For each lab, update `LEARNING-PROGRESS.md` with:
 - **Next step:** the smallest independent task still pending.
 
 Never label a lab COMMAND VERIFIED unless the command was actually run and its output supplied or observed. Never label a lab MASTERED without independent implementation, explanation, and troubleshooting evidence.
+
+
+## Cross-cutting production exercise — retire an obsolete environment safely
+
+Use this scenario across Lessons 3, 5, 6, 12 and 13. The objective is not merely to run destroy; it is to demonstrate controlled change management.
+
+1. Identify the exact subscription, tenant/identity, backend, workspace, resource group, and environment owner.
+2. Confirm whether the resources are managed by this configuration/state and check for shared dependencies or resources managed elsewhere.
+3. Generate and review a destroy plan in a disposable lab or approved sandbox. List every target, replacement/deletion, and cost or dependency concern. Stop if the scope is unexpected.
+4. Obtain explicit approval for the exact plan and target scope before executing any destructive action.
+5. After approved cleanup, verify the intended resources are absent and unrelated environments still exist. Record redacted evidence and any remaining external resources or charges.
+6. Keep the state/backend until the retirement and recovery/audit requirements are satisfied. Never delete state as a way to remove cloud resources.
+7. Archive inactive configuration so Terraform does not load it as active configuration; preserve useful code/history and document what was retired.
+
+**Observed case study (learner-confirmed):** the old rg-practice-lab environment was destroyed after a plan listing 51 resources, and old root-level configuration files were moved to vm-practice/_archive/ with the .tf.disabled suffix. The separate vm-practice/hub-spoke-lab and rg-tf-lab-prashant-dev learning lab are out of scope and must be preserved. No new Azure operation is performed by documenting this case.
