@@ -7,14 +7,17 @@
 - **Current learning exercise remains unchanged:** Lesson 2.1 — purpose of `terraform init`; prediction answer is still pending. Complete that one-concept exercise first, then continue with `terraform validate` and `terraform plan`, including safe hands-on verification.
 
 ## Current checkpoint
-- **Current lesson:** Lesson 2 — Terraform Workflow
-- **Current concept:** Lesson 2.1 — Purpose of `terraform init` (prediction exercise not yet answered in this session).
-- **Current phase:** Terraform fundamentals / workflow.
-- **Lesson 1 status:** Core concepts and HCL practised; dedicated function drills paused. Functions are to be revisited when a real configuration requires them. Do not claim every function is mastered.
-- **Evidence boundary:** The recent function compositions were prediction-only in chat, not newly verified in Terraform Console. Keep prior console-verified evidence separate.
-- **Next sequence:** Lesson 2 — `terraform init`, `terraform validate`, `terraform plan`; then Lesson 3 — state and resource addresses; then continue in the numbered lesson map in `LEARNING-ROADMAP.md`.
-- **Workspace safety:** Use `terraform-hcl-practice/` for isolated exercises. Inspect configuration and backend before running commands. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval; preserve Azure resources and remote state.
-- **Numbering convention:** Website navigation, lesson page headings, roadmap, and current checkpoint must use the same 13 lesson numbers. The dated entries below are historical evidence, not current resume instructions.
+- **Current lesson:** Lesson 3 — State and Resource Addresses.
+- **Current concept:** Terraform state and how configuration addresses map to real Azure resources.
+- **Latest verified lab:** In `~/azure-lab/terraform-hcl-practice`, the learner initialized the AzureRM provider, ran `terraform fmt`, `terraform validate`, reviewed a plan, and explicitly approved applying a plan to create `azurerm_resource_group.lab`.
+- **Azure resource created:** `rg-tf-lab-prashant-dev` in `centralindia`; Azure CLI verified tags `environment=dev`, `managed_by=terraform`, `purpose=learning-lab`.
+- **State evidence:** `terraform state list` returned `azurerm_resource_group.lab`.
+- **Plan evidence:** subsequent `terraform plan` reported “No changes. Your infrastructure matches the configuration.”
+- **Lesson 2 status:** init, fmt, validate, plan and the approved apply workflow practised with console evidence. Concepts are practised/verified, not globally mastered.
+- **Next step:** Continue Lesson 3 with the prediction question: if `main.tf` is deleted while state remains, what happens? Do not delete files to test this. Explain configuration versus state, then use read-only state inspection commands.
+- **Safety:** The lab resource group now exists in Azure. Preserve it unless the learner explicitly approves a specific change or deletion. Never run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Keep the root Azure Storage backend and its remote state untouched.
+- **Workspace:** `~/azure-lab/terraform-hcl-practice`; this is now a real Azure-backed practice configuration, not a no-resource-only local exercise. Inspect configuration/backend before further changes.
+- **Evidence boundary:** The earlier empty-config plan returned no changes because no resource blocks were declared. The later real Azure resource group was successfully created and verified. Keep those separate.
 
 ## Verified technical environment
 - Repository: ~/azure-lab
@@ -756,3 +759,40 @@ Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations
 - **Evidence boundary:** These latest examples were prediction-only in chat and were not newly verified in Terraform Console. Preserve earlier console-verified evidence as separately recorded. Do not mark all functions mastered based only on multiple-choice predictions. A final presented upper(try(local.environment_sizes["test"], "medium")) exercise was unanswered and is not a blocker.
 - **Next session:** Resume the main roadmap with Terraform workflow and state fundamentals: purpose of terraform init, terraform validate, and terraform plan, followed by state and resource addresses. Continue one concept at a time and verify safely in the isolated terraform-hcl-practice/ directory when useful.
 - **Safety:** No terraform apply, terraform destroy, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
+
+
+## Session checkpoint — 2026-10-28 (Terraform workflow and first Azure resource)
+
+### Lesson 2.1 — `terraform init`
+- Learner correctly answered that init prepares the working directory and initializes configured backend/dependencies; it does not deploy resources.
+- In the isolated practice directory, `terraform init` returned success. The directory listing did not show `.terraform/` even after repeated init commands; this anomaly was not fully diagnosed. Do not claim the missing directory was resolved.
+- Later, after adding the AzureRM provider requirement, init completed and provider setup proceeded.
+
+### Lesson 2.2 — `terraform validate`
+- Learner correctly predicted that validate checks configuration rather than deploying resources.
+- Learner reported “configuration is valid” for the no-resource configuration, and later reported fmt/validate succeeded for the Azure resource-group configuration.
+- Key distinction: validate checks syntax/internal consistency; it does not prove Azure access or deployment success.
+
+### Lesson 2.3 — `terraform plan`
+- Learner correctly predicted that a configuration with locals/variables only and no resource blocks would propose no infrastructure changes.
+- `terraform plan -refresh=false` reported no changes for that no-resource configuration.
+- Learner correctly predicted that plan can still reveal problems after validate succeeds.
+- Safety nuance: `-refresh=false` skips refreshing remote objects and is not proof that deployed infrastructure matches configuration.
+
+### First real Azure resource-group lab
+- Azure CLI 2.83.0 was installed; `az account show` reported selected subscription “Azure subscription 1” with state Enabled. The learner checked `az group exists --name rg-tf-lab-prashant-dev` and got `false`.
+- In `main.tf`, the learner configured `hashicorp/azurerm` with `~> 4.0`, an AzureRM provider, and `azurerm_resource_group.lab` named `rg-tf-lab-prashant-dev` in Central India. Subscription ID was set in the local provider configuration; do not reproduce it in public notes.
+- `terraform init`, `terraform fmt`, and `terraform validate` succeeded according to learner report.
+- Initial plan showed one resource to add. The learner noticed and corrected tag key/value differences before applying.
+- Learner explicitly chose to proceed with Azure apply. Apply output: `Creation complete`; `Apply complete! Resources: 1 added, 0 changed, 0 destroyed.`
+- Azure CLI verification confirmed the resource group exists in `centralindia` with tags `environment=dev`, `managed_by=terraform`, `purpose=learning-lab`.
+- `terraform state list` returned `azurerm_resource_group.lab`.
+- Subsequent `terraform plan` reported “No changes. Your infrastructure matches the configuration.”
+- Learner correctly predicted that renaming the Terraform local label before first apply changes the Terraform address (e.g. `azurerm_resource_group.lab` to `azurerm_resource_group.dev_lab`). Discussed that renaming after state exists without a move may appear as destroy/create; a suitable `moved` block can preserve the object when only the address changes.
+
+### Current checkpoint / next session
+- Resume at **Lesson 3 — State and Resource Addresses**.
+- Pending prediction question already presented: if `main.tf` is deleted but the state file remains, what is the most accurate outcome? Learner has not answered yet.
+- Do not delete files to test the scenario. Continue with read-only state commands such as `terraform state list` and, if useful, `terraform state show azurerm_resource_group.lab`.
+- Explain configuration vs state and resource addresses, then demonstrate safely against the existing lab.
+- Preserve the created Azure resource group. Do not apply, destroy, or make impactful Azure changes without fresh explicit approval.
