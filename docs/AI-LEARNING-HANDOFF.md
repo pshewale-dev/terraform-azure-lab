@@ -37,3 +37,14 @@ Use this file when starting or continuing a learning session with ChatGPT, Gemin
 - If it has no repository access, it should return edits or a patch, not claim it changed GitHub.
 - Do not require an OpenAI API key or assume the learner has API credits.
 - This file is a portable handoff, not a background agent. Sharing it does not automatically synchronize chats or update GitHub.
+
+
+## Authoritative current checkpoint — 2026-10-28
+Use this section together with the newest checkpoint in docs/LEARNING-PROGRESS.md; it supersedes the older Lesson 1 checkpoint above.
+
+- **Current lesson:** Lesson 3 — State and Resource Addresses, IN PROGRESS.
+- **Recent work:** read-only state/address inspection; protected local state permissions with chmod 600; checked Git ignore patterns for state, backup state files, and .terraform/; confirmed .terraform.lock.hcl is normally committed.
+- **Retired lab cleanup:** learner confirmed old rg-practice-lab resources were destroyed after reviewing a plan listing 51 resources. The old root Terraform files were renamed to .tf.disabled and moved into vm-practice/_archive/.
+- **Must preserve:** vm-practice/hub-spoke-lab and the separate Azure-backed rg-tf-lab-prashant-dev learning resource group and state. Do not treat these as part of the retired cleanup.
+- **Next step:** ask a prediction-first question about configuration and state disagreeing, then use read-only state commands only after confirming the working directory and backend. Do not delete files or state to simulate a mismatch.
+- **Safety:** no terraform apply, terraform destroy, state/backend migration, or impactful Azure operation without fresh explicit approval. A historical approval to retire the old lab is not blanket permission for future operations.
