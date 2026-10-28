@@ -10,7 +10,7 @@ carsh.log
 crash.*.log
 
 #Sensitive vatiable files
-#*.tfvars
+*.tfvars
 #*.tfvars.json
 # Temporary/backup files
 *~
@@ -18,3 +18,23 @@ crash.*.log
 *.tfplan
 tfplan
 
+*.pfx
+*.key
+
+
+# SSH keys — never commit
+
+# Python virtual environment for documentation
+.venv/
+
+# Generated MkDocs website
+/site/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Terraform environment-specific variable files
+dev.tfvars
+prod.tfvars
+test.tfvars

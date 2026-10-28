@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include:
+      - main
+      - feature/*
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  terraformVersion: '1.16.6'
+
+steps:
+  - checkout: self
+
+  - bash: |
+      set -euo pipefail
+      curl -fsSLo /tmp/terraform.zip \
+        "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+      unzip -o /tmp/terraform.zip -d /tmp/terraform
+      sudo install /tmp/terraform/terraform /usr/local/bin/terraform
+      terraform version
+    displayName: 'Install Terraform'
+    env:
+      TERRAFORM_VERSION: $(terraformVersion)
+
+  - bash: terraform fmt -check -recursive
+    workingDirectory: vm-practice
+    displayName: 'Check Terraform formatting'
+
+  - bash: terraform init -backend=false -input=false
+    workingDirectory: vm-practice
+    displayName: 'Initialize Terraform without backend'
+
+  - bash: terraform validate
+    workingDirectory: vm-practice
+    displayName: 'Validate Terraform configuration'

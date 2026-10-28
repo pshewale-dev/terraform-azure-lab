@@ -1,0 +1,395 @@
+# Terraform Zero-to-Hero Learning Roadmap
+
+## Numbered lesson map
+
+The website navigation, lesson pages, and learning tracker use the same lesson numbers. The roadmap below retains the original 30-topic curriculum as subtopics within these 13 lessons.
+
+1. **Lesson 1 — Core Concepts and HCL:** Terraform purpose, declarative vs. imperative, providers/resources, HCL structure, variables/locals/expressions, collections and practical function use.
+2. **Lesson 2 — Terraform Workflow:** `terraform init`, `terraform validate`, `terraform plan`; understand each command's purpose and safely inspect results.
+3. **Lesson 3 — State and Resource Addresses:** state purpose, resource addresses, configuration-to-state relationships.
+4. **Lesson 4 — Dependencies and Execution Order:** dependency graphs, implicit dependencies, `depends_on`.
+5. **Lesson 5 — Drift and Lifecycle:** drift, refresh behavior, lifecycle rules and safe plan review.
+6. **Lesson 6 — Remote State and Locking:** backend concepts, Azure Storage backend, locking, state security and recovery basics.
+7. **Lesson 7 — Variables, Locals, and Outputs:** input variables, type constraints, defaults, validation, locals and outputs.
+8. **Lesson 8 — Collections and Resource Iteration:** lists/maps/objects, conditions, functions as needed, dynamic blocks, `count` vs. `for_each`, data sources and references.
+9. **Lesson 9 — Modules:** module interfaces, composition, inputs/outputs and dependencies.
+10. **Lesson 10 — Azure Networking:** resource groups, VNets, subnets, NSGs and Hub-and-Spoke design.
+11. **Lesson 11 — Azure Compute and Identity:** Linux VMs/SSH, managed identities and Key Vault.
+12. **Lesson 12 — Git and Azure DevOps Pipelines:** Git/PR workflow, Terraform CI/CD, validation, plan review, approval gates and secret handling.
+13. **Lesson 13 — Troubleshooting and Capstone:** debugging, state recovery, interview scenarios and an independent capstone.
+
+## Original curriculum topics grouped by phase
+
+### Phase 1: Fundamentals
+- What Terraform is and what problem it solves
+- Declarative vs. imperative automation
+- Terraform workflow and execution model
+- Providers, resources, arguments, and attributes
+- HCL syntax and configuration structure
+
+### Phase 2: State and dependencies
+- init, validate, plan, apply, and destroy
+- Terraform state and resource addresses
+- Dependency graphs and implicit dependencies
+- Drift, refresh, and lifecycle
+- Remote state, locking, and backend security
+
+### Phase 3: Writing Terraform
+- Input variables and type constraints
+- Locals and outputs
+- Lists, maps, objects, and expressions
+- Conditions, functions, and dynamic blocks
+- count vs. for_each
+- Data sources and resource references
+- Debugging and error diagnosis
+
+### Phase 4: Reusable infrastructure
+- Module design and module interfaces
+- Module composition and dependencies
+- Azure resource groups and networking
+- VNets, subnets, and NSGs
+- Linux VMs and SSH
+- Managed identities and Key Vault
+- Hub-and-Spoke networking
+
+### Phase 5: Professional workflows
+- Git workflow and code reviews
+- Azure DevOps Terraform pipelines
+- Validation and plan review
+- State recovery and troubleshooting
+- Security and secret management
+- Interview scenarios and independent capstone
+
+## Mastery rule
+A lesson is mastered only when the learner can explain the
+concept, predict behavior, complete a small exercise, and
+troubleshoot a related problem without copying the solution.
+
+## Mandatory Learning Session Checkpoint
+
+Before ending each learning session, update the learning documentation.
+
+### Required actions
+1. Add the topics covered in the current session to the appropriate lesson notes.
+2. Record key concepts, examples, commands, and important warnings.
+3. Update `LEARNING-PROGRESS.md` with demonstrated understanding, completed exercises, and pending questions.
+4. Record the current lesson and exact next step so learning can resume after a conversation limit or a new chat.
+5. Update this documentation before every Git commit or push.
+
+### Learning integrity rules
+- Teach one concept at a time.
+- Ask prediction questions before explaining the answer when appropriate.
+- Do not mark a concept as mastered until the learner demonstrates understanding.
+- Preserve unfinished exercises and incorrect answers so they can be revisited.
+- Never run `terraform apply`, `terraform destroy`, or make impactful Azure changes without explicit approval.
+
+### Session completion checklist
+- [ ] Lesson notes updated
+- [ ] Learning progress updated
+- [ ] Current lesson and next step recorded
+- [ ] Pending exercises and questions recorded
+- [ ] Git changes reviewed before committing
+
+## Documentation Maintenance Automation
+
+**Goal:** Minimize time spent maintaining the website so study time stays focused on learning Terraform.
+
+### Intended workflow
+1. During each lesson, record the topic, the learner's predictions and answers, exercises completed, and remaining questions.
+2. At the end of the session, update the relevant lesson notes and `LEARNING-PROGRESS.md` together.
+3. Keep `LEARNING-ROADMAP.md` aligned with the learning workflow and automation decisions.
+4. Check for contradictory checkpoints, malformed Markdown, and whitespace errors.
+5. Run the strict MkDocs build before proposing documentation changes.
+6. Review the complete diff before committing or pushing.
+7. Use GitHub Actions to publish the website after approved changes reach the configured branch.
+
+### Safety and learning rules
+- Do not mark a topic understood without evidence from the learner's answers or work.
+- Preserve the one-concept-at-a-time, prediction-first teaching approach.
+- Do not overwrite local work with stale GitHub content.
+- Do not commit or push without the learner's approval.
+- Do not run Terraform apply, destroy, or impactful Azure operations without explicit approval.
+
+### Automation priority
+Automate repetitive validation and publishing first. Then reduce manual progress-tracker maintenance. Keep the learner in control of learning decisions and changes to the published material.
+
+## Provider-Neutral AI Learning Handoff
+
+**Goal:** Use the same learning context with ChatGPT, Gemini, Claude, Copilot, or another AI assistant without requiring an AI API key.
+
+### Shared source of truth
+- Keep `LEARNING-ROADMAP.md`, `LEARNING-PROGRESS.md`, and lesson notes as the canonical records.
+- Use `AI-LEARNING-HANDOFF.md` for the current learning state and instructions that any assistant needs.
+- Use `AI-SESSION-UPDATE-PROMPT.md` when asking any assistant to reconcile and update records after a session.
+- At the start of a new AI chat, share the handoff file and current progress/lesson files. If the assistant can access the GitHub repository, give it the repository and branch; otherwise upload the files.
+- At the end of a session, provide the actual answers, coding exercises, commands and results to the assistant, then ask it to draft updates for all relevant records.
+- If the assistant cannot write to GitHub, ask it to return complete revised files or a unified diff. Review and apply those changes to the repository yourself.
+
+### Consistency and safety
+- Keep the current checkpoint, mastery status, evidence, pending exercise, and next step consistent across files.
+- Never claim an exercise or validation ran unless the learner supplied the result or it was actually run.
+- Never mark mastery without learner evidence.
+- Prefer small coding exercises, learner predictions, and troubleshooting when appropriate.
+- Review generated changes and validate the strict MkDocs build before merging or publishing.
+- No AI assistant may run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval.
+
+### Automation limitation
+This provider-neutral handoff does not call an AI model in the background. It works by sharing the same files with whichever assistant the learner chooses. Automatic model-driven updates require a supported integration or separate API access; this workflow does not require or assume one.
+
+
+## Current Session Checkpoint — 2026-10-24
+
+The latest practice session covered HCL block structure, local values, string interpolation, direct references, input variables, defaults and overrides, variable validation, lists, maps, map lookups, and conditional expressions in the isolated `terraform-hcl-practice/` directory.
+
+### Resume next session
+1. Start with logical operators: `&&` (AND), `||` (OR), and `!` (NOT).
+2. Ask for a prediction before explaining the result.
+3. First exercise: predict `is_india_production` when `var.environment = "test"` and `local.region = "centralIndia"`, where the condition combines the production check and a lowercase region comparison with `&&`.
+4. Let the learner write and validate the small change, then cover OR and NOT separately.
+5. Do not repeat already practised variable/collection concepts unless revisiting an identified misconception is useful.
+
+### Practice workspace and repository hygiene
+- Keep `terraform-hcl-practice/` isolated from the Azure-backed root Terraform configuration.
+- Commit `terraform.tfvars.example`, not a real `terraform.tfvars`; ignore local tfvars, state, and the `.terraform/` working directory.
+- Practice uses Terraform Console and validation only. No Azure resources or remote state should be changed.
+- The session's current checkpoint and the progress tracker/lesson notes must agree.
+- Preserve historical progress entries; newer dated authoritative checkpoint sections supersede old current-status text.
+
+
+## Current Session Checkpoint — 2026-10-25 (supersedes 2026-10-24 checkpoint)
+
+### Covered
+- Logical operators `&&`, `||`, and `!`, including combined Boolean expressions.
+- Conditional expressions combined with OR; verified `"small"` for `test` and `"standard"` for a console-level `dev` override.
+- List `for` expressions for transformation, filtering, upper/lower case, and string interpolation.
+- Map `for` expressions for key/value iteration, key/value transformation, list-to-map conversion, and filtering.
+- Verified a filtered map in Terraform Console: `{"centralindia" = "CENTRALINDIA"}`.
+- The learner asked what names such as `env`, `label`, and `fruit` mean; clarified that they are temporary iteration variables defined in the `for` expression, not input variables.
+
+### Exact resume point
+1. Continue with the pending prediction for a conditional expression inside a map `for` expression:
+   ```hcl
+   {
+     for region in var.allowed_regions :
+     region => (region == "centralindia" ? "primary" : "secondary")
+   }
+   ```
+2. Ask what value the `westindia` key receives before explaining.
+3. Verify in the isolated practice console.
+4. Continue with small hands-on examples and keep the learner's answers as evidence; do not mark mastery without independent demonstration.
+
+### Safety
+Keep all practice in `terraform-hcl-practice/`. Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval. Preserve Azure resources and remote state.
+
+
+## Current Session Checkpoint — 2026-10-25 (map for expressions verified)
+
+### Evidence covered
+- Correctly predicted the values for a conditional map `for` expression: `centralindia = "primary"` and `westindia = "secondary"`; Terraform Console confirmed the result.
+- Correctly predicted and verified that filtering out `centralindia` and transforming the remaining value with `upper(region)` produces `{"westindia" = "WESTINDIA"}`.
+- Practised iteration, map key/value construction, conditional values, trailing `if` filters, and `upper()` together.
+
+### Resume instructions
+1. Continue with one small map `for` exercise combining a filter and a conditional value.
+2. Ask the learner to predict the result before running Terraform Console.
+3. Have the learner write the expression independently and share the actual console output.
+4. Keep map `for` expressions as practised, not mastered, until independent understanding is demonstrated on a fresh example.
+5. Keep all practice in the isolated `terraform-hcl-practice/` directory.
+
+### Safety
+No `terraform apply`, `terraform destroy`, Azure resource changes, or remote-state changes. Preserve existing Azure resources and state.
+
+
+### Latest checkpoint — 2026-10-25
+- Learner independently ran a map `for` expression combining a conditional value and a filter.
+- Expression filtered out `westindia` and returned only `{ "centralindia" = "primary" }`; Terraform Console output matched the prediction.
+- Takeaway: trailing `if` controls inclusion; `? :` chooses the value for an included entry.
+
+### Resume instructions
+Proceed to the next small HCL concept using prediction-first practice, one concept at a time. Keep examples in `terraform-hcl-practice/`. Do not mark map `for` expressions mastered yet; verify with a fresh example later. Do not run `terraform apply` or `terraform destroy` or alter Azure resources/remote state.
+
+
+### Latest checkpoint — `flatten()` (2026-10-25)
+- Learner correctly predicted that `flatten()` combines nested lists into one list.
+- Ran a separate example in Terraform Console; output preserved `apple`, `banana`, `mango`, `orange` in order as a single list.
+- Status: introduced and verified with one example; test a deeper nested list before marking mastered.
+- Next: ask for a prediction on a list with multiple nesting levels, then verify in the isolated practice directory.
+
+
+### `flatten()` checkpoint update — 2026-10-25
+- Verified deeper nesting: nested list flattened to `dev`, `test`, `prod` in order.
+- Discussed a real Terraform use case: flatten nested subnet/security-rule configuration into one list of objects, then convert it to a uniquely keyed map if using `for_each`.
+- Next: use a small prediction-first exercise to practise `flatten()` with nested objects; continue avoiding infrastructure changes.
+
+
+### Latest checkpoint — `toset()` (2026-10-25)
+- Learner correctly predicted and verified that `toset(["dev", "test", "dev", "prod"])` removes the duplicate `dev`.
+- Console output order differed from the input, reinforcing that sets do not guarantee order.
+- Status: introduced and verified with one example. Continue with a short independent exercise before moving on.
+
+
+### `toset()` checkpoint update — 2026-10-25
+- Second example verified: `toset(["web", "app", "web", "app"])` returns the unique strings `app` and `web`.
+- Learner predicted two unique values correctly; the console output confirmed it.
+- `toset()` has been practised with two examples. Move to the next small HCL concept; revisit conversion to sets in the `for_each` context later.
+
+
+### `distinct()` checkpoint — 2026-10-26
+- Verified `distinct(["web", "app", "web", "db", "app"])` returns `tolist(["web", "app", "db"])`.
+- Compared directly with `toset()` using the same input; set output displayed as `app`, `db`, `web`.
+- Key distinction verified: `distinct()` returns a list preserving first-occurrence order; `toset()` removes duplicates but does not guarantee order.
+- Next: continue to the next small HCL concept using prediction-first practice.
+
+
+### `length()` checkpoint — 2026-10-26
+- Learner predicted and verified `length(["web", "app", "db"])` returns `3`.
+- Next: practise `length()` on a string; keep the lesson prediction-first.
+
+
+### `length()` checkpoint update — 2026-10-26
+- Verified list length (`["web", "app", "db"]` -> `3`) and string length (`"terraform"` -> `9`) in Terraform Console.
+- Learner correctly described the distinction: list elements versus string characters.
+- Clarification: list of two strings has length `2`, not the combined character count.
+- Next: use a short prediction-first exercise to reinforce `length()` before moving on.
+
+
+### `length()` checkpoint complete for this introductory pass — 2026-10-26
+- Verified list count: `length(["web", "app", "db"])` -> `3`.
+- Verified string character count: `length("terraform")` -> `9`.
+- Verified list-of-strings count: `length(["terraform", "azure"])` -> `2`, not the combined character count.
+- Move to the next small HCL function/concept with prediction-first practice.
+
+
+### `contains()` checkpoint — 2026-10-26
+- Learner correctly predicted and verified `contains(["dev", "test", "prod"], "test")` -> `true`.
+- Takeaway: `contains()` checks whether the exact value is present and returns a Boolean.
+- Next: predict and verify a missing value, expected to return `false`.
+
+
+### `contains()` checkpoint complete — 2026-10-26
+- Verified the present case: `contains(["dev", "test", "prod"], "test")` -> `true`.
+- Correctly predicted and verified the absent case: `contains(["dev", "test", "prod"], "stage")` -> `false`.
+- Both Boolean outcomes confirmed. Move to the next small HCL concept with prediction-first practice.
+
+
+### `lookup()` checkpoint — 2026-10-26
+- Learner predicted and verified `lookup({ dev = "small", prod = "large" }, "prod")` returns `"large"`.
+- Takeaway: `lookup()` retrieves the map value associated with a key.
+- Next: test a missing key and introduce the optional default value.
+
+
+### `lookup()` checkpoint update — 2026-10-26
+- First example verified: key `prod` returns `"large"`.
+- Missing-key example verified: `lookup(..., "test", "medium")` returns `"medium"` because the third argument is the default.
+- Next: use one fresh map/default example for independent confirmation, then move to the next small HCL concept.
+
+
+### `lookup()` final prediction — 2026-10-26
+- Learner correctly predicted that a present key (`dev`) returns `"small"` even when a default (`"medium"`) is supplied.
+- Verify this final expression in Terraform Console, then move to the next small HCL concept.
+
+
+### `lookup()` checkpoint complete — 2026-10-26
+- Verified existing key: `prod` returns `"large"`.
+- Verified missing key: `test` returns the provided default `"medium"`.
+- Final example verified: `dev` returns `"small"` even with default `"medium"` supplied.
+- Introductory `lookup()` practice complete. Proceed to the next small HCL concept using prediction-first practice.
+
+
+### `coalesce()` checkpoint — 2026-10-26
+- Learner correctly predicted and verified `coalesce(null, null, "dev", "prod")` -> `"dev"`.
+- Takeaway: returns the first non-null argument from left to right.
+- Next: ask for a prediction on a fresh example and verify it in Terraform Console.
+
+
+### `coalesce()` checkpoint update — 2026-10-26
+- Second example verified: `coalesce(null, "test", "prod")` returns `"test"`.
+- Learner correctly predicted the first non-null argument.
+- Two examples verified; move to the next small HCL concept with prediction-first practice.
+
+
+### `join()` checkpoint — 2026-10-26
+- Learner correctly predicted and verified `join("-", ["dev", "east", "01"])` -> `"dev-east-01"`.
+- Takeaway: `join()` combines list strings into one string with the chosen separator between elements.
+- Next: ask for a prediction using a different separator, then verify in Terraform Console.
+
+
+### `join()` checkpoint update — 2026-10-26
+- Second example verified: `join("/", ["subscriptions", "resourceGroups", "vnet"])` returns `"subscriptions/resourceGroups/vnet"`.
+- Learner correctly predicted the exact output. Two examples with different separators are verified.
+- Next: proceed to the next small HCL concept with prediction-first practice.
+
+
+### Current HCL function checkpoint — 2026-10-26
+- Verified `split("-", "dev-east-01")` returns a list with `dev`, `east`, and `01`.
+- Verified three `replace()` examples, including replacing repeated matches and replacing hyphens with slashes.
+- Verified `upper("dev-east-01")` -> `"DEV-EAST-01"` and `upper("Azure DevOps 2026")` -> `"AZURE DEVOPS 2026"`.
+- Reference note: `lower()` converts letters to lowercase; its separate exercise was skipped as requested.
+- Next: proceed with the next small HCL concept using prediction-first practice.
+
+## Dated Study Schedule — Interview Preparation (2026-10-26)
+
+**Availability:** 30 minutes daily, 7 days/week (3.5 hours/week).  
+**Priority:** Azure DevOps + Terraform interview preparation.  
+**Plan window:** 2026-10-26 to 2026-12-20 (8 weeks). Dates are targets, not a claim that topics are completed. If a lesson takes longer, move the remaining dates forward rather than skipping verification.
+
+### Daily 30-minute pattern
+- 5 min: recall yesterday's concept without notes.
+- 15 min: one small prediction-first lesson or hands-on exercise.
+- 5 min: verify with Terraform Console, `terraform fmt -check`, or `terraform validate` as appropriate.
+- 5 min: explain the concept aloud as an interview answer and record evidence.
+- Review-only days use the same 30 minutes; do not add a second topic.
+
+### Week-by-week calendar
+
+| Dates | Focus | Seven daily sessions | Exit evidence |
+|---|---|---|---|
+| **Week 1: Oct 26–Nov 1** | Finish HCL function basics and reinforce expressions | Mon 26: checkpoint review + `upper()` recap; Tue 27: next small string function; Wed 28: `format()`/string construction; Thu 29: function prediction drills; Fri 30: list/map expression recall; Sat 31: fresh `for` expression exercise; Sun Nov 1: weekly quiz and notes | Correct predictions and console evidence; keep `for` expressions as practised until a fresh independent test |
+| **Week 2: Nov 2–8** | Terraform workflow and state fundamentals | Mon: init/validate/plan purpose; Tue: read a plan safely; Wed: state and resource addresses; Thu: implicit dependencies and `depends_on`; Fri: drift and refresh concepts; Sat: remote state, locking, backend risks; Sun: interview Q&A review | Explain workflow, state, dependencies, and why state must be protected; no apply/destroy |
+| **Week 3: Nov 9–15** | Variables, locals, outputs, types, validation | Mon: input variables/types; Tue: defaults and precedence; Wed: validation; Thu: locals vs variables; Fri: outputs and references; Sat: small isolated config; Sun: recall quiz/debug | Write and explain a small validated configuration independently |
+| **Week 4: Nov 16–22** | Collections, functions, conditionals, dynamic blocks | Mon: list/map/object review; Tue: `count` vs `for_each`; Wed: `toset()` and stable keys; Thu: `lookup()`/conditionals review; Fri: dynamic blocks concept; Sat: small combined exercise; Sun: interview quiz | Explain when to use each construct and predict outputs without copying |
+| **Week 5: Nov 23–29** | Modules and Azure network design | Mon: module purpose/interface; Tue: inputs/outputs; Wed: root vs child module; Thu: resource group/VNet/subnet design; Fri: NSG rules and references; Sat: diagram/explain a simple network; Sun: review | Explain module boundaries and a basic Azure network design; keep examples local/plan-only |
+| **Week 6: Nov 30–Dec 6** | Azure compute, identity, and security | Mon: Linux VM resource anatomy; Tue: SSH/key handling; Wed: managed identity; Thu: Key Vault and secret handling; Fri: least privilege/security scenarios; Sat: Hub-and-Spoke concept; Sun: scenario review | Give safe design answers; never expose secrets or make unapproved Azure changes |
+| **Week 7: Dec 7–13** | Azure DevOps CI/CD and professional workflow | Mon: Git branching/PR review; Tue: pipeline stages; Wed: Terraform init/validate/plan in pipeline; Thu: plan artifact and approval gates; Fri: service connections/OIDC or identity concepts; Sat: pipeline failure troubleshooting; Sun: mock interview | Explain a safe pipeline from PR to reviewed plan and approved deployment |
+| **Week 8: Dec 14–20** | Interview consolidation and capstone | Mon: Terraform fundamentals mock; Tue: state/dependency scenarios; Wed: HCL coding questions; Thu: Azure networking/security scenario; Fri: Azure DevOps pipeline scenario; Sat: small capstone design and review; Sun: final mock interview + gap list | Answer common questions clearly, solve small HCL tasks, and identify next gaps; no infrastructure deployment required |
+
+### Progress and mastery rules
+- Existing exercises remain **practised/verified**, not automatically **mastered**. In particular, map `for` expressions and other HCL functions need fresh independent examples before mastery is claimed.
+- Mark a topic **mastered** only after the learner can explain it, predict a fresh example, complete a small task without copying, and troubleshoot a related mistake.
+- The date plan is a proposal. Record actual completion dates and evidence in `LEARNING-PROGRESS.md`; do not mark a topic complete just because its target date passed.
+- Use only the isolated `terraform-hcl-practice/` directory for HCL exercises when appropriate. Preserve the Azure-backed root configuration and remote state.
+- No `terraform apply`, `terraform destroy`, or impactful Azure operation without explicit approval.
+
+
+## Practical labs are mandatory for every lesson
+
+The course is not complete as a theory-only syllabus. Every one of the 13 lessons must include a production-style scenario, a small learner-written task, a prediction before running commands, safe verification, one troubleshooting drill, a security/cost review, and an evidence-based progress record. The full lab track is in [Production-Style Hands-on Labs](production-labs.md).
+
+| Lesson | Hands-on outcome | Production-style scenario |
+|---|---|---|
+| 1 | Build typed variables, naming/tags and outputs | Standardized dev/test/prod resource conventions |
+| 2 | Run safe init/fmt/validate/plan workflow | Review a requested subnet/tag change before deployment |
+| 3 | Inspect disposable state and resource addresses | Rename a resource without accidental recreation |
+| 4 | Read dependency relationships and graph | Private endpoint/network dependencies |
+| 5 | Classify drift and lifecycle plan actions | Investigate a manually changed NSG/tag |
+| 6 | Design backend, locking and recovery controls | Shared Azure Storage state for team and pipeline |
+| 7 | Validate environment-specific inputs and outputs | Common module with environment-specific sizing/CIDRs |
+| 8 | Model subnets/rules with maps and stable keys | Scalable network rules without duplicated blocks |
+| 9 | Build and call a reusable module | Standard network pattern shared by app teams |
+| 10 | Design hub/spoke, NSGs, CIDRs and routes | Segmented Azure application network |
+| 11 | Review VM, managed identity and Key Vault design | Secure Linux workload without embedded credentials |
+| 12 | Design gated pipeline and plan review | PR validation with human approval before changes |
+| 13 | Integrate and troubleshoot the full design | Production-style application platform capstone |
+
+**Safety:** local-only exercises first; use a dedicated non-production Azure sandbox only with explicit approval. Never point exercises at the existing Azure Storage backend or apply/destroy infrastructure without explicit approval. Completion means demonstrated work and evidence—not reading the page or answering a quiz alone.
+
+
+## Practical checkpoint — 2026-10-28
+
+The workflow course now includes an executed Azure lab, not only theory.
+
+- Lesson 2 workflow: `init`, `fmt`, `validate`, `plan`, and an explicitly approved `apply` were practised.
+- Created and verified `rg-tf-lab-prashant-dev` in Central India with development/lab tags.
+- Terraform state listed `azurerm_resource_group.lab`; the subsequent plan reported no changes.
+- Next lesson: Lesson 3 — State and Resource Addresses. Start with configuration-versus-state prediction and read-only state inspection.
+- Safety note: preserve this lab resource group; no apply/destroy without fresh explicit approval.

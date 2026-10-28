@@ -7,4 +7,7 @@ variable "location" {
 variable "admin_username" {
   type = string
 }
-
+variable "ssh_public_key" {
+  description = "SSH public key used to access Linux VMs"
+  type        = string
+}

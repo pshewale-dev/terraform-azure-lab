@@ -1,0 +1,11 @@
+# Normalize text files to LF in the Git repository
+* text=auto eol=lf
+
+# Terraform and cloud-init files must use LF
+*.tf         text eol=lf
+*.tfvars     text eol=lf
+*.yaml       text eol=lf
+*.yml        text eol=lf
+*.json       text eol=lf
+*.ps1        text eol=lf
+*.sh         text eol=lf

@@ -1,0 +1,34 @@
+site_name: Terraform Zero to Hero
+site_description: Terraform, Azure and DevOps study notes
+site_url: https://pshewale-dev.github.io/terraform-azure-lab/
+
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Terraform Course:
+      - Lesson 1 - Core Concepts and HCL: lesson-01-fundamentals.md
+      - Lesson 2 - Terraform Workflow: lesson-02-workflow.md
+      - Lesson 3 - State and Resource Addresses: lesson-03-state.md
+      - Lesson 4 - Dependencies and Execution Order: lesson-04-dependencies.md
+      - Lesson 5 - Drift and Lifecycle: lesson-05-drift-lifecycle.md
+      - Lesson 6 - Remote State and Locking: lesson-06-remote-state.md
+      - Lesson 7 - Variables, Locals, and Outputs: lesson-07-variables.md
+      - Lesson 8 - Collections and Resource Iteration: lesson-08-collections.md
+      - Lesson 9 - Modules: lesson-09-modules.md
+      - Lesson 10 - Azure Networking: lesson-10-networking.md
+      - Lesson 11 - Azure Compute and Identity: lesson-11-compute-identity.md
+      - Lesson 12 - Git and Azure DevOps Pipelines: lesson-12-pipelines.md
+      - Lesson 13 - Troubleshooting and Capstone: lesson-13-capstone.md
+      - Production-Style Hands-on Labs: production-labs.md
+  - Learning Tracker: LEARNING-PROGRESS.md
+  - Roadmap: LEARNING-ROADMAP.md
+

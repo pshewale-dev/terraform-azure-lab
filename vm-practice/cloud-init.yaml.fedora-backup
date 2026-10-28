@@ -1,0 +1,8 @@
+#cloud-config
+packages:
+  - git
+write_files:
+  - path: /opt/cloud-init-test.txt
+    content: |
+      This file was created by cloud-init.
+      Terraform Azure lab.  
