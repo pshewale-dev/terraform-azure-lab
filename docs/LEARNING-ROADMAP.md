@@ -393,3 +393,17 @@ The workflow course now includes an executed Azure lab, not only theory.
 - Terraform state listed `azurerm_resource_group.lab`; the subsequent plan reported no changes.
 - Next lesson: Lesson 3 — State and Resource Addresses. Start with configuration-versus-state prediction and read-only state inspection.
 - Safety note: preserve this lab resource group; no apply/destroy without fresh explicit approval.
+
+
+## Practical checkpoint — 2026-10-28 (state safety and retired lab cleanup)
+
+The roadmap now explicitly tracks safe retirement of a practice environment as part of the production workflow, not as an unreviewed cleanup command.
+
+- **Completed, based on learner confirmation:** the old rg-practice-lab Azure lab was destroyed after a plan showing 51 resources to destroy. The corresponding old root-level Terraform files were renamed to .tf.disabled and moved under vm-practice/_archive/.
+- **Preserve:** vm-practice/hub-spoke-lab and the separate Azure-backed rg-tf-lab-prashant-dev learning resource group/state. They are not part of the retired lab cleanup.
+- **New production skill to practise:** verify subscription, backend/workspace and resource scope; inspect and challenge the destroy plan; check dependencies/shared resources and cost; obtain explicit approval; perform cleanup only after approval; verify the intended scope afterward; retain useful audit evidence; never delete state/backend storage merely to make resources disappear.
+- **State/Git hygiene:** local state was restricted to owner read/write (chmod 600). Ignore state files, state backups and .terraform/; normally commit .terraform.lock.hcl.
+- **Current learning status:** Lesson 3 — State and Resource Addresses, IN PROGRESS. Next: prediction-first discussion of configuration/state mismatch and read-only state inspection. No new Azure operations are authorized by this checkpoint.
+
+### Curriculum alignment
+Include resource retirement, destroy-plan review, and post-cleanup verification in practical work for Lessons 3 (state/address awareness), 5 (drift/lifecycle and deletion risk), 6 (state/backend protection), 12 (pipeline approval gates), and 13 (capstone runbook). Practise locally or through a reviewed plan first; do not use the preserved Azure-backed lab as a disposable environment.
