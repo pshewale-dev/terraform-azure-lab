@@ -796,3 +796,29 @@ Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations
 - Do not delete files to test the scenario. Continue with read-only state commands such as `terraform state list` and, if useful, `terraform state show azurerm_resource_group.lab`.
 - Explain configuration vs state and resource addresses, then demonstrate safely against the existing lab.
 - Preserve the created Azure resource group. Do not apply, destroy, or make impactful Azure changes without fresh explicit approval.
+
+
+## Session checkpoint — 2026-10-28 (state safety, Git hygiene, and lab cleanup)
+
+### Lesson 3 — State and Resource Addresses
+- Resumed from the state/configuration relationship and resource address azurerm_resource_group.lab.
+- Read-only state inspection was used/recommended: terraform state list and terraform state show azurerm_resource_group.lab. The state entry identifies Terraform's address and recorded attributes; it is not a substitute for verifying the actual Azure object.
+- Protected the local Azure-backed lab state file with chmod 600 terraform.tfstate; the reported permissions were owner read/write only (-rw-------).
+- Checked repository ignore rules. *.tfstate ignores the state file, *.tfstate.* catches backup names such as terraform.tfstate.backup, and .terraform/ is ignored. The normal .terraform.lock.hcl should generally be committed to pin provider selections; state files and backups should not be committed.
+- Do not expose state contents in logs or public notes: state can contain sensitive values.
+
+### Cleanup of the old vm-practice Azure lab
+- The learner confirmed that the old rg-practice-lab resources were destroyed after reviewing a plan that listed 51 resources for destruction. This is recorded as a completed cleanup, not as a general instruction to destroy resources.
+- The old root-level .tf configuration files were renamed to .tf.disabled and moved into vm-practice/_archive/ so the archived configuration is not loaded as active Terraform configuration.
+- Keep vm-practice/hub-spoke-lab separate and untouched. Also preserve the independent Azure-backed learning resource group rg-tf-lab-prashant-dev in Central India and its state.
+- Cleanup learning: before removing an old lab, confirm the subscription, resource group, backend/workspace and exact plan; identify shared or separately managed resources; save required evidence; review estimated costs and dependencies; obtain explicit approval; then verify the intended resources are gone. Do not delete state or backend storage as a shortcut. Archive old configuration only after checking it cannot be accidentally loaded by Terraform.
+- No additional Azure cleanup was performed as part of this documentation checkpoint.
+
+### Exact resume point
+1. Continue Lesson 3 with a prediction about what happens when configuration and state disagree; do not delete or alter files to simulate it.
+2. Use only read-only state inspection against the existing lab after confirming the working directory/backend.
+3. Later, practise address moves and destroy-plan review in a disposable local-only lab, not against the preserved Azure-backed resource group.
+4. Keep state security and cleanup safety as recurring production workflow topics; do not mark Lesson 3 mastered yet.
+
+### Safety boundary
+No terraform apply, terraform destroy, state deletion, backend migration, or other impactful Azure operation without fresh explicit approval.
