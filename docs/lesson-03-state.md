@@ -40,3 +40,22 @@ A team has an old Terraform-managed environment that is no longer needed. The ta
 Continue with a prediction-first, read-only exercise about configuration versus state. For a future cleanup drill, use a disposable local-only configuration and review a destroy plan without applying it. Lesson status remains IN PROGRESS until independent explanation, a fresh exercise, and troubleshooting evidence are demonstrated.
 
 **Safety:** Never apply/destroy or make impactful Azure changes without explicit approval. Confirm target subscription/backend/workspace and exact plan each time.
+
+## Practical session checkpoint — 2026-10-29
+
+### Lab verified
+- Working directory: `~/azure-lab/terraform-hcl-practice`.
+- Terraform v1.17.0; AzureRM provider v4.81.0.
+- No backend/cloud block was found in this directory's `.tf` files; a local `terraform.tfstate` file exists with owner-only permissions.
+- `terraform state list` returned `azurerm_resource_group.lab`.
+- `terraform state show azurerm_resource_group.lab` displayed the tracked resource group's name, `centralindia` location, and three expected tags.
+
+### Exercise and evidence
+- Compared `main.tf` against the state output; the address, resource group name, location, and tags matched.
+- Prediction: changing the `environment` tag from `dev` to `test` should cause an in-place update. Learner reported that `terraform plan` proposed one tag change; no apply was performed.
+- Restored the tag to `dev`, ran `terraform fmt`, `terraform validate`, and `terraform plan`; learner reported no changes.
+- Interview recall: learner correctly described `plan` as previewing proposed changes and `apply` as executing changes against the target provider.
+
+### Current status
+Lesson 3 remains **IN PROGRESS**. The concepts above are practised in this lab, not fully mastered. Next: one small practical exercise distinguishing configuration, state, and live Azure, then a troubleshooting drill and a concise interview explanation. Preserve the existing learning resource group and state; no apply/destroy or state mutation without explicit approval.
+
