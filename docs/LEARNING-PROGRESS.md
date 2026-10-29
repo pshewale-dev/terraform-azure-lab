@@ -822,3 +822,36 @@ Do not run `terraform apply`, `terraform destroy`, or impactful Azure operations
 
 ### Safety boundary
 No terraform apply, terraform destroy, state deletion, backend migration, or other impactful Azure operation without fresh explicit approval.
+
+## Session checkpoint — 2026-10-29: Lesson 3 hands-on state and plan
+
+### Environment verified
+- Repository: `~/azure-lab`; branch `main`; working tree was clean and local `main` matched `origin/main` at commit `9e19246` before this documentation update.
+- Practice directory: `~/azure-lab/terraform-hcl-practice`.
+- Terraform: `v1.17.0`; AzureRM provider: `4.81.0`.
+- The practice directory's `main.tf` has no `backend` or `cloud` block; local `terraform.tfstate` exists with owner-only permissions (`-rw-------`). Do not infer remote-backend configuration for this directory.
+- Configuration declares `azurerm_resource_group.lab`; `terraform state list` returned that same address.
+- `terraform state show azurerm_resource_group.lab` showed the recorded resource group `rg-tf-lab-prashant-dev`, location `centralindia`, and tags `environment=dev`, `managed_by=terraform`, `purpose=learning-lab`. The subscription/resource ID was visible in the terminal; do not repeat it unnecessarily or publish state output.
+
+### Demonstrated today
+- Distinguished configuration, state, and live Azure infrastructure.
+- Correctly predicted that `terraform state show` reads recorded attributes and does not itself refresh state or modify infrastructure.
+- Compared `main.tf` with state: resource address, name, location, and all three tags matched.
+- Predicted a tag-only change from `environment=dev` to `environment=test` would normally be an in-place update. Learner reported that `terraform plan` proposed one tag change; no apply was run.
+- Restored the configuration tag to `dev`, ran `terraform fmt`, `terraform validate`, and `terraform plan`; learner reported the final plan showed no changes.
+- Gave a correct interview explanation: `terraform plan` previews proposed infrastructure changes; `terraform apply` executes changes against the target provider. Clarified that `apply` can generate a fresh plan unless applying a saved plan file.
+
+### Status and evidence boundary
+- Lesson 3 remains **IN PROGRESS**. Today's concepts are **PRACTISED / VERIFIED for this exercise**, not globally mastered.
+- No `terraform apply`, `terraform destroy`, state mutation, or Azure resource change was performed in this session.
+- A no-change plan means Terraform found no changes to propose based on configuration, state, and the provider's refreshed view; it is not a universal guarantee that every external aspect of Azure has been audited.
+
+### Next session
+1. Resume Lesson 3, not the repeated multiple-choice quiz chain.
+2. Use one small practical scenario to distinguish state address, configuration reference, and live resource; avoid modifying the preserved Azure resource group.
+3. Continue with read-only checks and prediction-first reasoning, then one troubleshooting drill and an interview explanation.
+4. Update lesson notes and progress only with demonstrated evidence; do not mark Lesson 3 mastered yet.
+
+### Safety
+Preserve `rg-tf-lab-prashant-dev`, its state, and the separate `vm-practice/hub-spoke-lab`. No `apply`, `destroy`, state modification, or impactful Azure action without fresh explicit approval.
+
