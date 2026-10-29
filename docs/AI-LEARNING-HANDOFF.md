@@ -48,3 +48,17 @@ Use this section together with the newest checkpoint in docs/LEARNING-PROGRESS.m
 - **Must preserve:** vm-practice/hub-spoke-lab and the separate Azure-backed rg-tf-lab-prashant-dev learning resource group and state. Do not treat these as part of the retired cleanup.
 - **Next step:** ask a prediction-first question about configuration and state disagreeing, then use read-only state commands only after confirming the working directory and backend. Do not delete files or state to simulate a mismatch.
 - **Safety:** no terraform apply, terraform destroy, state/backend migration, or impactful Azure operation without fresh explicit approval. A historical approval to retire the old lab is not blanket permission for future operations.
+
+## Authoritative current checkpoint — 2026-10-29
+
+This section supersedes the older current checkpoint above; older notes are retained as historical context. Read `docs/LEARNING-PROGRESS.md` and `docs/lesson-03-state.md` for the evidence record.
+
+- **Course:** Phase 1 — Fundamentals; Lesson 3 — State and Resource Addresses; **IN PROGRESS**.
+- **Verified environment:** repository `~/azure-lab`, branch `main`; lab directory `~/azure-lab/terraform-hcl-practice`; Terraform v1.17.0; AzureRM v4.81.0.
+- **Backend/state context:** no backend or cloud block was found in this lab's `.tf` files; local `terraform.tfstate` exists with owner-only permissions. Do not confuse this directory with `vm-practice/hub-spoke-lab`, which uses a separate Azure Storage backend.
+- **Evidence from 2026-10-29:** `terraform state list` returned `azurerm_resource_group.lab`; `terraform state show` displayed the recorded name, location and tags. Configuration and state attributes were compared and matched. Learner predicted a tag-only update; the plan proposed one tag change for `dev` → `test`, then the tag was restored and a final plan reported no changes. `terraform fmt` and `terraform validate` were run. No apply or Azure resource changes were performed.
+- **Interview recall:** learner explained that `terraform plan` previews proposed changes and `terraform apply` executes changes against the target provider. Clarified that `apply` may create a fresh plan unless given a saved plan.
+- **Status:** concepts practised/verified in this exercise, not globally mastered; Lesson 3 remains in progress.
+- **Next session:** continue with one practical, read-only scenario about configuration, state addresses and live infrastructure; include verification, one troubleshooting drill and an interview explanation. Do not resume a long chain of multiple-choice questions.
+- **Safety:** preserve `rg-tf-lab-prashant-dev`, its state, and `vm-practice/hub-spoke-lab`. No `terraform apply`, `terraform destroy`, state mutation, or impactful Azure action without fresh explicit approval.
+
