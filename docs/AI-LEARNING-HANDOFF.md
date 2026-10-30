@@ -4,7 +4,7 @@ Use this file when starting or continuing a learning session with ChatGPT, Gemin
 
 ## Repository
 - Repository: `pshewale-dev/terraform-azure-lab`
-- Learning branch: `feature/dynamic-nsg`
+- Learning branch: `main`
 - Canonical records: `docs/LEARNING-ROADMAP.md`, `docs/LEARNING-PROGRESS.md`, and `docs/lesson-01-fundamentals.md`
 - Read the canonical records before teaching or editing. Do not rely on this summary if the latest progress file says otherwise.
 
@@ -62,3 +62,19 @@ This section supersedes the older current checkpoint above; older notes are reta
 - **Next session:** continue with one practical, read-only scenario about configuration, state addresses and live infrastructure; include verification, one troubleshooting drill and an interview explanation. Do not resume a long chain of multiple-choice questions.
 - **Safety:** preserve `rg-tf-lab-prashant-dev`, its state, and `vm-practice/hub-spoke-lab`. No `terraform apply`, `terraform destroy`, state mutation, or impactful Azure action without fresh explicit approval.
 
+
+
+## Authoritative current checkpoint — 2026-10-30
+
+This section supersedes earlier current-checkpoint sections above. The canonical progress tracker and Lesson 3 notes contain the detailed evidence.
+
+- **Course:** Phase 1 — Fundamentals; Lesson 3 — State and Resource Addresses; **IN PROGRESS**.
+- **Repository:** `pshewale-dev/terraform-azure-lab`; active learning branch: `main`.
+- **Workspace:** `~/azure-lab/terraform-hcl-practice`; Terraform v1.17.0; AzureRM provider v4.81.0.
+- **State context:** this workspace has no `backend` or `cloud` block and uses local `terraform.tfstate`. Do not confuse it with `vm-practice/hub-spoke-lab`, which has a separate Azure Storage backend.
+- **Verified object:** state address `azurerm_resource_group.lab`; resource group `rg-tf-lab-prashant-dev` in `centralindia`; tags `environment=dev`, `managed_by=terraform`, `purpose=learning-lab`. Read-only Azure CLI output matched configuration and state.
+- **2026-10-30 learning evidence:** learner predicted a configured tag change from `dev` to `test` would be in-place; plan showed one tag change and no apply occurred. The tag was restored to `dev`; fmt, validate and normal plan were run, and the plan reported no changes. Learner correctly explained drift and chose to update configuration if the external value is intended to be retained.
+- **Refresh distinction:** refresh-only plan showed saved state `test` versus live Azure `dev`; it previews updating state to reflect live values without changing Azure. No refresh-only apply was run, so the state refresh was not explicitly persisted. A later normal plan refreshed its in-memory view and reported no changes; normal plan alone does not persist a refreshed snapshot.
+- **Status:** Lesson 3 remains in progress. The above is practised/verified for this exercise, not mastery.
+- **Next session:** one practical, read-only troubleshooting exercise explaining why saved state may differ from live Azure and distinguishing refresh-only plan, refresh-only apply, and ordinary plan; then a concise interview explanation.
+- **Safety:** preserve `rg-tf-lab-prashant-dev`, its local state, and `vm-practice/hub-spoke-lab`. No apply, destroy, state mutation, backend migration, or impactful Azure operation without fresh explicit approval.
