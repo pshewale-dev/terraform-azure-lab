@@ -855,3 +855,31 @@ No terraform apply, terraform destroy, state deletion, backend migration, or oth
 ### Safety
 Preserve `rg-tf-lab-prashant-dev`, its state, and the separate `vm-practice/hub-spoke-lab`. No `apply`, `destroy`, state modification, or impactful Azure action without fresh explicit approval.
 
+
+
+## Session checkpoint — 2026-10-30: Lesson 3 drift and refresh behavior
+
+### Environment and state verified
+- Continued in `~/azure-lab/terraform-hcl-practice` on repository branch `main`.
+- This practice directory has no Terraform `backend` or `cloud` block; it uses the local `terraform.tfstate`. Do not confuse it with the separate Azure Storage-backed `vm-practice/hub-spoke-lab`.
+- `terraform state list` returned `azurerm_resource_group.lab`.
+- `terraform state show azurerm_resource_group.lab` recorded `rg-tf-lab-prashant-dev`, `centralindia`, and tags `environment=dev`, `managed_by=terraform`, `purpose=learning-lab`.
+- Read-only Azure CLI `az group show` confirmed the live resource group has the same name, location, and three tags.
+
+### Demonstrated today
+- Correctly predicted that changing the configured environment tag from `dev` to `test` would propose an in-place tag update. Learner reported one tag change in the plan; no apply was run.
+- Restored `environment=dev`, ran `terraform fmt`, `terraform validate`, and `terraform plan`; the final normal plan reported no changes.
+- Explained drift as an out-of-band change to live infrastructure that differs from Terraform's expected configuration/state, and correctly chose to update configuration to `test` if that is the intended value to retain.
+- Reviewed `terraform plan -refresh-only`: it showed a difference between the saved state value (`test`) and the live Azure value (`dev`). The refresh-only plan previews updating the state snapshot to reflect live values; it does not propose changing Azure infrastructure.
+- No `terraform apply -refresh-only` was run, so that refreshed snapshot was not explicitly persisted by an apply.
+- A subsequent ordinary `terraform plan` refreshed its in-memory view from Azure and reported no changes because live Azure matched configuration. A normal plan alone does not persist a refreshed state snapshot.
+
+### Status and evidence boundary
+- Lesson 3 remains **IN PROGRESS**; these concepts are practised and verified for this exercise, not globally mastered.
+- No `terraform apply`, `terraform destroy`, state mutation, or Azure resource change occurred today.
+- Preserve `rg-tf-lab-prashant-dev`, its local state, and the separate `vm-practice/hub-spoke-lab`. No apply/destroy, state mutation, backend migration, or impactful Azure operation without fresh explicit approval.
+
+### Next session
+1. Continue Lesson 3 with one practical troubleshooting exercise: explain why saved state can differ from live Azure and distinguish refresh-only plan, refresh-only apply, and ordinary plan.
+2. Ask for the learner's explanation in their own words, then give one concise interview-style answer.
+3. Keep the exercise read-only; do not persist state changes or alter Azure without explicit approval.
