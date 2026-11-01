@@ -903,3 +903,38 @@ This checkpoint supersedes all earlier "current checkpoint" and "next session" e
 - **Next lesson:** Lesson 4 — Dependencies and Execution Order. The introductory `depends_on` concept was already covered in Lesson 1.17 and marked understood in `lesson-01-fundamentals.md`; do not repeat that introduction. Continue with implicit dependencies, the dependency graph, execution ordering/concurrency, and appropriate use of explicit dependencies.
 - **Environment guardrails:** `~/azure-lab/terraform-hcl-practice` uses local state and has no backend/cloud block in its `.tf` files. Do not confuse it with `vm-practice/hub-spoke-lab`, which uses a separate Azure Storage backend. Preserve `rg-tf-lab-prashant-dev`, its local state, and the separate hub-and-spoke lab. No impactful Azure action without fresh explicit approval.
 - **Teaching approach:** one concept at a time; prediction-first; short learner-written practical exercises; verify and troubleshoot; do not repeat mastered material or use long multiple-choice chains. Keep exercises safe and avoid unnecessary Azure cost.
+
+
+## Authoritative Current Checkpoint — 2026-11-01: Lesson 4 completed
+
+This section supersedes earlier current-lesson and resume instructions above. Historical entries are retained for context.
+
+### Current learning status
+- **Course phase:** Phase 2 — Terraform Core Concepts.
+- **Lesson 4 — Dependencies and Execution Order:** **COMPLETED**.
+- **Next lesson:** Lesson 5 — Drift and Lifecycle.
+- **Next action:** Begin with one prediction-first scenario where configuration differs from live Azure. Explain the distinction between configuration, state, and remote infrastructure before inspecting a safe plan. Do not restart Lessons 1–4.
+
+### Lesson 4 evidence
+- Learner understood that a resource attribute reference creates an implicit dependency. In the Azure lab, `azurerm_subnet.app` referenced `azurerm_virtual_network.app.name`.
+- Learner correctly explained that the subnet depends on the VNet because of this reference. Clarification: changing a VNet CIDR does not create the dependency; the reference does.
+- Reviewed the dependency graph. It showed the storage account and VNet depending on the existing resource group, and the subnet depending on the VNet. Graph edges point from dependent to prerequisite; execution proceeds prerequisite to dependent.
+- Understood that the VNet and storage account can proceed independently after the resource group is ready, while the subnet waits for the VNet.
+- Recalled that `depends_on` is for dependencies Terraform cannot infer through normal references; unnecessary explicit dependencies can reduce parallelism.
+- Corrected a CIDR typo before deployment. The intended VNet range was `10.20.0.0/16`; the subnet range was `10.20.1.0/24`.
+- Learner reported reviewing a plan of 3 to add, 0 to change, 0 to destroy, then running `terraform apply`.
+- Learner supplied `terraform state list` showing:
+  - `azurerm_resource_group.lab`
+  - `azurerm_storage_account.app`
+  - `azurerm_subnet.app`
+  - `azurerm_virtual_network.app`
+- Existing resource group: `rg-tf-lab-prashant-dev`, Central India. Three resources added in this lesson: VNet, subnet, and storage account.
+
+### Workspace and safety
+- Workspace: `~/azure-lab/terraform-hcl-practice`.
+- The workspace uses local state for this exercise; do not confuse it with `vm-practice/hub-spoke-lab`, which has a separate Azure Storage backend.
+- Preserve the learning resource group, its resources and state, and the separate hub-and-spoke lab.
+- No further apply, destroy, state mutation, backend migration, or impactful Azure operation without fresh explicit approval.
+
+### Teaching approach
+Continue with concise, practical, one-concept-at-a-time instruction. Ask for a prediction before explaining when appropriate. Use small learner-written exercises, then verification and troubleshooting. Avoid requesting unnecessary command output or repeating inspections the learner has already confirmed.
