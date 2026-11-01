@@ -883,3 +883,23 @@ Preserve `rg-tf-lab-prashant-dev`, its state, and the separate `vm-practice/hub-
 1. Continue Lesson 3 with one practical troubleshooting exercise: explain why saved state can differ from live Azure and distinguish refresh-only plan, refresh-only apply, and ordinary plan.
 2. Ask for the learner's explanation in their own words, then give one concise interview-style answer.
 3. Keep the exercise read-only; do not persist state changes or alter Azure without explicit approval.
+
+
+---
+
+## Authoritative checkpoint — 2026-11-01: Lesson 3 completed
+
+This checkpoint supersedes all earlier "current checkpoint" and "next session" entries above. Older entries are retained as historical session records.
+
+- **Phase:** 2 — Terraform Core Concepts (per the course roadmap).
+- **Lesson 3:** State and Resource Addresses — **COMPLETED** after final assessment.
+- **Assessment evidence:**
+  - Correctly predicted that removing a resource declaration while its state entry remains leads Terraform to propose destroying the resource, assuming required provider configuration remains available. If provider configuration is also removed, planning may instead fail.
+  - Explained that a `moved` block changes Terraform's resource address without renaming the actual Azure resource. Ran a plan for `azurerm_resource_group.lab` → `azurerm_resource_group.learning`; reported result was 0 add, 0 change, 0 destroy. No apply was run, so the state move was not persisted.
+  - Correctly described recovery from a protected state backup and, if no backup exists, rebuilding/validating configuration and importing existing resources. Recognized that importing a large estate is complex and requires careful reconciliation.
+  - Correctly explained state exposure risks and the need for secret rotation, access investigation, and removal from Git history where possible. Understood secure backend access controls/RBAC.
+  - Correctly distinguished `terraform state rm` (untracks the object; leaves Azure resource in place) from `terraform destroy` (deletes managed infrastructure when successful).
+- **No operations performed for this final assessment:** no apply, destroy, import, state mutation/deletion, backend migration, or Azure resource changes.
+- **Next lesson:** Lesson 4 — Dependencies and Execution Order. The introductory `depends_on` concept was already covered in Lesson 1.17 and marked understood in `lesson-01-fundamentals.md`; do not repeat that introduction. Continue with implicit dependencies, the dependency graph, execution ordering/concurrency, and appropriate use of explicit dependencies.
+- **Environment guardrails:** `~/azure-lab/terraform-hcl-practice` uses local state and has no backend/cloud block in its `.tf` files. Do not confuse it with `vm-practice/hub-spoke-lab`, which uses a separate Azure Storage backend. Preserve `rg-tf-lab-prashant-dev`, its local state, and the separate hub-and-spoke lab. No impactful Azure action without fresh explicit approval.
+- **Teaching approach:** one concept at a time; prediction-first; short learner-written practical exercises; verify and troubleshoot; do not repeat mastered material or use long multiple-choice chains. Keep exercises safe and avoid unnecessary Azure cost.
