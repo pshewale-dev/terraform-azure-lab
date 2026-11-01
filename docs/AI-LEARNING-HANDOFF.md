@@ -90,3 +90,16 @@ This section supersedes all earlier current-checkpoint sections above. Use `docs
 - **Safety:** no state import, state mutation/deletion, apply, destroy, backend migration, or Azure resource change occurred during the final assessment. Preserve `rg-tf-lab-prashant-dev`, its state, and `vm-practice/hub-spoke-lab`. No impactful Azure operation without fresh explicit approval.
 - **Next session:** start Lesson 4 — Dependencies and Execution Order. The introductory `depends_on` concept was already covered and marked understood in Lesson 1.17. Do not repeat it as new material. Focus on implicit dependencies from references, how Terraform builds and traverses the dependency graph, execution ordering/concurrency, and when explicit dependencies are warranted.
 - **Teaching style:** concise, practical, one concept at a time, prediction-first, learner-written exercises, then verification/troubleshooting. Avoid long multiple-choice chains and avoid unnecessary Azure spend.
+
+
+## Authoritative current checkpoint — 2026-11-01: Lesson 4 completed
+
+This section supersedes all earlier current-checkpoint sections above. The canonical detailed evidence is in `docs/LEARNING-PROGRESS.md` and `docs/lesson-04-dependencies.md`.
+
+- **Course position:** Phase 2 — Terraform Core Concepts; Lesson 4 — Dependencies and Execution Order; **COMPLETED**.
+- **Evidence:** learner correctly explained that `azurerm_subnet.app` implicitly depends on `azurerm_virtual_network.app` because `virtual_network_name` references `azurerm_virtual_network.app.name`. Clarified that a CIDR value change does not create the dependency; the resource reference does.
+- **Graph:** VNet and storage account depend on the existing resource group; subnet depends on VNet. Graph edges point from dependent to prerequisite, while execution proceeds prerequisite to dependent. VNet and storage account can run independently after the resource group is ready.
+- **Azure lab:** in `~/azure-lab/terraform-hcl-practice`, learner reviewed a plan showing 3 to add, 0 to change, 0 to destroy, corrected a CIDR typo, ran `terraform apply`, and supplied state-list output showing the existing resource group plus the new storage account, subnet and VNet.
+- **Next lesson:** Lesson 5 — Drift and Lifecycle. Start with a concise prediction-first scenario where configuration differs from live Azure; distinguish configuration, state and remote infrastructure before safe plan review.
+- **Safety:** preserve `rg-tf-lab-prashant-dev`, its resources and local state, and `vm-practice/hub-spoke-lab` with its separate Azure Storage backend/state. No further apply, destroy, state mutation, backend migration or impactful Azure operation without fresh explicit approval.
+- **Teaching style:** concise, practical, one concept at a time, prediction-first, small learner-written exercises, then verification/troubleshooting. Avoid unnecessary output requests and repeated inspections.
