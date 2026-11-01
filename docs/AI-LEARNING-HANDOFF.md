@@ -78,3 +78,15 @@ This section supersedes earlier current-checkpoint sections above. The canonical
 - **Status:** Lesson 3 remains in progress. The above is practised/verified for this exercise, not mastery.
 - **Next session:** one practical, read-only troubleshooting exercise explaining why saved state may differ from live Azure and distinguishing refresh-only plan, refresh-only apply, and ordinary plan; then a concise interview explanation.
 - **Safety:** preserve `rg-tf-lab-prashant-dev`, its local state, and `vm-practice/hub-spoke-lab`. No apply, destroy, state mutation, backend migration, or impactful Azure operation without fresh explicit approval.
+
+
+## Authoritative current checkpoint — 2026-11-01: Lesson 3 completed
+
+This section supersedes all earlier current-checkpoint sections above. Use `docs/LEARNING-PROGRESS.md` and `docs/lesson-03-state.md` for the full evidence.
+
+- **Course position:** Phase 2 — Terraform Core Concepts; Lesson 3 — State and Resource Addresses; **COMPLETED**.
+- **Final assessment:** learner correctly explained missing resource configuration versus retained state (destroy proposed, assuming provider configuration remains); state recovery from backup or import; state sensitivity, remote backend/RBAC and secret rotation after exposure; and the difference between `terraform state rm` and `terraform destroy`.
+- **Address migration:** learner used a `moved` block for `azurerm_resource_group.lab` → `azurerm_resource_group.learning` and reported a plan of 0 add, 0 change, 0 destroy. No apply was run, so do not claim the move was persisted in state.
+- **Safety:** no state import, state mutation/deletion, apply, destroy, backend migration, or Azure resource change occurred during the final assessment. Preserve `rg-tf-lab-prashant-dev`, its state, and `vm-practice/hub-spoke-lab`. No impactful Azure operation without fresh explicit approval.
+- **Next session:** start Lesson 4 — Dependencies and Execution Order. The introductory `depends_on` concept was already covered and marked understood in Lesson 1.17. Do not repeat it as new material. Focus on implicit dependencies from references, how Terraform builds and traverses the dependency graph, execution ordering/concurrency, and when explicit dependencies are warranted.
+- **Teaching style:** concise, practical, one concept at a time, prediction-first, learner-written exercises, then verification/troubleshooting. Avoid long multiple-choice chains and avoid unnecessary Azure spend.
