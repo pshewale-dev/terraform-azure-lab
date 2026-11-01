@@ -88,3 +88,30 @@ Lesson 3 remains **IN PROGRESS**. The concepts above are practised in this lab, 
 Lesson 3 remains **IN PROGRESS**. The learner demonstrated drift reasoning and interpreted the refresh-only output for this scenario; further independent explanation and troubleshooting are still required. Next, ask the learner to explain in their own words why saved state can differ from live Azure and distinguish the three operations above, then practise a concise interview response.
 
 **Safety:** No apply, destroy, state mutation, or Azure resource change occurred in this session. Preserve `rg-tf-lab-prashant-dev` and its local state. No state mutation, backend migration, or impactful Azure operation without fresh explicit approval.
+
+
+## Final session checkpoint — 2026-11-01: Lesson 3 completed
+
+### Topics completed and demonstrated
+- **Configuration, state, and real infrastructure:** explained that Terraform state records Terraform's mapping to managed objects; it does not recreate missing configuration.
+- **Missing resource configuration:** correctly predicted that when a resource declaration is removed while its state entry remains, Terraform plans to destroy that resource, assuming required provider configuration remains available. If provider configuration is also missing, planning may instead fail with a configuration/provider error.
+- **Resource address changes:** used a `moved` block to describe the address change from `azurerm_resource_group.lab` to `azurerm_resource_group.learning`. The learner ran plan and reported `0 to add, 0 to change, 0 to destroy`. **No apply was run**, so the move was planned but not persisted to state.
+- **Terraform label vs Azure name:** distinguished changing a Terraform resource label/address from changing the actual Azure resource name. A label move does not rename the Azure resource; changing the actual resource name may require replacement depending on provider behavior.
+- **`moved` block vs `terraform state mv`:** discussed declarative, version-controlled address migration with a `moved` block versus a manual state operation with `terraform state mv`.
+- **State recovery:** correctly described restoring a valid protected state backup as the preferred recovery path. If no backup exists, recreate/verify configuration and import existing resources with `terraform import`; large environments require careful resource-by-resource reconciliation.
+- **State security:** correctly explained that state may contain secrets and sensitive infrastructure details; local state is acceptable for isolated practice when protected, while team environments should use a secure remote backend with encryption, restricted access and RBAC. If exposed publicly, treat secrets as compromised, rotate them, investigate access, and remove exposed state from repository history where possible. Deleting the file in a later commit does not erase Git history.
+- **`terraform state rm` vs `terraform destroy`:** correctly explained that `state rm` removes Terraform's tracking entry but leaves the real Azure resource intact; `destroy` deletes managed infrastructure when the operation succeeds and updates state accordingly. After `state rm`, a later plan may propose creating the resource again if its configuration remains.
+
+### Assessment
+- Final assessment: all three scenario exercises answered correctly, with sound reasoning.
+- Final distinction question (`state rm` vs `destroy`): answered correctly.
+- **Lesson status: COMPLETED.** The learner demonstrated conceptual understanding in prediction-based explanations. This is a learning checkpoint, not a claim that every Terraform state recovery operation has been performed hands-on.
+
+### Environment and safety boundary
+- Practice workspace: `~/azure-lab/terraform-hcl-practice`; local state, no backend/cloud block in this workspace. Keep it distinct from `vm-practice/hub-spoke-lab`, which uses a separate Azure Storage backend.
+- The moved-block plan was reviewed only; no apply was performed, so do not claim the state address migration was committed.
+- No state deletion, import, state mutation, apply, destroy, backend migration, or Azure resource change was performed for this assessment.
+- Preserve `rg-tf-lab-prashant-dev`, its state, and `vm-practice/hub-spoke-lab`. No impactful Azure action without fresh explicit approval.
+
+### Next lesson
+Proceed to **Lesson 4 — Dependencies and Execution Order**. Do not repeat the introductory `depends_on` material already covered in Lesson 1.17; build on it by studying Terraform's dependency graph, implicit dependencies from references, execution ordering/concurrency, and when explicit dependencies are genuinely needed.
