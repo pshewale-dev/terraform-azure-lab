@@ -2,7 +2,7 @@
 
 **Course position:** Lesson 5 of 13  
 **Phase:** 2 — Terraform Core Concepts  
-**Session status:** IN PROGRESS — concepts introduced and prediction exercises completed; practical refresh-only exercise and final assessment remain.
+**Session status:** IN PROGRESS — drift and refresh-only concepts practised with read-only Azure plans; final integrated assessment and lifecycle review remain.
 
 ## Objectives
 - Explain drift between Terraform configuration and live infrastructure.
@@ -99,14 +99,33 @@ Learner independently answered the following prediction questions:
 
 **Status:** These concepts are UNDERSTOOD / PRACTISED based on the answers above. Lesson 5 is not complete yet: refresh-only planning, a safe practical inspection, and a final integrated assessment remain.
 
-## 4. Pending: refresh-only planning and safe verification
+## 4. Refresh-only planning — practised 2026-11-02
 
-Next session begins with:
-- Explain the difference between ordinary `terraform plan` and `terraform plan -refresh-only`.
-- Explain that refresh-only plan previews state updates to match remote objects; it does not propose changing the remote infrastructure.
-- Distinguish previewing a refresh from persisting refreshed state with `terraform apply -refresh-only`.
-- Use a read-only inspection in `~/azure-lab/terraform-hcl-practice`, after confirming workspace/backend context.
-- Do not run `terraform apply -refresh-only` or any other state-changing operation without fresh explicit approval.
+On 2026-11-02, the learner ran both commands in `~/azure-lab/terraform-hcl-practice`:
+
+- `terraform plan` refreshed its view of Azure and proposed an in-place resource-group tag update from live `Production` to configured `dev`: **0 to add, 1 to change, 0 to destroy**.
+- `terraform plan -refresh-only` reported the external resource-group tag difference in the opposite direction (`dev` in prior state to `Production` in Azure) and explained that it would not undo the remote change. It also surfaced provider/API-reported subnet and VNet attribute differences (`service_endpoints`, `service_endpoint_policy_ids`, and nested subnet properties); these were observations, not proof that an administrator manually changed them.
+- The learner correctly explained that refresh-only previews updating Terraform state to reflect Azure, while normal plan proposes reconciling Azure with configuration.
+- The learner correctly answered that running another normal plan after a refresh-only **plan** still proposes `Production` → `dev`, because a plan does not persist the refreshed state.
+- No `terraform apply -refresh-only` was run. No state update was persisted and no Azure resource was changed.
+
+### Key distinction
+- `terraform plan`: previews proposed infrastructure changes to make remote resources match configuration.
+- `terraform plan -refresh-only`: previews state changes to make Terraform's recorded values match remote infrastructure.
+- `terraform apply -refresh-only`: persists refreshed values to state; it does not change remote infrastructure. Not run in this session.
+
+## 5. Manually deleted and unmanaged resources — conceptual assessment
+- If a resource remains in configuration and state but is manually deleted from Azure, a normal plan generally proposes recreating it.
+- If a resource exists in Azure but is absent from both configuration and state, Terraform normally does not manage or automatically delete/import it.
+- The learner explained why importing a business-critical existing resource is preferable to recreating it: avoid downtime, preserve existing application configuration, and reduce rebuild effort.
+- The learner understood that import associates an existing remote object with a Terraform resource address in state, while matching `.tf` configuration must still be written separately.
+- The learner correctly refused a hypothetical production plan showing `0 to add, 0 to change, 1 to destroy`, explaining that the unexpected destruction must be investigated before approval.
+- No resource was deleted or imported. No `terraform import` command was run.
+
+## 6. Next steps and safety
+- Complete a final integrated assessment, then review lifecycle meta-arguments with practical examples, beginning with `prevent_destroy`.
+- Do not mark Lesson 5 complete until the integrated assessment is passed.
+- Keep all further exercises read-only unless the learner gives fresh, explicit approval for a specific state-changing or Azure-impacting operation.
 
 ## Environment and safety guardrails
 
