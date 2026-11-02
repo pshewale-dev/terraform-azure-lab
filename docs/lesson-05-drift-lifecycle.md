@@ -138,4 +138,4 @@ On 2026-11-02, the learner ran both commands in `~/azure-lab/terraform-hcl-pract
 - Keep exercises read-only and avoid unnecessary Azure spend.
 
 ## Teaching approach
-Continue one concept at a time, prediction-first, with concise explanations and small practical exercises. Avoid long multiple-choice chains and unnecessary command-output requests. Do not mark Lesson 5 complete until the pending refresh-only exercise and final assessment are demonstrated.
+Continue one concept at a time, prediction-first, with concise explanations and small practical exercises. Avoid long multiple-choice chains and unnecessary command-output requests. Do not mark Lesson 5 complete until the final integrated assessment is passed.
