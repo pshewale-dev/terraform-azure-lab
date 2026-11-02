@@ -977,3 +977,44 @@ This checkpoint supersedes earlier current-lesson and resume instructions above.
 
 ### Teaching approach
 Continue concise, practical, one concept at a time, prediction-first. Use short learner-written exercises and avoid long multiple-choice chains or unnecessary command-output requests.
+
+
+## Authoritative current checkpoint — 2026-11-02 session end: Lesson 5 in progress
+
+This checkpoint supersedes all earlier current-checkpoint and resume instructions above. Historical records are retained.
+
+### Course status
+- **Phase:** 2 — Terraform Core Concepts.
+- **Lesson 4 — Dependencies and Execution Order:** COMPLETED.
+- **Lesson 5 — Drift and Lifecycle:** IN PROGRESS.
+
+### Work completed in this session
+- **Normal plan vs. refresh-only plan:** explained with a simple house-painting analogy, then verified with read-only plans in `~/azure-lab/terraform-hcl-practice`.
+- Learner correctly explained that normal `terraform plan` proposes changing Azure to match configuration. The observed plan proposed changing the resource-group tag from live `Production` back to configured `dev` (**0 add, 1 change, 0 destroy**).
+- Learner correctly explained that `terraform plan -refresh-only` previews updating Terraform state to reflect live Azure values and does not propose changing Azure. The output also showed provider/API-reported subnet and VNet attribute differences; these were not assumed to be manual changes.
+- Learner correctly answered that a subsequent normal plan still proposes `Production` → `dev` if only a refresh-only plan was run, because planning alone does not persist state changes.
+- Explicit distinction recorded: `terraform plan -refresh-only` previews; `terraform apply -refresh-only` persists refreshed values to state. No refresh-only apply was run.
+- Discussed a resource manually deleted from Azure while still in configuration/state: normal plan generally proposes recreating it. Learner correctly predicted this.
+- Discussed an unmanaged resource created manually in Azure but absent from both configuration and state: learner correctly explained Terraform normally ignores it and does not automatically import or delete it.
+- Discussed import of existing business-critical resources. Learner identified avoiding downtime, preserving configuration, and reducing operational effort. Clarified that import associates the remote object with a state address; matching configuration must still be written.
+- Learner correctly rejected a hypothetical production plan showing **0 add, 0 change, 1 destroy**, and said the configuration must be investigated before approval.
+
+### Commands and operational evidence
+- Learner ran `terraform plan` and `terraform plan -refresh-only` in the practice workspace. These were planning/inspection commands only.
+- No `terraform apply`, `terraform apply -refresh-only`, `terraform destroy`, `terraform import`, state mutation, or Azure resource change occurred in this session.
+- The observed normal plan proposed one in-place tag update; it was not applied.
+- The refresh-only plan surfaced additional subnet/VNet provider/API-reported attribute differences. Do not describe these as confirmed manual edits.
+
+### Next session
+1. Resume Lesson 5; do not restart earlier lessons.
+2. Begin with lifecycle meta-arguments, starting with `prevent_destroy`, using a simple production scenario and prediction-first teaching.
+3. Cover `create_before_destroy`, `ignore_changes`, and `replace_triggered_by` with practical examples and trade-offs.
+4. Finish with an integrated assessment before marking Lesson 5 complete.
+5. Keep exercises read-only. No state-changing or Azure-impacting command without fresh explicit approval.
+
+### Environment and safety
+- Practice workspace: `~/azure-lab/terraform-hcl-practice`; local Terraform state.
+- Separate `vm-practice/hub-spoke-lab` uses its own Azure Storage backend/state.
+- Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, storage account and local state, plus the separate hub-and-spoke lab.
+- No `terraform apply`, `terraform apply -refresh-only`, `terraform destroy`, import, state mutation, backend migration, or impactful Azure operation without fresh explicit approval.
+- Keep the learning style concise, practical, one concept at a time, prediction-first; avoid unnecessary command-output requests.
