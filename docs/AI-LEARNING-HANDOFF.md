@@ -116,3 +116,16 @@ This section supersedes earlier current-checkpoint sections above. The canonical
 - **Workspace:** `~/azure-lab/terraform-hcl-practice`, local state. Do not confuse it with `vm-practice/hub-spoke-lab`, which has a separate Azure Storage backend.
 - **Safety:** preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, storage account and local state, plus `vm-practice/hub-spoke-lab`. No apply, destroy, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval. Next exercise should be read-only.
 - **Teaching style:** concise, practical, one concept at a time, prediction-first; avoid long multiple-choice chains and unnecessary output requests.
+
+
+## Authoritative current checkpoint — 2026-11-02 session end
+
+This section supersedes all earlier current-checkpoint sections above. The detailed evidence is in `docs/LEARNING-PROGRESS.md` and `docs/lesson-05-drift-lifecycle.md`.
+
+- **Course:** Phase 2 — Terraform Core Concepts; Lesson 5 — Drift and Lifecycle; **IN PROGRESS**. Lesson 4 is complete.
+- **Completed this session:** normal `terraform plan` versus `terraform plan -refresh-only`, verified with read-only plans in `~/azure-lab/terraform-hcl-practice`; manually deleted-resource behavior; unmanaged resources; why importing existing business-critical resources avoids rebuild/downtime; import/configuration distinction; review of destructive plans.
+- **Practical evidence:** normal plan proposed the resource-group tag changing from live `Production` to configured `dev` (0 add, 1 change, 0 destroy). Refresh-only plan previewed state reflecting live `Production` and reported subnet/VNet provider/API attributes. Learner understood that a refresh-only plan does not persist state and that another normal plan still proposes the configuration change.
+- **No state or Azure changes:** no apply, refresh-only apply, destroy, import, or state mutation was run. No Azure resource was changed.
+- **Next session:** continue Lesson 5 with lifecycle meta-arguments, starting with `prevent_destroy`; then cover `create_before_destroy`, `ignore_changes`, and `replace_triggered_by`; finish with an integrated assessment before marking Lesson 5 complete.
+- **Safety:** preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, storage account and local state, plus `vm-practice/hub-spoke-lab` and its separate Azure Storage backend/state. No state-changing or Azure-impacting operation without fresh explicit approval.
+- **Teaching style:** concise, practical, one concept at a time, prediction-first, small learner-written exercises, and no unnecessary output requests.
