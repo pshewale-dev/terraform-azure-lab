@@ -938,3 +938,42 @@ This section supersedes earlier current-lesson and resume instructions above. Hi
 
 ### Teaching approach
 Continue with concise, practical, one-concept-at-a-time instruction. Ask for a prediction before explaining when appropriate. Use small learner-written exercises, then verification and troubleshooting. Avoid requesting unnecessary command output or repeating inspections the learner has already confirmed.
+
+
+---
+
+## Authoritative current checkpoint — 2026-11-02: Lesson 5 in progress
+
+This checkpoint supersedes earlier current-lesson and resume instructions above. Historical session records are retained.
+
+### Current learning status
+- **Course phase:** Phase 2 — Terraform Core Concepts.
+- **Lesson 4 — Dependencies and Execution Order:** COMPLETED.
+- **Lesson 5 — Drift and Lifecycle:** IN PROGRESS.
+- **Topics covered today:** drift between configuration and live infrastructure; planning response to tag drift; replacement when a provider requires it; lifecycle meta-arguments `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and a conceptual introduction to `replace_triggered_by`.
+- **Next action:** resume with ordinary plan versus `terraform plan -refresh-only`; then perform a safe read-only inspection and final integrated assessment. Do not restart Lessons 1–4.
+
+### Lesson 5 evidence — 2026-11-02
+- Correctly predicted that if configuration expects `environment=dev` but an administrator changes the live Azure tag to `test`, Terraform plans to restore `dev`. Clarified that the Portal changed the live resource, not Terraform state.
+- Correctly predicted that deleting the tag from Azure causes Terraform to propose restoring it. Clarified that the plan generally reports **1 to change**, not 1 to add, because the resource already exists and only its tag is updated.
+- Correctly predicted replacement when a location change is marked replacement-only by the provider. The configured desired location controls where the replacement is created. Exact behavior depends on the resource/provider schema.
+- Initially suggested `prevent_destroy` might ignore the location difference, then self-corrected: it blocks a plan requiring destruction while the lifecycle rule remains in the resource configuration. It does not ignore drift or prevent in-place updates.
+- Correctly explained `ignore_changes = [tags]`: tag differences are ignored for update planning while other managed attributes continue to be checked.
+- Correctly explained `create_before_destroy = true`: create the replacement first, then destroy the old resource, provided both can coexist and Azure constraints allow it.
+- Introduced `replace_triggered_by` conceptually; no code was written or tested for it.
+- No commands, plans, applies, state operations, or Azure changes were run during this lesson session. All evidence above is from conceptual prediction questions.
+
+### Remaining work
+1. Explain and distinguish `terraform plan` and `terraform plan -refresh-only`.
+2. Explain that a refresh-only plan previews state refresh and does not change remote Azure infrastructure; distinguish it from `terraform apply -refresh-only`, which persists state changes.
+3. Conduct a read-only practical inspection in `~/azure-lab/terraform-hcl-practice` after confirming workspace/backend context.
+4. Complete an integrated assessment before marking Lesson 5 complete.
+
+### Environment and safety
+- Workspace: `~/azure-lab/terraform-hcl-practice`; local state. Separate `vm-practice/hub-spoke-lab` uses Azure Storage backend.
+- Preserve `rg-tf-lab-prashant-dev`, its existing VNet, subnet, storage account and local state, and the separate hub-and-spoke lab.
+- No `terraform apply`, `terraform destroy`, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval.
+- Keep the next exercise read-only and avoid unnecessary Azure spend.
+
+### Teaching approach
+Continue concise, practical, one concept at a time, prediction-first. Use short learner-written exercises and avoid long multiple-choice chains or unnecessary command-output requests.
