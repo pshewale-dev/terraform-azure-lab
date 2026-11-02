@@ -103,3 +103,16 @@ This section supersedes all earlier current-checkpoint sections above. The canon
 - **Next lesson:** Lesson 5 — Drift and Lifecycle. Start with a concise prediction-first scenario where configuration differs from live Azure; distinguish configuration, state and remote infrastructure before safe plan review.
 - **Safety:** preserve `rg-tf-lab-prashant-dev`, its resources and local state, and `vm-practice/hub-spoke-lab` with its separate Azure Storage backend/state. No further apply, destroy, state mutation, backend migration or impactful Azure operation without fresh explicit approval.
 - **Teaching style:** concise, practical, one concept at a time, prediction-first, small learner-written exercises, then verification/troubleshooting. Avoid unnecessary output requests and repeated inspections.
+
+
+## Authoritative current checkpoint — 2026-11-02: Lesson 5 in progress
+
+This section supersedes earlier current-checkpoint sections above. The canonical evidence is in `docs/LEARNING-PROGRESS.md` and `docs/lesson-05-drift-lifecycle.md`.
+
+- **Course:** Phase 2 — Terraform Core Concepts; Lesson 5 — Drift and Lifecycle; **IN PROGRESS**.
+- **Completed Lesson 5 concepts:** drift between configuration and live infrastructure; plan response to tag changes/deletions; replacement behavior when required by a provider; `prevent_destroy`, `create_before_destroy`, and `ignore_changes`; conceptual introduction to `replace_triggered_by`.
+- **Evidence:** learner correctly predicted restoring an externally changed/deleted tag; correctly explained tag differences ignored by `ignore_changes`; correctly identified that `prevent_destroy` blocks a destructive plan and that `create_before_destroy` creates the replacement first. Learner self-corrected the `prevent_destroy` prediction.
+- **Pending:** teach ordinary `terraform plan` versus `terraform plan -refresh-only`; conduct a safe read-only practical inspection; complete an integrated assessment. Do not mark Lesson 5 complete yet.
+- **Workspace:** `~/azure-lab/terraform-hcl-practice`, local state. Do not confuse it with `vm-practice/hub-spoke-lab`, which has a separate Azure Storage backend.
+- **Safety:** preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, storage account and local state, plus `vm-practice/hub-spoke-lab`. No apply, destroy, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval. Next exercise should be read-only.
+- **Teaching style:** concise, practical, one concept at a time, prediction-first; avoid long multiple-choice chains and unnecessary output requests.
