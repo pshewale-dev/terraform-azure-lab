@@ -407,3 +407,15 @@ The roadmap now explicitly tracks safe retirement of a practice environment as p
 
 ### Curriculum alignment
 Include resource retirement, destroy-plan review, and post-cleanup verification in practical work for Lessons 3 (state/address awareness), 5 (drift/lifecycle and deletion risk), 6 (state/backend protection), 12 (pipeline approval gates), and 13 (capstone runbook). Practise locally or through a reviewed plan first; do not use the preserved Azure-backed lab as a disposable environment.
+
+---
+
+## Current sequence clarification — 2026-11-03
+
+The current teaching sequence inserts a dedicated practical session for lifecycle meta-arguments immediately after the completed Lesson 5 drift/import track:
+
+- **Lesson 5 — Drift and Lifecycle:** completed for drift, refresh-only, import, configuration reconciliation, and production-risk assessment.
+- **Lesson 6 — Terraform Lifecycle Meta-Arguments (hands-on):** current. Practise `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and `replace_triggered_by`. Conceptual prediction work is complete; hands-on HCL and verification remain.
+- **Following topic:** Remote State and Locking, as described in the numbered curriculum. Treat it as the next topic after the dedicated lifecycle practice rather than skipping the current Lesson 6 checkpoint.
+
+The dedicated Lesson 6 checkpoint and evidence are in [lesson-06-lifecycle-meta-arguments.md](lesson-06-lifecycle-meta-arguments.md) and [LEARNING-PROGRESS.md](LEARNING-PROGRESS.md).
