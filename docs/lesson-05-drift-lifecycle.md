@@ -195,3 +195,12 @@ Workspace: `~/azure-lab/terraform-hcl-practice`; local Terraform state.
 - **Lesson 6 — Terraform Lifecycle Meta-Arguments (hands-on).**
 - Practise `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and `replace_triggered_by` with small, safe plan-based exercises.
 - Keep the agreed concise, practical, one-step-at-a-time teaching style. Avoid unnecessary command output.
+
+---
+
+## Session close — 2026-11-03: Lesson 5 status reaffirmed
+
+- Lesson 5 remains **COMPLETED** for drift, refresh-only planning, import, configuration reconciliation, deleted-resource reasoning, and replacement-risk assessment.
+- Lifecycle meta-arguments were introduced conceptually and are now being tracked as a separate dedicated hands-on Lesson 6.
+- The next hands-on practice is documented in `docs/lesson-06-lifecycle-meta-arguments.md`.
+- No workspace files or Azure resources were changed during the Lesson 6 conceptual session.
