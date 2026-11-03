@@ -129,3 +129,35 @@ This section supersedes all earlier current-checkpoint sections above. The detai
 - **Next session:** continue Lesson 5 with lifecycle meta-arguments, starting with `prevent_destroy`; then cover `create_before_destroy`, `ignore_changes`, and `replace_triggered_by`; finish with an integrated assessment before marking Lesson 5 complete.
 - **Safety:** preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, storage account and local state, plus `vm-practice/hub-spoke-lab` and its separate Azure Storage backend/state. No state-changing or Azure-impacting operation without fresh explicit approval.
 - **Teaching style:** concise, practical, one concept at a time, prediction-first, small learner-written exercises, and no unnecessary output requests.
+
+---
+
+## Authoritative current checkpoint — 2026-11-03: Lesson 5 completed
+
+This section supersedes all earlier current-checkpoint sections above. Detailed evidence is in `docs/LEARNING-PROGRESS.md` and `docs/lesson-05-drift-lifecycle.md`.
+
+- **Course:** Phase 2 — Terraform Core Concepts.
+- **Lesson 4:** COMPLETED.
+- **Lesson 5 — Drift and Lifecycle:** COMPLETED for the hands-on drift, refresh-only, import, configuration reconciliation, deleted-resource reasoning, and replacement-risk assessment.
+- **Next lesson:** Lesson 6 — Terraform Lifecycle Meta-Arguments, with practical exercises for `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and `replace_triggered_by`. These were introduced conceptually earlier; their dedicated practical exercises are next.
+
+### Verified Lesson 5 session evidence — 2026-11-03
+- In `~/azure-lab/terraform-hcl-practice`, learner changed the Azure resource-group tag `environment` from `dev` to `Production` in Portal. Normal `terraform plan` proposed restoring `dev` (0 add, 1 change, 0 destroy).
+- Learner ran `terraform plan -refresh-only`; it previewed state reflecting live `Production`. It also reported provider/API-reported VNet/subnet attributes; these were not assumed to be manual edits.
+- A subsequent normal plan still proposed `Production` → `dev`, confirming the refresh-only plan did not persist state.
+- Learner manually created Azure Storage Account `stdepprashantlab`, wrote `azurerm_storage_account.imported`, ran `terraform validate` successfully, and executed `terraform import` successfully.
+- `terraform state list` showed the imported address alongside the existing resource group, VNet, subnet, and original Storage Account.
+- First post-import plan proposed in-place configuration changes for `allow_nested_items_to_be_public` (false → true) and `min_tls_version` (TLS1_0 → TLS1_2). Learner corrected the configuration to false and TLS1_0; the next plan no longer proposed changes to the imported account.
+- The remaining plan difference was the earlier resource-group tag (Production → dev), 0 add, 1 change, 0 destroy. No apply was run.
+- Learner correctly explained the missing-remote-resource recreation scenario and identified production risks of `-/+` destroy/create replacement.
+
+### Reinforcement and safety
+- In the final integrated verbal assessment, learner initially reversed refresh-only behavior. Reinforce: `terraform plan -refresh-only` previews a change to **Terraform state** to reflect Azure; it does not change Azure.
+- After an object has been imported, fix any configuration mismatch in its resource block and review the plan; do not import it a second time.
+- The manually created/imported Storage Account and the resource-group tag drift are part of the current lab. Preserve them and the local state. Do not clean up or delete them without fresh explicit approval.
+- No ordinary apply or refresh-only apply was run. No apply, destroy, state mutation, backend migration, or impactful Azure operation without fresh explicit approval.
+
+### Resume instructions
+1. Briefly ask the learner what `terraform plan -refresh-only` updates.
+2. Continue with Lesson 6 practical lifecycle meta-arguments, one concept at a time.
+3. Keep the teaching concise, practical, prediction-first, and avoid unnecessary command-output requests.
