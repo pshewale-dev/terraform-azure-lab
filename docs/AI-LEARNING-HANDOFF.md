@@ -161,3 +161,19 @@ This section supersedes all earlier current-checkpoint sections above. Detailed 
 1. Briefly ask the learner what `terraform plan -refresh-only` updates.
 2. Continue with Lesson 6 practical lifecycle meta-arguments, one concept at a time.
 3. Keep the teaching concise, practical, prediction-first, and avoid unnecessary command-output requests.
+
+---
+
+## Authoritative current checkpoint — 2026-11-03: Lesson 6 lifecycle meta-arguments
+
+This supersedes earlier current-checkpoint/resume instructions above. Consult `docs/LEARNING-PROGRESS.md`, `docs/LEARNING-ROADMAP.md`, and `docs/lesson-06-lifecycle-meta-arguments.md`.
+
+- **Lesson 5:** completed for the drift/refresh-only/import practical track.
+- **Current lesson:** Lesson 6 — Terraform Lifecycle Meta-Arguments (hands-on).
+- **Current status:** conceptual prediction exercises completed; practical HCL work is pending.
+- Learner correctly explained `prevent_destroy` and its limitation when the resource block is removed; `create_before_destroy` ordering and private-IP coexistence conflict; selective `ignore_changes`; and the conceptual purpose of `replace_triggered_by`.
+- No lifecycle HCL was added or tested this session. No fmt, validate, or plan commands were run. No Azure/state changes occurred.
+- **Next session:** brief refresh-only recall, then resume in `~/azure-lab/terraform-hcl-practice`. Inspect `azurerm_storage_account.imported`; add `prevent_destroy = true` inside that resource; run `terraform fmt` and `terraform validate`. Continue the other three arguments with isolated/local examples, prediction-first and one at a time. Include troubleshooting and independent explanation before marking practical completion.
+- Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts and local state, and `vm-practice/hub-spoke-lab` with its separate Azure Storage backend/state.
+- No apply, refresh-only apply, destroy, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval. Do not test destructive behavior against the existing lab account.
+- Teaching style: concise, practical, one concept at a time, prediction-first; avoid unnecessary command output.
