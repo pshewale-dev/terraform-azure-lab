@@ -1069,3 +1069,44 @@ Workspace: `~/azure-lab/terraform-hcl-practice`; local state.
    - `replace_triggered_by`
 3. Use safe plan-based exercises and explain any proposed replacement/destruction before any state-changing or Azure-impacting action.
 4. Keep responses concise and practical; ask for only the output needed for the current exercise.
+
+---
+
+## Authoritative current checkpoint — 2026-11-03: Lesson 6 conceptual session
+
+This checkpoint supersedes earlier current-lesson/resume instructions above. Historical records remain for audit context.
+
+### Course status
+- **Phase:** 2 — Terraform Core Concepts.
+- **Lesson 4 — Dependencies and Execution Order:** COMPLETED.
+- **Lesson 5 — Drift and Lifecycle:** COMPLETED for the practical drift, refresh-only, import, reconciliation, and production-risk track.
+- **Current lesson:** **Lesson 6 — Terraform Lifecycle Meta-Arguments (hands-on)**.
+- **Session status:** Conceptual prediction exercises completed; hands-on implementation is intentionally deferred to the next session.
+
+### Demonstrated understanding
+- **`prevent_destroy`:** correctly explained that a replacement requiring destruction is blocked while the lifecycle rule remains in the resource configuration. Correctly identified the key limitation: removing the entire resource block also removes the rule, so a later plan can propose destruction and apply can execute it.
+- **`create_before_destroy`:** correctly explained create-new-before-destroy-old ordering and predicted that an overlapping private IP can prevent two Azure VMs from coexisting and cause creation to fail.
+- **`ignore_changes`:** correctly explained that only listed attributes are ignored; a VM-size change remains detectable when only `tags` are ignored. The list syntax was reviewed, but the learner did not independently write or validate it.
+- **`replace_triggered_by`:** correctly named the argument and explained its purpose at a conceptual level. No code was written or tested.
+- These are **conceptual understanding**, not practical completion or mastery.
+
+### Work actually performed this session
+- Prediction-first verbal exercises only.
+- No edits were made to `networking.tf`.
+- No `terraform fmt`, `terraform validate`, or `terraform plan` commands were run.
+- No apply, destroy, state mutation, import, or Azure change occurred.
+
+### Next session — practical Lesson 6
+1. Resume in `~/azure-lab/terraform-hcl-practice`; preserve its local state and do not confuse it with `vm-practice/hub-spoke-lab`.
+2. Briefly reinforce: `terraform plan -refresh-only` previews updating Terraform state to reflect Azure; it does not update Azure and a plan alone does not persist state.
+3. Inspect the existing `azurerm_storage_account.imported` block.
+4. Have the learner add `prevent_destroy = true` inside that resource, then run `terraform fmt` and `terraform validate`. Use read-only plan review only when appropriate. Do not remove the resource block or intentionally produce a destructive plan against the real lab account.
+5. Practise `create_before_destroy`, `ignore_changes`, and `replace_triggered_by` with isolated/local examples or safe configuration snippets; learner predicts first, writes small HCL, then verifies.
+6. Include one troubleshooting drill and an independent explanation. Do not mark the hands-on lesson complete until code is written and verified.
+
+### Environment and safety
+- Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts (including `stdepprashantlab`), and local Terraform state.
+- Preserve `vm-practice/hub-spoke-lab` and its separate Azure Storage backend/state.
+- No `terraform apply`, `terraform apply -refresh-only`, `terraform destroy`, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval for that specific operation.
+- No cleanup or deletion of the imported Storage Account is authorized.
+- Keep the session concise, practical, one concept at a time, prediction-first, and avoid unnecessary command-output requests.
