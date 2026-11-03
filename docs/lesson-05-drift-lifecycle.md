@@ -139,3 +139,59 @@ On 2026-11-02, the learner ran both commands in `~/azure-lab/terraform-hcl-pract
 
 ## Teaching approach
 Continue one concept at a time, prediction-first, with concise explanations and small practical exercises. Avoid long multiple-choice chains and unnecessary command-output requests. Do not mark Lesson 5 complete until the final integrated assessment is passed.
+
+---
+
+## Authoritative practical completion checkpoint — 2026-11-03
+
+This section records the hands-on Lesson 5 session and supersedes earlier statements in this file that the practical import, refresh-only inspection, or integrated assessment were still pending. Historical conceptual notes above are retained.
+
+### Status
+- **Lesson 5 — Drift and Lifecycle: COMPLETED for the requested drift/import practical track.**
+- Lifecycle meta-arguments were introduced conceptually in earlier study. Their dedicated hands-on practice is the next lesson, Lesson 6, as agreed with the learner.
+- Lesson 4 remains completed.
+
+### Practical evidence — 2026-11-03
+Workspace: `~/azure-lab/terraform-hcl-practice`; local Terraform state.
+
+1. **Manual drift in Azure Portal**
+   - Learner changed the existing resource-group tag `environment` from `dev` to `Production` in Azure Portal, without changing Terraform configuration.
+   - Normal `terraform plan` proposed `Production` → `dev`, with **0 to add, 1 to change, 0 to destroy**.
+   - No apply was run; the tag drift remains unapplied.
+
+2. **Refresh-only plan**
+   - Learner ran `terraform plan -refresh-only`.
+   - It showed the resource-group tag in prior state as `dev` and live Azure as `Production`, and explained that the refresh-only plan would not undo the Azure change.
+   - It also reported subnet/VNet provider/API-reported attributes (including empty service endpoint collections and nested subnet details). These were not treated as confirmed manual edits.
+   - A subsequent ordinary `terraform plan` again proposed `Production` → `dev`, confirming that a refresh-only **plan** does not persist refreshed state.
+   - No `terraform apply -refresh-only` was run.
+
+3. **Manual Azure Storage Account and Terraform import**
+   - Learner manually created Azure Storage Account `stdepprashantlab` in `rg-tf-lab-prashant-dev`.
+   - Learner retrieved its Azure resource ID with Azure CLI.
+   - Added Terraform resource address `azurerm_storage_account.imported` in `networking.tf`, using Standard/LRS and the existing resource group's name/location. `terraform validate` succeeded.
+   - Learner ran `terraform import` for that address and the exact Azure resource ID. Terraform reported **Import successful**.
+   - `terraform state list` then showed both `azurerm_storage_account.app` and `azurerm_storage_account.imported`, as well as the resource group, subnet, and VNet. This is direct evidence that the imported account was added to local Terraform state; it was not recreated by the import.
+
+4. **Imported configuration mismatch**
+   - The first post-import plan proposed in-place changes for the imported account:
+     - `allow_nested_items_to_be_public`: Azure `false` → configured `true`.
+     - `min_tls_version`: Azure `TLS1_0` → configured `TLS1_2`.
+   - Learner corrected the imported resource configuration to `allow_nested_items_to_be_public = false` and `min_tls_version = "TLS1_0"`.
+   - The next plan no longer proposed changes to the imported account. Only the earlier resource-group tag difference remained: **0 to add, 1 to change, 0 to destroy**.
+   - No apply was run. The tag change remains a pending plan difference.
+
+5. **Deleted-resource behavior and replacement-risk assessment**
+   - Learner correctly explained that if a resource remains in configuration/state but is deleted directly from Azure, a normal plan generally proposes recreating it; plan itself does not recreate it, apply does.
+   - In the integrated assessment, learner correctly identified that `-/+` means destroy and then create replacement, and that a production Storage Account replacement can cause downtime/data risk. Learner recommended stopping, verifying configuration and actual settings, reviewing backup/recovery and migration, and obtaining change approval.
+   - The learner's integrated assessment initially reversed the refresh-only behavior in one answer. The correction was reviewed: refresh-only plans to update Terraform **state** to reflect Azure; it does not change Azure. This distinction was separately demonstrated in the practical command output. Revisit briefly at the start of the next session.
+
+### Important corrections retained for future teaching
+- Import is needed to bring an unmanaged existing object into Terraform state. Once the object is already imported and managed, a configuration mismatch is corrected by editing the resource block and reviewing the plan; **do not import it again**.
+- A normal `terraform plan` and a refresh-only plan are previews. Neither applies the proposed operation.
+- Do not run `terraform apply -refresh-only` or ordinary `terraform apply` without fresh explicit approval for that specific operation.
+
+### Next lesson
+- **Lesson 6 — Terraform Lifecycle Meta-Arguments (hands-on).**
+- Practise `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and `replace_triggered_by` with small, safe plan-based exercises.
+- Keep the agreed concise, practical, one-step-at-a-time teaching style. Avoid unnecessary command output.
