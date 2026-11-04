@@ -410,12 +410,13 @@ Include resource retirement, destroy-plan review, and post-cleanup verification 
 
 ---
 
-## Current sequence clarification — 2026-11-03
+## Authoritative curriculum numbering correction — 2026-11-04
 
-The current teaching sequence inserts a dedicated practical session for lifecycle meta-arguments immediately after the completed Lesson 5 drift/import track:
+The canonical numbered curriculum is the 13-lesson sequence in the numbered lesson map above and the MkDocs navigation. The earlier 2026-11-03 "Current sequence clarification" that inserted lifecycle meta-arguments as Lesson 6 was incorrect and is superseded.
 
-- **Lesson 5 — Drift and Lifecycle:** completed for drift, refresh-only, import, configuration reconciliation, and production-risk assessment.
-- **Lesson 6 — Terraform Lifecycle Meta-Arguments (hands-on):** current. Practise `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and `replace_triggered_by`. Conceptual prediction work is complete; hands-on HCL and verification remain.
-- **Following topic:** Remote State and Locking, as described in the numbered curriculum. Treat it as the next topic after the dedicated lifecycle practice rather than skipping the current Lesson 6 checkpoint.
-
-The dedicated Lesson 6 checkpoint and evidence are in [lesson-06-lifecycle-meta-arguments.md](lesson-06-lifecycle-meta-arguments.md) and [LEARNING-PROGRESS.md](LEARNING-PROGRESS.md).
+- **Lesson 5 — Drift and Lifecycle:** includes drift, refresh/refresh-only, import and configuration reconciliation, deletion/replacement risk, and lifecycle meta-arguments (`prevent_destroy`, `create_before_destroy`, `ignore_changes`, `replace_triggered_by`). The lifecycle practical is a continuation/appendix of Lesson 5, not a new numbered lesson.
+- **Lesson 6 — Remote State and Locking:** remains the next numbered lesson, covering backends, Azure Storage remote state, locking, state security and recovery.
+- Lesson numbers 7–13 remain unchanged.
+- The lifecycle practice notes are filed under `lesson-05-lifecycle-meta-arguments.md`; the canonical Lesson 6 page remains `lesson-06-remote-state.md`.
+- MkDocs navigation already maps Lesson 5 to `lesson-05-drift-lifecycle.md` and Lesson 6 to `lesson-06-remote-state.md`; keep it that way.
+- Resume Lesson 6 only after the remaining Lesson 5 lifecycle exercises and assessment are complete. Do not renumber the course.
