@@ -420,3 +420,15 @@ The canonical numbered curriculum is the 13-lesson sequence in the numbered less
 - The lifecycle practice notes are filed under `lesson-05-lifecycle-meta-arguments.md`; the canonical Lesson 6 page remains `lesson-06-remote-state.md`.
 - MkDocs navigation already maps Lesson 5 to `lesson-05-drift-lifecycle.md` and Lesson 6 to `lesson-06-remote-state.md`; keep it that way.
 - Resume Lesson 6 only after the remaining Lesson 5 lifecycle exercises and assessment are complete. Do not renumber the course.
+
+
+---
+
+## Learning checkpoint — 2026-11-04
+
+- **Lesson 5 — Drift and Lifecycle: COMPLETED**, including all lifecycle meta-argument practicals and the integrated assessment.
+- The lifecycle practical appendix is part of Lesson 5 and does not change the numbered curriculum.
+- **Next session: Lesson 6 — Remote State and Locking** (lesson-06-remote-state.md).
+- Lesson 6 should cover local versus remote state, backend concepts, Azure Storage remote backend design, state locking/concurrency, security, and recovery.
+- Start concept-first and cost-safe. Do not create Azure resources or migrate the existing backend without fresh explicit approval.
+- The learner prefers receiving the complete practical steps upfront, then working independently and reporting the results.
