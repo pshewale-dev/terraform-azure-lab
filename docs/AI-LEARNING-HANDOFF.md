@@ -184,3 +184,33 @@ This section supersedes all earlier current-checkpoint sections above. Detailed 
 
 ### Exact resume point
 Continue Lesson 5 lifecycle practical with safe isolated/local examples for `create_before_destroy` and `replace_triggered_by`, then a concise integrated assessment. Once Lesson 5 is complete, begin Lesson 6 — Remote State and Locking. Preserve all existing Azure resources and state; no apply, destroy, state mutation, or backend migration without fresh explicit approval.
+
+
+---
+
+## Authoritative handoff — 2026-11-04: Lesson 5 completed; resume Lesson 6
+
+This is the latest resume checkpoint and supersedes all earlier handoff entries that say lifecycle practice or the Lesson 5 assessment are pending.
+
+- **Course position:** Phase 2 — Terraform Core Concepts.
+- **Lesson 5 — Drift and Lifecycle:** **COMPLETED**, including drift/refresh-only, import and configuration reconciliation, deletion/replacement risk, lifecycle meta-arguments, local practicals, and integrated assessment.
+- **Next session:** **Lesson 6 — Remote State and Locking** (docs/lesson-06-remote-state.md). Lesson 5 lifecycle meta-arguments are a practical appendix/continuation, not a separate numbered lesson.
+
+### Final Lesson 5 evidence
+- **create_before_destroy:** local terraform_data practical forced replacement using triggers_replace. Plan showed +/- create replacement and then destroy; apply created the replacement first and destroyed the old object afterward (1 added, 0 changed, 1 destroyed).
+- **replace_triggered_by:** local disk input change planned an in-place disk update and replacement of the dependent server. Apply destroyed the old server, updated the disk, then created the new server (1 added, 1 changed, 1 destroyed). A referenced resource's in-place planned update can trigger the dependent replacement.
+- **Assessment:** learner correctly identified ignore_changes, create_before_destroy, and replace_triggered_by; the spoken prevent_destroy answer was interpreted as the intended argument and its limitation reviewed; learner correctly distinguished terraform plan -refresh-only from terraform apply -refresh-only.
+- Earlier drift/import evidence and Azure safety constraints remain in docs/LEARNING-PROGRESS.md and docs/lesson-05-drift-lifecycle.md.
+
+### Local cleanup status
+Cleanup commands were provided for ~/terraform-lifecycle-practice/create-before-destroy and ~/terraform-lifecycle-practice/replace-triggered-by, but the learner has not confirmed running them. Do not claim these folders have been removed.
+
+### Resume instructions for Lesson 6
+1. Start with why local Terraform state is problematic for collaboration and shared workflows.
+2. Introduce remote state/backend concepts before Azure implementation.
+3. Cover Azure Storage backend configuration, locking/concurrency, state security, backup/recovery, and operational safeguards.
+4. Give complete practical instructions upfront (the learner prefers to perform the full exercise independently and report results), rather than pausing for every individual command.
+5. Keep the lab cost-safe. Do not create Azure resources, migrate the existing backend, mutate state, apply, or destroy without fresh explicit approval for that specific operation.
+
+### Safety
+Preserve rg-tf-lab-prashant-dev, its VNet, subnet, both Storage Accounts and local state, plus vm-practice/hub-spoke-lab and its separate Azure Storage backend/state. No Azure-impacting operation or backend migration is authorized by this checkpoint.
