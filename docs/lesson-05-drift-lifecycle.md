@@ -191,18 +191,17 @@ Workspace: `~/azure-lab/terraform-hcl-practice`; local Terraform state.
 - A normal `terraform plan` and a refresh-only plan are previews. Neither applies the proposed operation.
 - Do not run `terraform apply -refresh-only` or ordinary `terraform apply` without fresh explicit approval for that specific operation.
 
-### Next lesson
-- **Lesson 6 — Terraform Lifecycle Meta-Arguments (hands-on).**
-- Practise `prevent_destroy`, `create_before_destroy`, `ignore_changes`, and `replace_triggered_by` with small, safe plan-based exercises.
-- Keep the agreed concise, practical, one-step-at-a-time teaching style. Avoid unnecessary command output.
+### Next step (superseded by the 2026-11-04 curriculum correction)
+- Continue the lifecycle meta-arguments practical as part of **Lesson 5 — Drift and Lifecycle**.
+- The next numbered lesson after Lesson 5 is **Lesson 6 — Remote State and Locking** (`lesson-06-remote-state.md`).
 
 ---
 
 ## Session close — 2026-11-03: Lesson 5 status reaffirmed
 
 - Lesson 5 remains **COMPLETED** for drift, refresh-only planning, import, configuration reconciliation, deleted-resource reasoning, and replacement-risk assessment.
-- Lifecycle meta-arguments were introduced conceptually and are now being tracked as a separate dedicated hands-on Lesson 6.
-- The next hands-on practice is documented in `docs/lesson-06-lifecycle-meta-arguments.md`.
+- Lifecycle meta-arguments are part of Lesson 5 and their practical continuation is documented in `docs/lesson-05-lifecycle-meta-arguments.md`.
+- The next numbered lesson after Lesson 5 is Lesson 6 — Remote State and Locking (`docs/lesson-06-remote-state.md`).
 - No workspace files or Azure resources were changed during the Lesson 6 conceptual session.
 
 ---
