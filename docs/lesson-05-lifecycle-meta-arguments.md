@@ -57,3 +57,42 @@ After this appendix and the Lesson 5 assessment are complete, proceed to **Lesso
 
 ## Teaching approach
 Continue one concept at a time, prediction-first, concise and practical. Use learner-written small examples, safe verification and a troubleshooting drill. Do not mark the appendix complete until remaining practical work and the assessment are demonstrated.
+
+
+---
+
+## Authoritative completion update — 2026-11-04
+
+**Status: COMPLETED as part of Lesson 5 — Drift and Lifecycle.** This section supersedes the earlier IN PROGRESS and Remaining work statements above. The lifecycle appendix is not a separate numbered lesson.
+
+### Hands-on practical results
+
+#### 1. create_before_destroy
+- Local-only resource: terraform_data.server.
+- A change to input alone planned an in-place update, demonstrating that it does not automatically force replacement.
+- Added triggers_replace to force replacement and retained lifecycle { create_before_destroy = true }.
+- Plan showed **+/- create replacement and then destroy**.
+- Apply completed successfully: Terraform created the new object first, then destroyed the old/deposed object.
+- Result: **1 added, 0 changed, 1 destroyed**.
+
+#### 2. replace_triggered_by
+- Local-only resources: terraform_data.disk and terraform_data.server.
+- Changed the disk's input from disk-v1 to disk-v2.
+- The disk was planned for an in-place update; the server was planned for replacement due to replace_triggered_by.
+- Apply completed successfully: old server destroyed, disk updated in place, new server created.
+- Result: **1 added, 1 changed, 1 destroyed**.
+- Key distinction: a planned in-place change to the referenced managed resource can trigger the dependent resource's replacement. The referenced resource itself need not be replaced.
+
+### Assessment and status
+- Learner correctly identified ignore_changes, create_before_destroy, and replace_triggered_by.
+- Learner's spoken response for the prevent_destroy question was interpreted as prevent_destroy; its behavior and limitation were reviewed.
+- Learner correctly distinguished refresh-only plan from refresh-only apply.
+- **All Lesson 5 lifecycle practicals and the integrated assessment are complete.**
+
+### Next lesson
+**Lesson 6 — Remote State and Locking** (lesson-06-remote-state.md).
+
+### Safety / cleanup
+- These practicals used isolated local terraform_data resources only; they did not change Azure resources or Azure-backed state.
+- Cleanup was explained but has not been confirmed by the learner. Do not claim the local practice folders have been removed.
+- Preserve the Azure learning resource group, its resources and local state, and the separate hub-and-spoke Azure Storage backend/state. No Azure-impacting operation is authorized without fresh, explicit approval.
