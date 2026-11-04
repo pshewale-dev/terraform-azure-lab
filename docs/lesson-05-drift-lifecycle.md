@@ -204,3 +204,33 @@ Workspace: `~/azure-lab/terraform-hcl-practice`; local Terraform state.
 - Lifecycle meta-arguments were introduced conceptually and are now being tracked as a separate dedicated hands-on Lesson 6.
 - The next hands-on practice is documented in `docs/lesson-06-lifecycle-meta-arguments.md`.
 - No workspace files or Azure resources were changed during the Lesson 6 conceptual session.
+
+---
+
+## Authoritative continuation — 2026-11-04: lifecycle practical
+
+Lesson 5 includes the lifecycle meta-arguments. This practical continuation does **not** create a new numbered lesson.
+
+### Work actually completed
+- Learner added `lifecycle { prevent_destroy = true }` inside the existing `azurerm_storage_account.imported` resource in `networking.tf`.
+- Learner ran `terraform fmt` and `terraform validate`; both were reported complete. No output was supplied, so record this as learner-reported completion, not independently observed command output.
+- No `terraform plan` was run to test a destructive change. No Azure resource, Terraform state, or remote infrastructure was changed.
+- Learner stated that `ignore_changes = [tags]` had already been added for the manually changed Azure Portal tag and that it behaves as expected. This is learner-reported existing lab work; no new edit or plan was run in this session.
+- Prediction/explanation evidence:
+  - `prevent_destroy` blocks a planned destroy/replacement while the resource block and rule remain in configuration.
+  - Removing the entire resource block also removes the lifecycle rule; it is not a permanent Azure-side deletion lock.
+  - `create_before_destroy` requests create-new-before-destroy ordering. The learner identified temporary coexistence constraints such as private IP conflicts. If replacement creation fails due to quota, Terraform cannot proceed to destroy the old object; quota is generally discovered during apply, not guaranteed by plan.
+  - `ignore_changes = [tags]` ignores tag differences while other attributes, such as replication type, remain managed.
+  - `replace_triggered_by` can cause the current resource to be replaced when a referenced managed resource has a relevant planned change; the learner correctly predicted that a VM can be replaced when its referenced managed disk requires replacement.
+- No hands-on HCL or command verification was performed for `create_before_destroy` or `replace_triggered_by` in this session.
+
+### Remaining Lesson 5 work
+1. Verify the existing `ignore_changes = [tags]` configuration safely; avoid unnecessary Azure plan calls if current evidence is sufficient.
+2. Practise `create_before_destroy` and `replace_triggered_by` with isolated/local-only examples or configuration snippets, not destructive tests against the imported Azure Storage Account.
+3. Complete a concise integrated assessment and record which lifecycle arguments are command-verified versus conceptually understood.
+
+### Next numbered lesson
+After the remaining Lesson 5 lifecycle practice and assessment, proceed to **Lesson 6 — Remote State and Locking** (`lesson-06-remote-state.md`). Do not call lifecycle meta-arguments Lesson 6 and do not renumber the roadmap.
+
+### Safety
+Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts and local state, plus the separate `vm-practice/hub-spoke-lab` Azure Storage backend/state. No apply, refresh-only apply, destroy, state mutation, import, backend migration, or impactful Azure operation without fresh explicit approval.
