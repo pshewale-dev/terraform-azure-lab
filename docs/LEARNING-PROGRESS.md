@@ -1142,3 +1142,59 @@ Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts and l
 - Lesson 5 main notes: `lesson-05-drift-lifecycle.md`.
 - Lesson 5 lifecycle practical appendix: `lesson-05-lifecycle-meta-arguments.md`.
 - Lesson 6: `lesson-06-remote-state.md`.
+
+
+---
+
+## Authoritative session close — 2026-11-04: Lesson 5 completed
+
+This is the latest learning checkpoint and supersedes earlier Lesson 5 entries that still show lifecycle practicals or the integrated assessment as pending. Historical notes are retained as session history.
+
+### Course status
+- **Phase:** 2 — Terraform Core Concepts.
+- **Lesson 4 — Dependencies and Execution Order:** COMPLETED.
+- **Lesson 5 — Drift and Lifecycle:** **COMPLETED**, including drift/refresh-only, import and reconciliation, deletion/replacement risk, all four lifecycle meta-arguments, practical verification, and the integrated assessment.
+- **Next session:** begin **Lesson 6 — Remote State and Locking** (docs/lesson-06-remote-state.md). Do not treat the lifecycle appendix as a separate numbered lesson and do not renumber Lessons 6–13.
+
+### Lifecycle practical evidence — 2026-11-04
+
+All lifecycle replacement exercises used local-only terraform_data resources under ~/terraform-lifecycle-practice; they did not target Azure.
+
+1. **create_before_destroy**
+   - The first attempt changed terraform_data.server.input; the plan correctly showed an in-place update because terraform_data.input is mutable. This did not test replacement ordering.
+   - The exercise was corrected by adding triggers_replace to force a replacement. The plan displayed **+/- create replacement and then destroy**.
+   - Learner approved the local-only apply. Terraform created the replacement first, then destroyed the deposed old object. Apply reported **1 added, 0 changed, 1 destroyed**.
+   - This is command/apply evidence that create_before_destroy = true controls replacement ordering when a replacement is required.
+
+2. **replace_triggered_by**
+   - Initial local-only apply created terraform_data.disk and terraform_data.server.
+   - Learner changed the disk input from disk-v1 to disk-v2. The disk plan was an in-place update.
+   - The plan explicitly stated that terraform_data.server would be replaced due to changes in replace_triggered_by.
+   - Learner approved the local-only apply. Terraform destroyed the old server, updated the disk in place, then created the new server. Apply reported **1 added, 1 changed, 1 destroyed**.
+   - Important verified nuance: replace_triggered_by can react to a planned in-place update of the referenced managed resource; the referenced resource does not itself have to be replaced. In this exercise the server used its default destroy-before-create replacement order because create_before_destroy was not configured on that server.
+
+3. **Local cleanup**
+   - Cleanup commands were provided for both local practice directories, but the learner has not confirmed running them. Treat local sandbox cleanup as **not yet confirmed**. This does not affect the Lesson 5 completion evidence.
+   - No Azure resource, Azure-backed state, or existing Azure lab configuration was changed by these lifecycle exercises.
+
+### Integrated assessment — learner responses
+- **Q1 — ignore_changes:** correctly identified the argument and explained that it can ignore Portal-managed tag changes.
+- **Q2 — prevent_destroy:** learner's spoken answer was interpreted as prevent_destroy; the argument was confirmed, and its limitation was reviewed: it blocks Terraform-planned destruction only while the resource block and lifecycle rule remain in configuration, and is not an Azure-side deletion lock.
+- **Q3 — create_before_destroy:** correctly identified create-new-before-destroy-old ordering.
+- **Q4 — replace_triggered_by:** correctly identified the argument that can trigger dependent-resource replacement.
+- **Q5 — refresh-only:** correctly distinguished terraform plan -refresh-only (preview state refresh) from terraform apply -refresh-only (persist refreshed state without changing remote infrastructure).
+
+### Earlier Lesson 5 practical evidence retained
+- Normal plan proposed reconciling the manually changed resource-group tag from live Production to configured dev; no apply was run for that Azure drift.
+- terraform plan -refresh-only previewed state reflecting the live Azure tag; a subsequent normal plan still proposed the configuration change, confirming that a plan alone does not persist refreshed state.
+- Learner manually created and imported stdepprashantlab at azurerm_storage_account.imported, then reconciled configuration to match its existing settings. The imported account was not recreated.
+- Learner correctly reasoned about a manually deleted managed resource, import versus configuration, -/+ replacement risk, and the need to stop and investigate unexpected production destruction.
+- prevent_destroy was added to the imported Storage Account block; learner reported terraform fmt and terraform validate success. No destructive test plan was run.
+- ignore_changes = [tags] was reported as already configured in the Azure lab; it was not newly edited or re-tested during the lifecycle practical.
+
+### Safety and resume instructions
+- Preserve rg-tf-lab-prashant-dev, its VNet, subnet, both Storage Accounts and local state, plus vm-practice/hub-spoke-lab and its separate Azure Storage backend/state.
+- The lifecycle applies in this session were limited to local terraform_data examples. Do not infer approval for any Azure operation.
+- No Azure apply, refresh-only apply, destroy, state mutation, import, or backend migration is authorized without fresh explicit approval for that specific operation.
+- **Next session: Lesson 6 — Remote State and Locking.** Start with why local state is unsuitable for team collaboration, then introduce remote backends, Azure Storage backend design, locking/concurrency, state security, and recovery. Keep the lab cost-safe; do not create Azure resources or migrate the existing backend without explicit approval.
+- Continue concise, practical, concept-first teaching. The learner has requested complete practical instructions upfront rather than one command at a time; provide the full safe exercise and let the learner report results.
