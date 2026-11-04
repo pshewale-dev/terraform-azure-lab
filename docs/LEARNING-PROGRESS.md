@@ -1110,3 +1110,35 @@ This checkpoint supersedes earlier current-lesson/resume instructions above. His
 - No `terraform apply`, `terraform apply -refresh-only`, `terraform destroy`, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval for that specific operation.
 - No cleanup or deletion of the imported Storage Account is authorized.
 - Keep the session concise, practical, one concept at a time, prediction-first, and avoid unnecessary command-output requests.
+
+---
+
+## Authoritative curriculum and learning checkpoint — 2026-11-04
+
+This entry supersedes the earlier 2026-11-03 checkpoint that incorrectly called lifecycle meta-arguments Lesson 6. The numbered curriculum in `LEARNING-ROADMAP.md` and `mkdocs.yml` is authoritative.
+
+- **Lesson 5 — Drift and Lifecycle:** drift, refresh-only, import/reconciliation, deletion/replacement risk, and lifecycle meta-arguments all belong to this lesson.
+- **Lesson 6 — Remote State and Locking:** this is the next numbered lesson after the remaining Lesson 5 lifecycle practice and assessment.
+- Lesson numbers 7–13 remain unchanged. No course renumbering is required.
+
+### Lesson 5 lifecycle evidence — 2026-11-04
+- Added `lifecycle { prevent_destroy = true }` to the existing `azurerm_storage_account.imported` resource in `networking.tf`.
+- Learner reported completing `terraform fmt` and `terraform validate`. No command output was supplied; record as learner-reported, not independently observed.
+- No destructive test plan was run. No apply, Azure change, or state mutation occurred.
+- Learner reported that `ignore_changes = [tags]` was already configured for the Portal-managed tag difference and is behaving as expected. This was not re-edited or re-tested during this session.
+- Correctly explained `prevent_destroy` behavior and its limitation when the resource block is removed; `create_before_destroy` ordering and coexistence/quota considerations; selective `ignore_changes`; and the intended `replace_triggered_by` behavior.
+- `create_before_destroy` and `replace_triggered_by` remain conceptually understood only; no HCL was written or validated for them.
+
+### Current status and next steps
+- Lesson 5 drift/import/refresh-only practical track: completed.
+- Lesson 5 lifecycle meta-arguments: in progress; `prevent_destroy` added and fmt/validate reported complete; `ignore_changes` reported as pre-existing; `create_before_destroy` and `replace_triggered_by` still need safe practical examples; final integrated assessment remains.
+- Continue with safe isolated/local examples. Do not test destructive behavior against the imported Azure Storage Account.
+- After Lesson 5 is completed, start **Lesson 6 — Remote State and Locking** using `lesson-06-remote-state.md`.
+
+### Safety
+Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts and local state, plus `vm-practice/hub-spoke-lab` and its separate Azure Storage backend/state. No apply, refresh-only apply, destroy, state mutation, import, backend migration, or impactful Azure operation without fresh explicit approval.
+
+### Canonical lesson files
+- Lesson 5 main notes: `lesson-05-drift-lifecycle.md`.
+- Lesson 5 lifecycle practical appendix: `lesson-05-lifecycle-meta-arguments.md`.
+- Lesson 6: `lesson-06-remote-state.md`.
