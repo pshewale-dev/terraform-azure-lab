@@ -177,3 +177,24 @@ This supersedes earlier current-checkpoint/resume instructions above. Consult `d
 - Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts and local state, and `vm-practice/hub-spoke-lab` with its separate Azure Storage backend/state.
 - No apply, refresh-only apply, destroy, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval. Do not test destructive behavior against the existing lab account.
 - Teaching style: concise, practical, one concept at a time, prediction-first; avoid unnecessary command output.
+
+---
+
+## Authoritative handoff correction — 2026-11-04
+
+**Numbering correction:** the earlier 2026-11-03 handoff that labelled lifecycle meta-arguments as Lesson 6 was incorrect. Follow the canonical 13-lesson curriculum and `mkdocs.yml` navigation.
+
+- Lesson 5 is **Drift and Lifecycle**, including the lifecycle meta-arguments practical continuation.
+- Lesson 6 is **Remote State and Locking** and is the next numbered lesson after Lesson 5 lifecycle practice and assessment.
+- The Lesson 5 lifecycle appendix is `docs/lesson-05-lifecycle-meta-arguments.md`.
+- The canonical Lesson 6 page is `docs/lesson-06-remote-state.md`.
+- Do not renumber Lessons 7–13.
+
+### Latest Lesson 5 lifecycle status
+- Learner added `prevent_destroy = true` to `azurerm_storage_account.imported` and reported running `terraform fmt` and `terraform validate` successfully.
+- Learner reported that `ignore_changes = [tags]` was already configured and behaves as expected.
+- Correct conceptual explanations were demonstrated for all four lifecycle arguments. `create_before_destroy` and `replace_triggered_by` still need safe hands-on examples; final Lesson 5 assessment remains.
+- No plan to trigger destruction, apply, Azure change, or state mutation occurred in this session.
+
+### Exact resume point
+Continue Lesson 5 lifecycle practical with safe isolated/local examples for `create_before_destroy` and `replace_triggered_by`, then a concise integrated assessment. Once Lesson 5 is complete, begin Lesson 6 — Remote State and Locking. Preserve all existing Azure resources and state; no apply, destroy, state mutation, or backend migration without fresh explicit approval.
