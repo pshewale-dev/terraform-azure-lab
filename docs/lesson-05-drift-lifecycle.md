@@ -233,3 +233,43 @@ After the remaining Lesson 5 lifecycle practice and assessment, proceed to **Les
 
 ### Safety
 Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts and local state, plus the separate `vm-practice/hub-spoke-lab` Azure Storage backend/state. No apply, refresh-only apply, destroy, state mutation, import, backend migration, or impactful Azure operation without fresh explicit approval.
+
+
+---
+
+## Session completion — 2026-11-04
+
+**Lesson 5 — Drift and Lifecycle: COMPLETED.** This session completed the remaining local-only lifecycle practicals and the integrated assessment. Earlier pending-work statements in this document are superseded by this completion record.
+
+### Lifecycle practical evidence
+
+All hands-on replacement exercises used local terraform_data resources in ~/terraform-lifecycle-practice; no Azure resource or Azure-backed state was targeted.
+
+#### create_before_destroy
+- Changing only terraform_data.server.input initially produced ~ update in-place. This was expected: changing terraform_data.input alone does not force replacement.
+- Adding triggers_replace forced a replacement. The plan showed **+/- create replacement and then destroy**.
+- Learner approved the local-only apply. Terraform created the replacement first and destroyed the deposed old resource afterward.
+- Apply result: **1 added, 0 changed, 1 destroyed**.
+
+#### replace_triggered_by
+- Created local-only terraform_data.disk and terraform_data.server resources.
+- Changing disk input from disk-v1 to disk-v2 planned an in-place disk update.
+- Terraform explicitly planned to replace the server because of its replace_triggered_by = [terraform_data.disk] rule.
+- Learner approved the local-only apply. Observed order: old server destroyed, disk updated in place, new server created.
+- Apply result: **1 added, 1 changed, 1 destroyed**.
+- Technical point confirmed by this output: a referenced resource's in-place planned update can trigger replacement of the dependent resource. The referenced resource does not have to be replaced itself.
+
+### Integrated assessment
+- Correctly identified ignore_changes for attributes intentionally managed outside Terraform.
+- Identified prevent_destroy (spoken answer interpreted as this argument); reviewed its limitation that the rule exists only while the resource block/lifecycle rule remains in configuration.
+- Correctly identified create_before_destroy and its create-first replacement order.
+- Correctly identified replace_triggered_by for dependent-resource replacement.
+- Correctly explained that terraform plan -refresh-only previews a state refresh, while terraform apply -refresh-only persists refreshed state without changing remote infrastructure.
+
+### Cleanup and safety
+- Cleanup instructions for the two local practice directories were provided, but completion has not been confirmed.
+- These local lifecycle exercises did not modify Azure resources or Azure-backed state. Preserve the existing Azure lab and the separate hub-and-spoke backend/state.
+- No approval for future Azure apply/destroy, state mutation, import, or backend migration is implied.
+
+### Next numbered lesson
+Proceed to **Lesson 6 — Remote State and Locking** (lesson-06-remote-state.md). Lesson 5 lifecycle meta-arguments are a continuation of Lesson 5, not a separate lesson. The 13-lesson numbering remains unchanged.
