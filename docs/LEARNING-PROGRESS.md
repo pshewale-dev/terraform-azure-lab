@@ -1198,3 +1198,51 @@ All lifecycle replacement exercises used local-only terraform_data resources und
 - No Azure apply, refresh-only apply, destroy, state mutation, import, or backend migration is authorized without fresh explicit approval for that specific operation.
 - **Next session: Lesson 6 — Remote State and Locking.** Start with why local state is unsuitable for team collaboration, then introduce remote backends, Azure Storage backend design, locking/concurrency, state security, and recovery. Keep the lab cost-safe; do not create Azure resources or migrate the existing backend without explicit approval.
 - Continue concise, practical, concept-first teaching. The learner has requested complete practical instructions upfront rather than one command at a time; provide the full safe exercise and let the learner report results.
+
+
+---
+
+## Authoritative session checkpoint — 2026-11-05: Lesson 6 state security
+
+This entry supersedes the 2026-11-04 resume instruction to begin Lesson 6 from the start. Lesson 5 remains completed; Lesson 6 is in progress.
+
+### Course status
+- **Lesson 5 — Drift and Lifecycle: COMPLETED.**
+- **Lesson 6 — Remote State and Locking: IN PROGRESS.**
+- Lesson numbering remains unchanged; do not create a separate lesson for lifecycle meta-arguments.
+
+### Lesson 6 topics covered and learner evidence
+- Configured and initialized a separate Azure Blob remote backend in `~/terraform-remote-state-lab`, using Storage Account `stdepprashantlab`, container `tfstate`, and blob key `remote-state-lab.tfstate`. Backend initialization succeeded.
+- Verified the remote state with `terraform state list`; it tracks only `terraform_data.remote_state_demo`. `terraform state pull` was saved locally as `/tmp/remote-state-lab-backup.json` (936 bytes). Do not request or publish state JSON contents.
+- Distinguished the separate remote-state demo from the original Azure infrastructure project and its local state.
+- Correctly explained that a second concurrent Terraform operation should be blocked by the state lock. Understands that force-unlock is only for a confirmed stale lock after checking with the engineer/pipeline; never unlock an active operation.
+- Corrected misconception: Azure `Storage Blob Data Reader` can read and download blob contents; it is not write-only or download-restricted.
+- Correctly explained that Terraform `sensitive = true` masks values in normal CLI output but does not remove or encrypt them in state.
+- Correctly distinguished Azure Storage encryption at rest from access control: encryption protects stored data, but authorized readers can still retrieve plaintext through Azure.
+- Correctly distinguished Blob soft delete (recover deleted blobs) from Blob versioning (recover an earlier version after overwrite). Understands that versioning can retain multiple previous versions and does not guarantee indefinite recovery; retention, deletion permissions, and lifecycle policies matter.
+- Recovery principle discussed: stop concurrent Terraform operations, preserve the current blob version, identify the known-good version, restore carefully, then validate recovered state against actual infrastructure. Restoring state does not roll back infrastructure changes.
+
+### Read-only Azure Storage inspection — 2026-11-05
+Inspected Blob service properties for `stdepprashantlab` using Azure CLI. Observed:
+- `isVersioningEnabled: null` — versioning is not shown as enabled.
+- Blob `deleteRetentionPolicy.enabled: false`; `days: null`.
+- `containerDeleteRetentionPolicy: null` — container soft-delete policy is not shown as configured.
+- No Azure configuration changes were made during this session.
+
+### Next session — practical Azure Storage hardening and safe recovery
+1. Review current RBAC/data-plane permissions and least-privilege access.
+2. Inspect network access, public access, and HTTPS-only settings.
+3. Review Blob versioning, Blob soft delete, and container soft delete settings and retention options.
+4. Discuss cost and operational implications before proposing changes.
+5. Make any Azure configuration change only after fresh, explicit approval for that specific change.
+6. Perform a safe recovery exercise using a disposable test blob or isolated test container, not the live Terraform state blob. Demonstrate version inspection/restoration and verification without modifying the existing backend state.
+
+### Safety and environment preservation
+- Preserve `rg-tf-lab-prashant-dev`, its VNet, subnet, both Storage Accounts, and original local Terraform state.
+- Preserve `vm-practice/hub-spoke-lab` and its separate Azure Storage backend/state.
+- Preserve `~/terraform-remote-state-lab` and its current remote backend/state.
+- No `terraform apply`, `terraform apply -refresh-only`, `terraform destroy`, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval for that specific operation.
+- Do not use the live `remote-state-lab.tfstate` blob for a destructive recovery drill.
+
+### Resume instructions
+Continue Lesson 6 at **Practical Azure Storage hardening**, followed by a **safe state recovery exercise**. Provide the full safe procedure upfront, let the learner execute independently, and review results. Keep teaching concept-first, prediction-first, concise, and evidence-based. Do not mark Lesson 6 complete until the practical hardening/recovery work and final assessment are finished.
