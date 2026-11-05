@@ -432,3 +432,17 @@ The canonical numbered curriculum is the 13-lesson sequence in the numbered less
 - Lesson 6 should cover local versus remote state, backend concepts, Azure Storage remote backend design, state locking/concurrency, security, and recovery.
 - Start concept-first and cost-safe. Do not create Azure resources or migrate the existing backend without fresh explicit approval.
 - The learner prefers receiving the complete practical steps upfront, then working independently and reporting the results.
+
+
+---
+
+## Current execution checkpoint — 2026-11-05
+
+- **Lesson 5 — Drift and Lifecycle:** COMPLETED.
+- **Lesson 6 — Remote State and Locking:** IN PROGRESS.
+- Lesson 6 theory covered: remote backend, Azure Blob state, locking/concurrency, stale-lock recovery, sensitive state values, encryption at rest, Blob versioning, soft delete, and recovery limitations.
+- Practical backend: isolated `~/terraform-remote-state-lab`; Azure Storage Account `stdepprashantlab`; container `tfstate`; blob `remote-state-lab.tfstate`. Initialization and state inspection succeeded.
+- Read-only inspection on 2026-11-05 found Blob versioning not shown as enabled, Blob soft delete disabled, and container soft-delete policy not shown as configured. No settings were changed.
+- **Next session:** Practical Azure Storage hardening, followed by a safe state recovery exercise using a disposable test blob or isolated test container.
+- Review access controls, network exposure, HTTPS-only, versioning, soft delete, retention, and costs. Obtain fresh explicit approval before any Azure configuration change.
+- Preserve all existing Azure resources and Terraform states. No apply, destroy, state mutation/import, backend migration, or impactful Azure operation without fresh explicit approval.
