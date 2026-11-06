@@ -2,130 +2,91 @@
 
 ## Current checkpoint
 Course: Terraform Zero-to-Hero
-Current phase: 1 — Fundamentals
-Current lesson: 1 — What Terraform is and what problem it solves
-Status: NOT STARTED
-Next action: Explain Terraform using a simple example, then ask
-the learner to predict what happens when a .tf file is saved.
-Do not skip ahead until the concept is understood.
+Current phase: 2 — State and dependencies
+Completed through: Lesson 5 — Drift and Lifecycle
+Current lesson: Lesson 6 — Remote State and Locking
+Status: IN PROGRESS
+Current subtopic: Safe Terraform state recovery exercise
+Next action: Practise recovery in an isolated test environment, then complete the Lesson 6 assessment and interview scenarios.
 
-## Verified technical environment
-- Repository: ~/azure-lab
-- Lab: vm-practice/hub-spoke-lab
-- AzureRM provider: 4.81.0
-- Backend: Azure Storage
-- State key: hub-spoke-lab/terraform.tfstate
-- Terraform validate: previously successful
-- Hub-and-Spoke code: hub plus spokes 1, 2, and 3
-- Four initial peering directions plus Spoke 3 peerings
-- Dependency graph: generated and reviewed
-- No deployment approved; do not apply or destroy resources
+**This checkpoint supersedes older current-checkpoint entries below that still say Lesson 1 or mark Lesson 6 as not started.** Historical entries are retained as a learning log.
+
+## Verified technical environment and lab boundaries
+- Existing local project: `~/azure-lab/terraform-hcl-practice`
+- Separate remote-state lab: `~/terraform-remote-state-lab`
+- Remote backend: Azure Blob Storage, container `tfstate`, key `remote-state-lab.tfstate`
+- Remote-state demo currently tracks `terraform_data.remote_state_demo`; this is a Terraform data resource, not an Azure resource.
+- Existing Hub-and-Spoke lab has its own backend and state; do not confuse it with the remote-state demo.
+- Preserve all existing Azure resources, original local state, and all existing backend/state configurations.
+- Never publish state JSON, credentials, subscription identifiers, or secret values.
 
 ## Learning assessment
 | Topic | Status | Evidence / next action |
 |---|---|---|
-| What Terraform is | NOT STARTED | Teach from fundamentals |
-| Declarative vs imperative | LEARNING | Revisit and test understanding |
-| Terraform workflow | NOT STARTED | Teach after Lesson 1 |
-| Providers and resources | NOT STARTED | Teach with a small example |
-| State and drift | NOT STARTED | Teach in Phase 2 |
-| Modules | PRACTISED, NOT MASTERED | Revisit after fundamentals |
-| Dependency graph | PRACTISED, NOT MASTERED | Explain independently later |
-| for_each | NOT STARTED | Defer until variables and collections |
-| Azure Hub-and-Spoke | CONFIGURATION EXISTS | Revisit after module fundamentals |
+| Lessons 1–4 — Terraform fundamentals and configuration | COMPLETED / PRACTISED | Historical learning log below; revisit during review as needed |
+| Lesson 5 — Drift and Lifecycle | COMPLETED | Completed 2026-11-04 |
+| Lesson 6 — Remote state and locking | IN PROGRESS | Core concepts covered; safe recovery practical and final assessment remain |
+| Remote vs. local state | UNDERSTOOD | Explained backend purpose and remote-state workflow |
+| Azure Blob backend | PRACTISED | Separate remote-state lab initialized successfully |
+| State metadata | COVERED | Reviewed version, Terraform version, serial, and lineage |
+| State locking and concurrency | UNDERSTOOD | Covered concurrent operation protection and stale-lock precautions |
+| State security | COVERED | Sensitive output masking, state exposure, encryption at rest, and data-plane access |
+| State disaster recovery | CONCEPTS UNDERSTOOD | Completed Mission 02 with 5/5 correct answers; isolated practical still pending |
+| Safe state recovery practical | NOT STARTED | Next: isolated test-only recovery simulation |
+| Lesson 6 assessment/interview questions | PENDING | Complete after practical |
 
 ## Session log
-- 2026-10-21: Existing Hub-and-Spoke lab validated.
-- 2026-10-21: Learner requested a restart from zero because
-  previous lessons relied too much on copying code.
-- Agreed to concept-first teaching and explicit progress tracking.
+
+### 2026-11-06 — Terraform Mission Mode: Mission 02, The Terraform State Disaster
+- User requested more engaging, interactive practice because long lecture-style sessions were causing boredom/sleepiness.
+- Agreed to continue with short incident scenarios, prediction-first multiple-choice decisions, immediate feedback, XP, and practical follow-through.
+- Completed all five challenges correctly: stop further operations and preserve state; inspect candidate versions before restoration; recognize that an older state can omit newer infrastructure; validate with a read-only plan; reconcile verified existing resources through import rather than blindly applying.
+- Score: 500/500 XP.
+- Key distinction reinforced: restoring state does not roll back Azure infrastructure; importing changes Terraform state and requires explicit approval when used against a real backend.
+- No Azure resources, live state blobs, or backend settings were changed during the mission.
+- Next checkpoint: isolated safe state recovery practical. After that, Lesson 6 assessment and interview questions; then move to Lesson 7.
+
+### 2026-11-05 — Lesson 6: Remote state and locking
+- Remote backend initialized successfully in the isolated `~/terraform-remote-state-lab` project.
+- Remote state inspection showed `terraform_data.remote_state_demo` as the only tracked resource. Do not assume how it entered state; `terraform init` alone does not create/populate a resource instance.
+- State locking: concurrent Terraform operations are blocked; investigate a suspected stale lock and confirm no active operation before considering force-unlock.
+- `Storage Blob Data Reader` permits reading and downloading blob contents.
+- Terraform `sensitive = true` masks normal CLI output but does not remove values from state.
+- Azure Storage encryption at rest protects stored data; it does not prevent authorized readers from downloading and reading the blob.
+- Blob soft delete supports recovery of deleted blobs; Blob versioning supports recovery of earlier versions after overwrite. Recovery depends on retention and deletion controls.
+- State recovery must be coordinated: stop concurrent Terraform operations, preserve the current version, identify the last known-good version, restore carefully, and validate against actual infrastructure. Restoring state does not roll back infrastructure.
+
+### 2026-11-05 — Read-only backend protection inspection
+For Storage Account `stdepprashantlab`, Azure CLI reported:
+- Blob versioning: `isVersioningEnabled: null` (not shown as enabled).
+- Blob soft delete: `enabled: false`, `days: null`.
+- Container soft delete: `containerDeleteRetentionPolicy: null` (not shown as configured).
+- No Azure settings were changed during this inspection.
+- Detailed Storage Account hardening (RBAC, network firewall/private endpoints, TLS, retention and related controls) is deferred to the future Azure security learning track, as explicitly requested. Do not reopen this topic in Lesson 6 unless the user asks.
+
+### 2026-11-04 — Lesson 5
+- Lesson 5 — Drift and Lifecycle: completed.
+
+### Earlier learning history
+- 2026-10-21: Existing Hub-and-Spoke lab validated. Learner requested a restart from zero because previous lessons relied too much on copying code. Agreed to concept-first teaching and explicit progress tracking.
+- Earlier fundamentals practice covered desired state, `terraform plan`, state, drift, providers, resources, arguments, attributes, variables, outputs, data sources, locals, and dependencies. Older checkpoint entries below are historical and are not the current resume point.
 
 ## Rules for every session
-1. Read this file and LEARNING-ROADMAP.md first.
-2. Resume from the exact current lesson; don't restart or skip ahead.
-3. Explain one concept at a time.
-4. Ask for prediction before giving the answer.
-5. Use small exercises written by the learner.
-6. Record evidence and misconceptions after each lesson.
-7. Update the next lesson and resume instructions at session end.
-8. Do not claim mastery without demonstrated understanding.
-9. Do not deploy or modify Azure resources without explicit approval.
+1. Resume from the current checkpoint above; do not restart from old historical entries.
+2. Keep teaching interactive and engaging: short mission-style scenarios, prediction-first questions, immediate feedback, and small practical tasks.
+3. Prefer concise concept-first explanations; avoid long lectures and large copy-paste exercises.
+4. Use complete, safe command blocks when terminal work is needed; let the learner execute and report results.
+5. Track demonstrated understanding, not just successful commands.
+6. Preserve all existing Azure resources and Terraform state.
+7. No `apply`, `destroy`, import, state mutation, backend migration, force-unlock, or impactful Azure operation without fresh explicit approval for that specific operation.
+8. Use an isolated disposable test blob/container or local simulation for state recovery. Never experiment on the live state blob or existing Hub-and-Spoke backend.
+9. Do not claim a practical exercise or repository change is complete until it has actually been performed and verified.
 
-## Resume prompt
-Continue my Terraform Zero-to-Hero course using
-LEARNING-ROADMAP.md and LEARNING-PROGRESS.md in ~/azure-lab.
-Read both files first. Resume from the exact current lesson and
-status. Teach concept-first, one step at a time; don't make me
-copy-paste large configurations. Update LEARNING-PROGRESS.md
-after each session. Preserve existing Azure resources and remote
-state. No apply or destroy without my explicit approval.
-
-### Lesson 1 checkpoint — 2026-10-21
-- Understood: manual VM creation is repetitive and can produce
-  configuration inconsistencies.
-- Status: Lesson 1 in progress; mastery not yet established.
-- Next: understand Infrastructure as Code and the role of Terraform.
-- Exercise: explain why saving a Terraform configuration does not
-  itself create an Azure resource.
-
-- Lesson 1.3 demonstrated: terraform validate checks configuration;
-  success does not prove an Azure resource exists.
-- Lesson 1.4: learning desired state and how Terraform determines
-  proposed changes. Not yet mastered.
-
-## Progress Update — 2026-10-23
-
-### Completed / Understood
-- Lesson 1.4 — Desired state and the purpose of `terraform plan`: UNDERSTOOD
-- Lesson 1.5 — `terraform plan` previews changes; it does not apply them: UNDERSTOOD
-- Lesson 1.6 — Terraform state and how it relates to real infrastructure: UNDERSTOOD
-
-### Current Checkpoint
-- Phase: 1 — Terraform Fundamentals
-- Current lesson: 1.7 — Terraform drift
-- Status: IN PROGRESS
-- Concepts covered: external changes to infrastructure, drift, and how planning can identify proposed corrections.
-- Pending exercise: Predict what happens when Azure has a manually changed tag and `terraform plan` proposes reverting it, without running `terraform apply`.
-
-### Next Session
-1. Finish the Lesson 1.7 prediction exercise.
-2. Update this progress file with the result.
-3. Continue with exactly one new beginner-friendly concept.
-4. Explain the concept before introducing code.
-5. Ask for a prediction before moving on.
-6. Do not deploy or modify Azure infrastructure without explicit approval.
-
-
-## Progress Update — 2026-10-23
-
-### Understood
-- Lesson 1.4 — Desired state and planning
-- Lesson 1.5 — Purpose of terraform plan
-- Lesson 1.6 — Terraform state
-- Lesson 1.7 — Terraform drift
-- Lesson 1.8 — Providers
-- Lesson 1.9 — Resources and local labels
-- Lesson 1.10 — Resource arguments
-- Lesson 1.11 — Resource attributes
-- Lesson 1.12 — Input variables
-- Lesson 1.13 — Outputs
-- Lesson 1.14 — Data sources
-- Lesson 1.15 — Local values (locals)
-- Lesson 1.16 — Implicit dependencies
-
-### Current Checkpoint
-- Phase: 1 — Terraform Fundamentals
-- Current lesson: 1.17 — Explicit dependencies (depends_on)
-- Status: IN PROGRESS
-- Pending: Answer the prediction exercise about how depends_on affects resource ordering.
-
-### Learning Rules
-- Explain one concept at a time before introducing code.
-- Ask me to predict behavior before moving forward.
-- Track understanding, not just successful commands.
-- No terraform apply, destroy, deployment, or impactful Azure changes without my explicit approval.
-- Preserve existing Azure resources and Terraform state.
-
-### Next Session
-Resume at Lesson 1.17. First finish the pending prediction exercise, then update this checkpoint before teaching the next concept.
+## Next session / resume instructions
+Continue Lesson 6 in Terraform Mission Mode.
+1. Start with the safe state recovery practical in an isolated test environment only.
+2. Explain each recovery step briefly and ask the learner to predict the result before proceeding.
+3. Preserve current and historical state evidence; never overwrite or delete a live state blob.
+4. Once the practical is complete, run the Lesson 6 assessment and interview questions.
+5. Then move to Lesson 7, following the course's agreed lesson sequence.
 
