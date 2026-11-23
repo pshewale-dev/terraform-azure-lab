@@ -5,8 +5,8 @@ Course: Terraform Zero-to-Hero
 Current phase: 3 — Writing Terraform
 Completed through: Lesson 6 — Remote State and Locking
 Current lesson: Lesson 7 — Variables, Locals, and Outputs
-Status: NOT STARTED
-Next action: Begin Lesson 7 from `docs/lesson-07-variables.md`. Start with input variables and type constraints; inspect existing HCL notes first and do not repeat already-practised material.
+Status: IN PROGRESS — prior-coverage audit completed; do not restart from variable basics.
+Next action: Continue Lesson 7 only with gaps identified in `docs/lesson-07-variables.md`: deeper type constraints/validation where not already practised, and practical output values/interfaces. Begin with a short recall check, not a repeat lecture.
 
 **This checkpoint is authoritative as of 2026-11-23 and supersedes older current-checkpoint entries below. Historical entries remain as a learning log.**
 
@@ -49,6 +49,28 @@ Next action: Begin Lesson 7 from `docs/lesson-07-variables.md`. Start with input
 | State disaster recovery | DEMONSTRATED | Recovered the known-good test state after deliberately restoring an older copy; verified configuration/state consistency with a read-only plan |
 | Safe state recovery practical | COMPLETED | Separate Azure Blob key `lesson06-recovery-test.tfstate`; Backup A serial 2 (Version 1), Backup B serial 3 (Version 2); restored A, observed proposed update, restored B, verified Version 2 and no changes |
 | Lesson 6 assessment/interview questions | COMPLETED | Correctly answered deleted-state-blob recovery and concurrent Terraform operation/state-locking scenarios |
+
+## Lesson 7 prior-coverage audit — 2026-11-23
+
+The previous checkpoint incorrectly labelled Lesson 7 as NOT STARTED. Existing Lesson 1 notes and the isolated HCL practice lab already cover substantial parts of Lesson 7. Do not repeat these from scratch.
+
+### Already covered / practised
+- Input variable declaration and reference: `variable "location"`, `type = string`, `default`, and `var.location` in `docs/lesson-01-fundamentals.md`.
+- Typed input variables: `string`, `list(string)`, and `map(string)` in `terraform-hcl-practice/variables.tf`.
+- Defaults and validation: `environment` defaulting to `dev`, with an allowed-value validation rule.
+- Input overrides: `terraform.tfvars` setting `environment = "test"` and a CLI `-var="environment=prod"` override; console evidence is recorded in Lesson 1 notes.
+- Locals: references, interpolation, derived names/labels, and Boolean/conditional expressions in `practice.tf` and Lesson 1 notes.
+- Outputs: the basic purpose and syntax of an output referencing a resource attribute are explained in Lesson 1. This is theory coverage, not a recorded practical output exercise.
+
+### Remaining Lesson 7 work
+- Do a brief recall check rather than reteaching variable declarations, string/list/map basics, defaults, validation, tfvars/CLI overrides, or basic locals.
+- Identify any genuine gap in more complex type constraints (for example, object types) and validation through a small targeted exercise only if needed.
+- Practise output values in the isolated HCL lab, including how outputs expose useful values and how to avoid exposing sensitive values unnecessarily.
+- Compare the roles of input variables, locals, and outputs using one small end-to-end example.
+- Record new command-verified evidence separately from historical notes and chat-only predictions.
+
+### Resume instruction
+Lesson 7 is IN PROGRESS, not NOT STARTED. Start with a short recall check of existing coverage, then teach only the remaining gaps. Preserve the isolated local-only HCL practice directory; do not use the Azure backend or apply/destroy infrastructure for these exercises.
 
 ## Session log
 
@@ -109,9 +131,10 @@ For Storage Account `stdepprashantlab`, Azure CLI reported:
 9. Do not claim a practical exercise or repository change is complete until it has actually been performed and verified.
 
 ## Next session / resume instructions
-Begin Lesson 7 — Variables, Locals, and Outputs, using `docs/lesson-07-variables.md` and the canonical 13-lesson roadmap.
-1. Inspect existing HCL practice notes and identify which variable/type concepts have already been covered; do not repeat them unnecessarily.
-2. Start with the Lesson 7 objectives: input variables, type constraints, defaults, validation and overrides.
-3. Continue concept-first, concise, prediction-first, with small learner-written exercises and verification.
-4. Preserve all existing Azure resources and state. The Lesson 6 test blob and local backups remain until a separately approved cleanup plan.
-5. Keep the original remote-state demo's `unsupported attribute "store"` issue parked and clearly separate; it was not fixed by the Lesson 6 recovery exercise.
+Resume Lesson 7 — Variables, Locals, and Outputs, using `docs/lesson-07-variables.md` and the canonical 13-lesson roadmap.
+1. Treat the 2026-11-23 prior-coverage audit above and in `docs/lesson-07-variables.md` as authoritative.
+2. Do not reteach basic input variables, string/list/map types, defaults, allowed-value validation, tfvars/CLI overrides, or basic locals.
+3. Begin with a short recall check, then cover only genuine gaps: deeper type constraints/validation if needed, practical outputs, and the variable/local/output interface.
+4. Continue concise, concept-first and prediction-first, with small learner-written exercises and verification.
+5. Preserve all Azure resources and state. The Lesson 6 test blob and local backups remain until a separately approved cleanup plan.
+6. Keep the original remote-state demo's `unsupported attribute "store"` issue parked; the Lesson 6 exercise did not resolve it.
