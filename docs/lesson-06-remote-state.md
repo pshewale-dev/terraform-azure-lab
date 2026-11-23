@@ -46,26 +46,44 @@ Learner answered all five incident-response decisions correctly (500/500 XP):
 
 Key distinction: a plan does not automatically import missing resources. Import changes state and must not be run against a real backend without explicit approval and a reviewed recovery plan.
 
-## Next practical — Safe state recovery
-**Status: NOT STARTED.**
+## Completed practical — Safe state recovery (2026-11-23)
+**Status: COMPLETED.** The learner demonstrated recovery using a separate test state key in the existing Azure Storage container.
 
-Use a disposable isolated test blob/container or a local simulation. Do not overwrite, delete, restore, or mutate the live demo state blob or the Hub-and-Spoke state.
+### Isolated test setup
+- Project: `~/terraform-remote-state-recovery`.
+- Existing Storage Account: `stdepprashantlab`.
+- Resource group: `rg-tf-lab-prashant-dev`.
+- Container: `tfstate`.
+- Separate test blob key: `lesson06-recovery-test.tfstate`.
+- Original demo key `remote-state-lab.tfstate` and the Hub-and-Spoke backend/state were left untouched.
+- Test resource: `terraform_data.recovery_demo` using Terraform's built-in provider. This resource does not provision an Azure infrastructure resource; Azure Blob Storage stores the Terraform state.
 
-Practical sequence:
-1. Create or use a disposable test state fixture, keeping the live backend untouched.
-2. Preserve a copy of the current test state before simulating an error.
-3. Simulate an outdated state version only inside the disposable test environment.
-4. Inspect the available versions/copies and identify the candidate recovery point.
-5. Restore only the disposable test state using a controlled method.
-6. Validate the recovered state and compare it with the test infrastructure.
-7. Identify any resource missing from the recovered state; discuss import without executing a state mutation unless explicitly approved.
-8. Record the result and cleanup plan. Do not delete Azure resources without explicit approval.
+### Verified recovery evidence
+1. Initial configuration value: `Version 1 - Original state`.
+2. Backup A was pulled to `backup-v1.tfstate`: state format version 4, Terraform version 1.15.9, serial 2, lineage `ad94f4db-ab24-ed4c-4b7d-d619eca3b539`; resource input was Version 1.
+3. Configuration was changed to `Version 2 - Original state`. Backup B was pulled to `backup-v2.tfstate`: serial 3; resource input was Version 2.
+4. With the learner's explicit approval, Backup A was pushed to the disposable test key using `terraform state push -force`. The pulled state contained Version 1. A read-only plan proposed an in-place update from Version 1 to Version 2 (0 add, 1 change, 0 destroy).
+5. Backup B was restored to the test key. The final `terraform state pull` returned `Version 2 - Original state`, and `terraform plan` reported: `No changes. Your infrastructure matches the configuration.`
+6. The learner correctly answered the state-blob-loss recovery scenario: recover a known-good state copy/version, inspect it, compare with actual infrastructure, then run a read-only plan.
+7. The learner correctly explained that Azure Blob backend state locking prevents concurrent Terraform operations from modifying the same state simultaneously; another operation waits or fails to acquire the lock.
 
-After the practical:
-- Complete Lesson 6 assessment.
-- Complete Lesson 6 interview scenarios.
-- Mark Lesson 6 complete only after the learner demonstrates the workflow.
-- Then move to Lesson 7.
+### Learning conclusions
+- Restoring an older state copy does not roll back the real resource.
+- A read-only plan can reveal a mismatch between restored state and current configuration after refresh.
+- Restoring the known-good Backup B returned the test state to the configuration's expected value.
+- The state serial alone should not be used as proof of which snapshot content is present; inspect the state contents and compare lineage/resource identity as appropriate.
+
+### Boundaries and pending cleanup
+- No Azure infrastructure resource was created, changed, or deleted during this practical. Only the separate test state blob was intentionally changed.
+- The original `remote-state-lab.tfstate` and Hub-and-Spoke backend/state were not changed.
+- The test blob and local backup files have not been cleaned up. Do not delete them without a separate cleanup review and explicit approval.
+- Detailed Azure Storage hardening remains deferred to the future Azure security learning track, as requested.
+- The separate earlier `terraform state show` error (`unsupported attribute "store"`) against the original remote-state demo was not resolved by this exercise.
+
+## Lesson 6 assessment and interview scenarios — COMPLETED
+- State blob accidentally deleted while resources remain: recover a known-good state version or backup, inspect it, compare with actual infrastructure, and run a read-only plan before any changes.
+- Two engineers start `terraform apply` against the same remote backend: state locking prevents concurrent state operations; the second operation waits or fails to acquire the lock.
+- Lesson 6 objectives and practical workflow demonstrated. Lesson 6 is complete; continue to Lesson 7.
 
 ## Resume instructions
-Continue in short, interactive Terraform Mission Mode: concept first, prediction question, practical step, learner reports result, then feedback. Avoid long lectures and large copy-paste blocks. Preserve all existing Azure resources and state.
+Begin Lesson 7 — Variables, Locals, and Outputs using `docs/lesson-07-variables.md`. Inspect prior HCL practice notes first and avoid repeating material already demonstrated. Teach concisely, concept-first and prediction-first, with small practical exercises. Keep the Lesson 6 test blob/backups untouched until a separate cleanup plan is approved.
