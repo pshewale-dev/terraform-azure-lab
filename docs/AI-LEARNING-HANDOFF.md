@@ -9,13 +9,12 @@ Use this file when starting or continuing a learning session with ChatGPT, Gemin
 - Read the canonical records before teaching or editing. Do not rely on this summary if the latest progress file says otherwise.
 
 ## Current known checkpoint
-- Phase 1 — Fundamentals.
-- Lesson 1.17, explicit dependencies (`depends_on`): UNDERSTOOD, based on the learner correctly answering the resource-ordering prediction and when explicit dependencies are useful.
-- Next step: inspect existing notes for HCL syntax and configuration structure before teaching new material.
-- Teaching style: one concept at a time, prediction-first, short learner-written coding exercises where useful, then verify and troubleshoot.
-- Do not mark a concept mastered until the learner demonstrates it.
-- The learner wants practical coding, not theory alone. Use local-only validation when appropriate, such as `terraform fmt` and `terraform validate`, and explain what each command checks.
-- Never run `terraform apply`, `terraform destroy`, or impactful Azure operations without explicit approval.
+- **Authoritative source:** read the current checkpoint at the top of the repository-root `LEARNING-PROGRESS.md` and the latest section in the relevant lesson file.
+- **Current position as of 2026-11-23:** Lessons 1–6 completed; next is Lesson 7 — Variables, Locals, and Outputs.
+- **Latest evidence:** Lesson 6 Azure-backed isolated recovery practical and its recovery/locking assessment scenarios were completed on 2026-11-23. Details are in `docs/lesson-06-remote-state.md`.
+- **Next step:** inspect prior HCL practice notes and start Lesson 7 without repeating already-covered material.
+- **Teaching style:** concise, concept-first, prediction-first, small learner-written practical exercises. Do not introduce missions, XP, or gamification.
+- **Safety:** preserve the original remote-state demo blob and Hub-and-Spoke state. The separate Lesson 6 test blob/backups remain until a separately reviewed cleanup plan. No impactful Azure/Terraform operation without fresh explicit approval.
 
 ## Session start
 1. Read this handoff and the latest progress tracker, roadmap, and relevant lesson notes.
@@ -214,3 +213,20 @@ Cleanup commands were provided for ~/terraform-lifecycle-practice/create-before-
 
 ### Safety
 Preserve rg-tf-lab-prashant-dev, its VNet, subnet, both Storage Accounts and local state, plus vm-practice/hub-spoke-lab and its separate Azure Storage backend/state. No Azure-impacting operation or backend migration is authorized by this checkpoint.
+
+
+## Authoritative current checkpoint — 2026-11-23: Lesson 6 completed; resume Lesson 7
+
+This checkpoint supersedes all earlier handoff entries above that identify a different current lesson. The repository-root `LEARNING-PROGRESS.md` is the current progress source of truth.
+
+- **Course position:** Lessons 1–6 completed. Next: **Lesson 7 — Variables, Locals, and Outputs** (`docs/lesson-07-variables.md`).
+- **Lesson 6 evidence:** completed a recovery simulation against the separate Azure Blob key `lesson06-recovery-test.tfstate` in container `tfstate`, Storage Account `stdepprashantlab`, resource group `rg-tf-lab-prashant-dev`.
+- **Test resource:** `terraform_data.recovery_demo`; the resource is managed by Terraform's built-in provider and is not an Azure infrastructure resource. Azure Blob Storage held the test state.
+- **Recovery evidence:** Backup A serial 2 contained Version 1; Backup B serial 3 contained Version 2. After deliberately restoring A, a read-only plan proposed an in-place update to Version 2. Restoring B returned the state to Version 2 and the final plan reported no changes.
+- **Assessment:** learner correctly answered the state-blob-loss recovery scenario and the state-locking/concurrent-apply interview scenario.
+- **Preservation:** the original `remote-state-lab.tfstate` and Hub-and-Spoke backend/state were not touched. The disposable test blob and local backups remain; do not delete them without a separate cleanup review and explicit approval.
+- **Deferred topic:** detailed Azure Storage hardening remains deferred to the future security track, as requested.
+- **Parked troubleshooting note:** the earlier `terraform state show` error (`unsupported attribute "store"`) against the original remote-state demo was not resolved by this exercise; do not claim it was fixed.
+- **Teaching approach:** inspect prior notes, avoid repetition, teach concisely and concept-first, ask for predictions, and use small practical tasks. Do not add gamification or unrelated challenges.
+- **Safety:** no existing Azure infrastructure resource was changed during the recovery practical. Only the separate test state blob was intentionally modified. No apply, destroy, import, state mutation, backend migration, force-unlock, or impactful Azure operation without fresh explicit approval.
+
