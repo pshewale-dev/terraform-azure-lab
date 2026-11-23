@@ -1,4 +1,4 @@
-> **Historical archive — not the current checkpoint.** This file contains older progress snapshots that may refer to superseded lesson numbers and resume points. As of 2026-11-23, use the repository-root [`LEARNING-PROGRESS.md`](../LEARNING-PROGRESS.md) for current status, and [`lesson-06-remote-state.md`](lesson-06-remote-state.md) for the completed Lesson 6 evidence. Do not resume from the older Lesson 2/3 checkpoint entries below; they are retained only as history.
+> **Historical archive — not the current checkpoint.** This file contains older progress snapshots that may refer to superseded lesson numbers and resume points. As of 2026-11-23, use the repository-root [`LEARNING-PROGRESS.md`](https://github.com/pshewale-dev/terraform-azure-lab/blob/main/LEARNING-PROGRESS.md) for current status, and [`lesson-06-remote-state.md`](lesson-06-remote-state.md) for the completed Lesson 6 evidence. Do not resume from the older Lesson 2/3 checkpoint entries below; they are retained only as history.
 
 ## Curriculum correction — hands-on labs required (2026-10-27)
 
